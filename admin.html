@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Boma Yangu Admin | Professional Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1a2c3e; line-height: 1.5; }
+
+    /* ---------- LOGIN ---------- */
+    .login-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: linear-gradient(135deg, #0b2f26 0%, #1a4d3e 100%);
+      display: flex; align-items: center; justify-content: center; z-index: 2000;
+    }
+    .login-card {
+      background: white; padding: 2.5rem 2rem; border-radius: 32px; width: 90%; max-width: 400px;
+      text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    }
+    .login-card h2 { font-size: 1.8rem; font-weight: 700; color: #0b5e42; margin-bottom: 1rem; }
+    .login-card input { width: 100%; padding: 14px 18px; margin: 12px 0; border-radius: 60px; border: 1px solid #e2e8f0; font-size: 1rem; transition: 0.2s; }
+    .login-card input:focus { outline: none; border-color: #0b5e42; box-shadow: 0 0 0 3px rgba(11,94,66,0.1); }
+    .login-card button { background: #0b5e42; color: white; border: none; padding: 14px; width: 100%; border-radius: 60px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: 0.2s; }
+    .login-card button:hover { background: #094b35; transform: translateY(-1px); }
+    .error-msg { color: #dc2626; margin-top: 12px; font-size: 0.85rem; }
+
+    /* Password toggle */
+    .password-wrapper { position: relative; width: 100%; margin: 12px 0; }
+    .password-wrapper input { width: 100%; padding-right: 50px; }
+    .toggle-password {
+      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
+      cursor: pointer; color: #6b7280; font-size: 1.2rem;
+    }
+    .toggle-password:hover { color: #0b5e42; }
+
+    /* ---------- DASHBOARD ---------- */
+    .dashboard { display: none; max-width: 1440px; margin: 0 auto; padding: 1.5rem 2rem; }
+
+    /* Header */
+    .dashboard-header {
+      background: white; border-radius: 28px; padding: 1.2rem 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 2rem; box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      border: 1px solid #eef2f6;
+    }
+    .dashboard-header h1 {
+      font-size: 1.6rem; font-weight: 700; color: #0b5e42;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logout-btn {
+      background: #f1f5f9; border: none; padding: 8px 20px; border-radius: 40px;
+      font-weight: 500; cursor: pointer; transition: 0.2s;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .logout-btn:hover { background: #e2e8f0; }
+
+    /* Stats */
+    .stats-grid {
+      display: flex; gap: 1.5rem; margin-bottom: 2rem; flex-wrap: wrap;
+    }
+    .stat-card {
+      background: white; border-radius: 24px; padding: 1.2rem 1.8rem;
+      flex: 1; min-width: 180px; border: 1px solid #eef2f8;
+      display: flex; align-items: center; gap: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .stat-icon { font-size: 2.2rem; color: #0b5e42; }
+    .stat-info h3 { font-size: 1.8rem; font-weight: 800; color: #0f2c24; }
+    .stat-info p { color: #5b6e8c; font-weight: 500; }
+
+    /* Sections */
+    .section {
+      background: white; border-radius: 28px; padding: 1.8rem;
+      margin-bottom: 2rem; border: 1px solid #eef2f6;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+    }
+    .section-title {
+      font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 10px;
+      border-left: 4px solid #0b5e42; padding-left: 1rem;
+    }
+    .section-title i { color: #0b5e42; }
+
+    /* Tables */
+    .jobs-table, .applications-table {
+      width: 100%; border-collapse: collapse;
+    }
+    .jobs-table th, .applications-table th {
+      text-align: left; padding: 1rem 0.5rem;
+      color: #4a627a; font-weight: 600;
+      border-bottom: 2px solid #eef2f8;
+      white-space: nowrap;
+    }
+    .jobs-table td, .applications-table td {
+      padding: 1rem 0.5rem;
+      border-bottom: 1px solid #f0f4fa;
+      vertical-align: middle;
+    }
+    .jobs-table tr:hover td { background: #fafcfd; }
+    .jobs-table input, .jobs-table select {
+      padding: 6px 10px; border-radius: 20px;
+      border: 1px solid #cfdfed; width: 100%; min-width: 80px;
+      font-family: inherit;
+      background: white;
+    }
+    .category-input { min-width: 120px; }
+    .salary-input { width: 120px; text-align: center; }
+    .slot-type-select { min-width: 130px; }
+    .slot-value-input { width: 100px; }
+
+    .action-btn {
+      background: #f1f5f9; border: none; padding: 6px 12px;
+      border-radius: 30px; cursor: pointer; font-size: 0.8rem;
+      margin-right: 6px; transition: 0.2s;
+    }
+    .action-btn:hover { background: #e2e8f0; }
+    .delete-btn { color: #b91c1c; }
+    .delete-btn:hover { background: #fee2e2; }
+
+    /* Add Job Form */
+    .add-job-form {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      margin-top: 1.5rem; align-items: flex-end;
+    }
+    .add-job-form input, .add-job-form textarea {
+      padding: 10px 16px; border-radius: 40px;
+      border: 1px solid #cfdfed; flex: 1; min-width: 160px;
+      background: white;
+    }
+    .btn-primary {
+      background: #0b5e42; color: white; border: none;
+      padding: 10px 24px; border-radius: 40px;
+      font-weight: 600; cursor: pointer; transition: 0.2s;
+    }
+    .btn-primary:hover { background: #094b35; transform: translateY(-1px); }
+
+    /* Config Rows */
+    .config-row {
+      display: flex; flex-wrap: wrap; align-items: center;
+      gap: 1rem; margin-bottom: 1rem;
+      background: #fafcfd; padding: 0.8rem 1.2rem;
+      border-radius: 60px;
+    }
+    .config-row label { font-weight: 600; min-width: 200px; color: #1e293b; }
+    .config-row input, .config-row select {
+      padding: 8px 16px; border-radius: 40px;
+      border: 1px solid #cfdfed; background: white;
+      flex: 1; min-width: 140px;
+    }
+    .config-row .btn-primary { padding: 6px 18px; flex: 0 0 auto; }
+    .config-row .helper { font-size: 0.75rem; color: #6b7280; }
+
+    hr { margin: 1.5rem 0; border: 0; border-top: 1px solid #eef2f8; }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 20px; right: 20px;
+      background: #1e293b; color: white; padding: 12px 24px;
+      border-radius: 60px; z-index: 999; font-weight: 500;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .toast.error { background: #b91c1c; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .dashboard { padding: 1rem; }
+      .dashboard-header { flex-direction: column; gap: 1rem; text-align: center; }
+      .stats-grid { flex-direction: column; }
+      .add-job-form { flex-direction: column; }
+      .jobs-table, .applications-table { display: block; overflow-x: auto; font-size: 0.8rem; }
+      .jobs-table td, .jobs-table th { min-width: 120px; }
+      .config-row { flex-direction: column; align-items: stretch; }
+      .config-row label { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginOverlay" class="login-overlay">
+  <div class="login-card">
+    <h2><i class="fas fa-shield-alt"></i> Admin Access</h2>
+    <input type="text" id="adminUsername" placeholder="Username" autocomplete="off" value="admin">
+    <div class="password-wrapper">
+      <input type="password" id="adminPassword" placeholder="Password" autocomplete="off">
+      <i class="fas fa-eye toggle-password" id="toggleLoginPassword"></i>
+    </div>
+    <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
+    <div id="loginError" class="error-msg"></div>
+    <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #6b7280;">Default: admin / admin123</p>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="adminDashboard" class="dashboard">
+  <div class="dashboard-header">
+    <h1><i class="fas fa-building"></i> Boma Yangu – Admin Console</h1>
+    <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-briefcase"></i></div><div class="stat-info"><h3 id="totalJobsCount">0</h3><p>Total Jobs</p></div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3 id="totalAppsCount">0</h3><p>Applications Received</p></div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-mobile-alt"></i></div><div class="stat-info"><h3 id="stkStatusBadge">Enabled ✅</h3><p>STK Push Mode</p></div></div>
+  </div>
+
+  <!-- Manage Jobs -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-tasks"></i> Manage Job Vacancies</div>
+    <table class="jobs-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Job Title</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Salary (KES)</th>
+          <th>Slots</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="jobsTableBody"></tbody>
+    </table>
+    <div class="add-job-form">
+      <input type="text" id="newJobTitle" placeholder="Job title">
+      <input type="text" id="newJobDesc" placeholder="Description">
+      <input type="text" id="newJobCategory" placeholder="Category (driver, cleaner, caretaker, security)">
+      <input type="number" id="newJobSalary" placeholder="Salary (KES)">
+      <div style="display:flex; gap:0.5rem; align-items:center; flex:1; min-width:200px;">
+        <select id="newSlotType" style="padding:10px 16px; border-radius:40px; border:1px solid #cfdfed; flex:1;">
+          <option value="number">Number of slots</option>
+          <option value="none">No slots available</option>
+          <option value="county">Available in ...</option>
+        </select>
+        <input type="text" id="newSlotValue" placeholder="e.g. 5 or Nairobi" style="padding:10px 16px; border-radius:40px; border:1px solid #cfdfed; flex:1;">
+      </div>
+      <button id="addJobBtn" class="btn-primary"><i class="fas fa-plus"></i> Add Job</button>
+    </div>
+  </div>
+
+  <!-- M-Pesa & Application Settings + Password Change -->
+  <div class="section">
+    <div class="section-title"><i class="fas fa-sliders-h"></i> M-Pesa & Application Settings</div>
+
+    <!-- STK Toggle -->
+    <div class="config-row">
+      <label><i class="fas fa-bell"></i> STK Push Simulation</label>
+      <select id="stkToggle">
+        <option value="enabled">✅ Enabled (auto-approve)</option>
+        <option value="disabled">❌ Disabled (simulate failure)</option>
+      </select>
+      <span class="helper">Affects main page payment flow</span>
+    </div>
+
+    <!-- Paybill Number -->
+    <div class="config-row">
+      <label><i class="fas fa-phone-alt"></i> Paybill Number</label>
+      <input type="text" id="paybillNumber" value="787878">
+      <button id="updatePaybillBtn" class="btn-primary">Update</button>
+    </div>
+
+    <!-- Application Fee -->
+    <div class="config-row">
+      <label><i class="fas fa-money-bill-wave"></i> Application Fee (KES)</label>
+      <input type="number" id="appFee" value="78" step="1" style="max-width:120px;">
+      <button id="updateFeeBtn" class="btn-primary">Update</button>
+    </div>
+
+    <!-- Application End Date -->
+    <div class="config-row">
+      <label><i class="fas fa-calendar-alt"></i> Application End Date</label>
+      <input type="date" id="appEndDate" style="max-width:200px;">
+      <button id="updateEndDateBtn" class="btn-primary">Update</button>
+      <span class="helper">Shown on the homepage banner</span>
+    </div>
+
+    <hr>
+
+    <!-- Password Change Section -->
+    <div class="section-title" style="margin-top:0;"><i class="fas fa-key"></i> Admin Password</div>
+    <div class="config-row">
+      <label>Current Password</label>
+      <div class="password-wrapper" style="flex:1; margin:0;">
+        <input type="password" id="currentPassword" placeholder="Current password" style="width:100%; padding-right:50px;">
+        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleCurrentPassword"></i>
+      </div>
+    </div>
+    <div class="config-row">
+      <label>New Password</label>
+      <div class="password-wrapper" style="flex:1; margin:0;">
+        <input type="password" id="newPassword" placeholder="New password" style="width:100%; padding-right:50px;">
+        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleNewPassword"></i>
+      </div>
+    </div>
+    <div class="config-row">
+      <label>Confirm New Password</label>
+      <div class="password-wrapper" style="flex:1; margin:0;">
+        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width:100%; padding-right:50px;">
+        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleConfirmPassword"></i>
+      </div>
+    </div>
+    <div class="config-row" style="justify-content:flex-end;">
+      <button id="changePasswordBtn" class="btn-primary"><i class="fas fa-save"></i> Update Password</button>
+    </div>
+
+    <hr>
+
+    <!-- Recent Applications -->
+    <div class="section-title" style="margin-top: 0;"><i class="fas fa-list-ul"></i> Recent Applications</div>
+    <table class="applications-table">
+      <thead>
+        <tr>
+          <th>ID</th><th>Name</th><th>Job Title</th><th>Phone</th>
+          <th>County</th><th>Constituency</th><th>Email</th>
+          <th>Applied At</th><th>Status</th><th>Payment Method</th>
+        </tr>
+      </thead>
+      <tbody id="appsTableBody"></tbody>
+    </table>
+    <button id="refreshAppsBtn" class="btn-primary" style="margin-top: 1rem;"><i class="fas fa-sync-alt"></i> Refresh Applications</button>
+  </div>
+</div>
+
+<script>
+  // ---------- API CONFIG ----------
+  const API_BASE = 'http://localhost:4000/api';
+  let authToken = sessionStorage.getItem('boma_admin_token') || null;
+
+  // ---------- HELPER FUNCTIONS ----------
+  async function apiFetch(endpoint, options = {}) {
+    const url = `${API_BASE}${endpoint}`;
+    const headers = {
+      'Content-Type': 'application/json',
+      ...(authToken && { 'Authorization': `Bearer ${authToken}` })
+    };
+    const config = { ...options, headers };
+    const response = await fetch(url, config);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `HTTP ${response.status}`);
+    }
+    return response.json();
+  }
+
+  function showToast(msg, isError = false) {
+    let existing = document.querySelector(".toast");
+    if (existing) existing.remove();
+    let div = document.createElement("div");
+    div.className = "toast" + (isError ? " error" : "");
+    div.innerHTML = msg;
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+  }
+
+  // ---------- PASSWORD TOGGLE ----------
+  document.querySelectorAll('.toggle-password').forEach(icon => {
+    icon.addEventListener('click', function(e) {
+      const input = this.closest('.password-wrapper').querySelector('input');
+      if (input.type === 'password') {
+        input.type = 'text';
+        this.classList.remove('fa-eye');
+        this.classList.add('fa-eye-slash');
+      } else {
+        input.type = 'password';
+        this.classList.remove('fa-eye-slash');
+        this.classList.add('fa-eye');
+      }
+    });
+  });
+
+  // ---------- AUTH ----------
+  async function login(username, password) {
+    try {
+      const result = await apiFetch('/admin/login', {
+        method: 'POST',
+        body: JSON.stringify({ username, password })
+      });
+      if (result.token) {
+        authToken = result.token;
+        sessionStorage.setItem('boma_admin_token', authToken);
+        return true;
+      }
+      return false;
+    } catch (e) {
+      showToast(e.message, true);
+      return false;
+    }
+  }
+
+  function logout() {
+    authToken = null;
+    sessionStorage.removeItem('boma_admin_token');
+    document.getElementById('loginOverlay').style.display = 'flex';
+    document.getElementById('adminDashboard').style.display = 'none';
+  }
+
+  function checkAuth() {
+    if (authToken) {
+      document.getElementById('loginOverlay').style.display = 'none';
+      document.getElementById('adminDashboard').style.display = 'block';
+      loadDashboardData();
+    } else {
+      document.getElementById('loginOverlay').style.display = 'flex';
+      document.getElementById('adminDashboard').style.display = 'none';
+    }
+  }
+
+  // ---------- DASHBOARD DATA ----------
+  async function loadDashboardData() {
+    try {
+      await Promise.all([
+        loadJobs(),
+        loadApplications(),
+        loadConfig()
+      ]);
+      updateStats();
+    } catch (e) {
+      showToast('Failed to load dashboard data: ' + e.message, true);
+    }
+  }
+
+  // ---------- JOBS ----------
+  async function loadJobs() {
+    const jobs = await apiFetch('/admin/jobs');
+    renderJobsTable(jobs);
+    return jobs;
+  }
+
+  function renderJobsTable(jobs) {
+    const tbody = document.getElementById("jobsTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    jobs.forEach(job => {
+      const row = tbody.insertRow();
+      row.insertCell(0).innerText = job.id;
+      row.insertCell(1).innerHTML = `<strong>${escapeHtml(job.title)}</strong>`;
+      row.insertCell(2).innerText = job.description || "—";
+      
+      const catCell = row.insertCell(3);
+      const catInput = document.createElement("input");
+      catInput.type = "text";
+      catInput.className = "category-input";
+      catInput.value = job.category || "";
+      catCell.appendChild(catInput);
+
+      const salCell = row.insertCell(4);
+      const salInput = document.createElement("input");
+      salInput.type = "number";
+      salInput.className = "salary-input";
+      salInput.value = job.salary || "";
+      salCell.appendChild(salInput);
+
+      const slotsCell = row.insertCell(5);
+      let slotType = 'number';
+      let slotDisplayValue = '';
+      if (typeof job.slots === 'string') {
+        slotType = 'county';
+        slotDisplayValue = job.slots;
+      } else if (job.slots === 0 || job.slots === '0') {
+        slotType = 'none';
+        slotDisplayValue = '';
+      } else {
+        slotType = 'number';
+        slotDisplayValue = job.slots;
+      }
+
+      const slotSelect = document.createElement("select");
+      slotSelect.className = "slot-type-select";
+      slotSelect.innerHTML = `
+        <option value="number" ${slotType === 'number' ? 'selected' : ''}>Number of slots</option>
+        <option value="none" ${slotType === 'none' ? 'selected' : ''}>No slots available</option>
+        <option value="county" ${slotType === 'county' ? 'selected' : ''}>Available in ...</option>
+      `;
+      
+      const slotValueInput = document.createElement("input");
+      slotValueInput.type = "text";
+      slotValueInput.className = "slot-value-input";
+      slotValueInput.placeholder = slotType === 'number' ? 'e.g. 5' : 'e.g. Nairobi';
+      slotValueInput.value = slotDisplayValue;
+      
+      const updateSlotInputVisibility = () => {
+        const selected = slotSelect.value;
+        if (selected === 'none') {
+          slotValueInput.value = '';
+          slotValueInput.placeholder = '';
+          slotValueInput.style.display = 'none';
+        } else if (selected === 'number') {
+          slotValueInput.value = '';
+          slotValueInput.placeholder = 'e.g. 5';
+          slotValueInput.style.display = 'inline-block';
+        } else {
+          slotValueInput.value = '';
+          slotValueInput.placeholder = 'e.g. Nairobi';
+          slotValueInput.style.display = 'inline-block';
+        }
+      };
+      slotSelect.addEventListener('change', updateSlotInputVisibility);
+      if (slotType === 'none') slotValueInput.style.display = 'none';
+      
+      const wrapper = document.createElement("div");
+      wrapper.style.display = "flex";
+      wrapper.style.gap = "0.5rem";
+      wrapper.style.alignItems = "center";
+      wrapper.appendChild(slotSelect);
+      wrapper.appendChild(slotValueInput);
+      slotsCell.appendChild(wrapper);
+
+      const actionsCell = row.insertCell(6);
+      const saveBtn = document.createElement("button");
+      saveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+      saveBtn.className = "action-btn";
+      const delBtn = document.createElement("button");
+      delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+      delBtn.className = "action-btn delete-btn";
+      
+      saveBtn.onclick = async () => {
+        const newCategory = catInput.value.trim();
+        const newSalary = parseInt(salInput.value);
+        const newSlotType = slotSelect.value;
+        let newSlots;
+        if (newSlotType === 'none') {
+          newSlots = 0;
+        } else if (newSlotType === 'number') {
+          newSlots = parseInt(slotValueInput.value);
+          if (isNaN(newSlots) || newSlots < 0) {
+            showToast("Please enter a valid number for slots.", true);
+            return;
+          }
+        } else {
+          newSlots = slotValueInput.value.trim();
+          if (!newSlots) {
+            showToast("Please enter a county name.", true);
+            return;
+          }
+        }
+        if (!newCategory) { showToast("Category required", true); return; }
+        if (isNaN(newSalary) || newSalary < 0) { showToast("Valid salary required", true); return; }
+        
+        try {
+          await apiFetch(`/admin/jobs/${job.id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+              title: job.title,
+              description: job.description,
+              category: newCategory,
+              salary: newSalary,
+              slots: newSlots
+            })
+          });
+          showToast(`✅ Updated ${job.title}`);
+          loadDashboardData();
+        } catch (e) {
+          showToast(e.message, true);
+        }
+      };
+      
+      delBtn.onclick = async () => {
+        if (confirm(`Delete "${job.title}"?`)) {
+          try {
+            await apiFetch(`/admin/jobs/${job.id}`, { method: 'DELETE' });
+            showToast("Job deleted");
+            loadDashboardData();
+          } catch (e) {
+            showToast(e.message, true);
+          }
+        }
+      };
+      actionsCell.appendChild(saveBtn);
+      actionsCell.appendChild(delBtn);
+    });
+    document.getElementById("totalJobsCount").innerText = jobs.length;
+  }
+
+  // Add new job
+  document.getElementById('addJobBtn').addEventListener('click', async () => {
+    const title = document.getElementById("newJobTitle").value.trim();
+    const desc = document.getElementById("newJobDesc").value.trim();
+    const category = document.getElementById("newJobCategory").value.trim().toLowerCase();
+    const salary = parseInt(document.getElementById("newJobSalary").value);
+    const slotType = document.getElementById("newSlotType").value;
+    const slotValue = document.getElementById("newSlotValue").value.trim();
+    
+    if (!title) { showToast("Job title required", true); return; }
+    if (!category) { showToast("Category required (driver, cleaner, caretaker, security)", true); return; }
+    if (isNaN(salary) || salary < 0) { showToast("Valid salary required", true); return; }
+    
+    let slots;
+    if (slotType === 'none') {
+      slots = 0;
+    } else if (slotType === 'number') {
+      slots = parseInt(slotValue);
+      if (isNaN(slots) || slots < 0) { showToast("Valid number required for slots", true); return; }
+    } else {
+      if (!slotValue) { showToast("Please enter a county name", true); return; }
+      slots = slotValue;
+    }
+    
+    try {
+      await apiFetch('/admin/jobs', {
+        method: 'POST',
+        body: JSON.stringify({ title, description: desc || "No description", category, salary, slots })
+      });
+      showToast(`✅ "${title}" added`);
+      document.getElementById("newJobTitle").value = "";
+      document.getElementById("newJobDesc").value = "";
+      document.getElementById("newJobCategory").value = "";
+      document.getElementById("newJobSalary").value = "";
+      document.getElementById("newSlotValue").value = "";
+      document.getElementById("newSlotType").value = "number";
+      loadDashboardData();
+    } catch (e) {
+      showToast(e.message, true);
+    }
+  });
+
+  // ---------- APPLICATIONS ----------
+  async function loadApplications() {
+    const apps = await apiFetch('/admin/applications');
+    renderApplicationsTable(apps);
+    return apps;
+  }
+
+  function renderApplicationsTable(apps) {
+    const tbody = document.getElementById("appsTableBody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    if (apps.length === 0) {
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem;">📭 No applications yet</td></tr>`;
+    } else {
+      apps.slice().reverse().forEach(app => {
+        const row = tbody.insertRow();
+        row.insertCell(0).innerText = app.id || "N/A";
+        row.insertCell(1).innerText = app.User ? app.User.full_name : "—";
+        row.insertCell(2).innerText = app.job_title || "—";
+        row.insertCell(3).innerText = app.User ? app.User.phone : "—";
+        row.insertCell(4).innerText = app.User ? app.User.county : "—";
+        row.insertCell(5).innerText = app.User ? app.User.constituency : "—";
+        row.insertCell(6).innerText = app.User ? app.User.email : "—";
+        let appliedAt = "—";
+        if (app.applied_at) {
+          const d = new Date(app.applied_at);
+          appliedAt = d.toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' });
+        }
+        row.insertCell(7).innerText = appliedAt;
+        row.insertCell(8).innerHTML = app.status === "paid" ? '<span style="color:#0b5e42; font-weight:500;">✅ Paid</span>' : '<span style="color:#b91c1c;">⏳ Pending</span>';
+        row.insertCell(9).innerText = app.payment_method || "—";
+      });
+    }
+    document.getElementById("totalAppsCount").innerText = apps.length;
+  }
+
+  // ---------- CONFIG ----------
+  async function loadConfig() {
+    const config = await apiFetch('/admin/config');
+    const stkEnabled = config.stk_enabled === 'true' || config.stk_enabled === true;
+    document.getElementById("stkToggle").value = stkEnabled ? "enabled" : "disabled";
+    document.getElementById("paybillNumber").value = config.paybill_number || "787878";
+    document.getElementById("appFee").value = config.application_fee || 78;
+    document.getElementById("appEndDate").value = config.application_end_date || "2026-08-13";
+    updateStats();
+    return config;
+  }
+
+  async function saveConfig(key, value) {
+    try {
+      await apiFetch('/admin/config', {
+        method: 'PUT',
+        body: JSON.stringify({ key, value })
+      });
+      showToast(`Config updated: ${key} = ${value}`);
+      loadConfig();
+    } catch (e) {
+      showToast(e.message, true);
+    }
+  }
+
+  // ---------- CHANGE PASSWORD ----------
+  document.getElementById('changePasswordBtn').addEventListener('click', async () => {
+    const current = document.getElementById('currentPassword').value.trim();
+    const newPass = document.getElementById('newPassword').value.trim();
+    const confirm = document.getElementById('confirmPassword').value.trim();
+
+    if (!current || !newPass || !confirm) {
+      showToast('Please fill all password fields.', true);
+      return;
+    }
+    if (newPass.length < 6) {
+      showToast('New password must be at least 6 characters.', true);
+      return;
+    }
+    if (newPass !== confirm) {
+      showToast('New passwords do not match.', true);
+      return;
+    }
+
+    try {
+      await apiFetch('/admin/change-password', {
+        method: 'POST',
+        body: JSON.stringify({ currentPassword: current, newPassword: newPass })
+      });
+      showToast('✅ Password updated successfully!');
+      document.getElementById('currentPassword').value = '';
+      document.getElementById('newPassword').value = '';
+      document.getElementById('confirmPassword').value = '';
+    } catch (e) {
+      showToast(e.message, true);
+    }
+  });
+
+  // ---------- STATS ----------
+  function updateStats() {
+    const stkEnabled = document.getElementById("stkToggle").value === "enabled";
+    document.getElementById("stkStatusBadge").innerHTML = stkEnabled ? "Enabled ✅" : "Disabled ❌";
+  }
+
+  // ---------- EVENT BINDINGS ----------
+  document.getElementById("loginBtn").addEventListener("click", async () => {
+    const username = document.getElementById("adminUsername").value;
+    const password = document.getElementById("adminPassword").value;
+    const success = await login(username, password);
+    if (success) {
+      document.getElementById("loginError").innerText = "";
+      checkAuth();
+    } else {
+      document.getElementById("loginError").innerText = "Invalid credentials. Please try again.";
+    }
+  });
+
+  document.getElementById("logoutBtn").addEventListener("click", logout);
+
+  document.getElementById("stkToggle").addEventListener("change", () => {
+    const value = document.getElementById("stkToggle").value === "enabled" ? "true" : "false";
+    saveConfig("stk_enabled", value);
+  });
+
+  document.getElementById("updatePaybillBtn").addEventListener("click", () => {
+    const value = document.getElementById("paybillNumber").value.trim();
+    if (value) saveConfig("paybill_number", value);
+    else showToast("Please enter a Paybill number", true);
+  });
+
+  document.getElementById("updateFeeBtn").addEventListener("click", () => {
+    const fee = parseInt(document.getElementById("appFee").value);
+    if (!isNaN(fee) && fee > 0) {
+      saveConfig("application_fee", String(fee));
+    } else {
+      showToast("Please enter a valid fee amount", true);
+    }
+  });
+
+  document.getElementById("updateEndDateBtn").addEventListener("click", () => {
+    const date = document.getElementById("appEndDate").value;
+    if (date) saveConfig("application_end_date", date);
+    else showToast("Please select a valid date", true);
+  });
+
+  document.getElementById("refreshAppsBtn").addEventListener("click", () => {
+    loadApplications();
+    showToast("Applications refreshed");
+  });
+
+  // ---------- INIT ----------
+  document.getElementById("adminPassword").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") document.getElementById("loginBtn").click();
+  });
+  document.getElementById("adminUsername").addEventListener("keypress", (e) => {
+    if (e.key === "Enter") document.getElementById("loginBtn").click();
+  });
+
+  checkAuth();
+  console.log('Admin API base:', API_BASE);
+</script>
+</body>
+</html>

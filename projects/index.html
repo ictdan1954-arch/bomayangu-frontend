@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projects | Boma Yangu – Affordable Housing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <style>
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    /* Hero section – uses <img> tag for background */
+    .projects-hero {
+      position: relative;
+      color: white;
+      padding: 5rem 2rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero-background-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .projects-hero h1,
+    .projects-hero .subhead,
+    .projects-hero .ahp-title,
+    .projects-hero .tagline,
+    .projects-hero .search-container {
+      position: relative;
+      z-index: 2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    }
+    .projects-hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .projects-hero .subhead { font-size: 1rem; max-width: 700px; margin: 0.5rem auto; }
+    .projects-hero .ahp-title { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; }
+    .projects-hero .tagline { font-size: 1.2rem; margin-bottom: 1.5rem; }
+    .search-container { max-width: 600px; margin: 0 auto; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .search-container input { flex: 2; padding: 0.8rem 1rem; border-radius: 60px; border: none; font-size: 1rem; outline: none; }
+    .search-container button { background: #ffd966; border: none; padding: 0.8rem 1.8rem; border-radius: 60px; font-weight: 600; cursor: pointer; color: #1e2a3e; }
+    /* Projects grid – no images, no button */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; margin-top: 2rem; }
+    .project-card { background: white; border-radius: 24px; padding: 1.5rem; border: 1px solid #eef2f8; transition: box-shadow 0.2s; cursor: default; }
+    .project-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+    .project-status { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .project-status.ongoing { background: #d1fae5; color: #065f46; }
+    .project-status.completed { background: #e0e7ff; color: #1e3a8a; }
+    .project-status.sold_out { background: #fee2e2; color: #991b1b; }
+    .project-title { font-size: 1.2rem; font-weight: 700; margin: 0.5rem 0; }
+    .project-location { color: #4a5b74; font-size: 0.85rem; margin: 0.5rem 0; }
+    .price { font-weight: 600; color: #0b5e42; margin: 0.5rem 0; }
+    .view-all-container { text-align: center; margin: 2rem 0; }
+    .view-all-btn { background: #0b5e42; color: white; border: none; padding: 0.8rem 2rem; border-radius: 40px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+    .view-all-btn:hover { background: #094b35; }
+    .no-results { text-align: center; padding: 3rem; background: white; border-radius: 28px; grid-column: 1 / -1; }
+    /* Footer */
+    .main-footer { background: #0f1a24; color: #9aaebf; text-align: center; padding: 2rem; margin-top: 3rem; font-size: 0.85rem; line-height: 1.6; }
+    .footer-logos { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
+    .footer-logos img { height: 60px; width: auto; object-fit: contain; background: white; border-radius: 12px; padding: 0.5rem; }
+    .footer-links { margin-top: 0.5rem; }
+    .footer-links a { color: #9aaebf; text-decoration: none; }
+    .footer-links a:hover { color: white; }
+    @media (max-width: 700px) { .projects-hero h1 { font-size: 1.8rem; } .search-container input, .search-container button { width: 100%; } }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" id="homeLogo">
+      <img src="../images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
+      <img src="../images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+    </div>
+    <ul class="nav-links">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="index.html">Projects</a></li>
+      <li><a href="../faqs/">FAQs</a></li>
+      <li><a href="../resources/">Resources</a></li>
+      <li><a href="../contacts/">Contacts</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero section with <img> background -->
+<div class="projects-hero">
+  <!-- REPLACE THE SRC WITH YOUR OWN IMAGE PATH -->
+  <img class="hero-background-img" src="../images/HAI9R6vWYAAiqw_.jpg" alt="Hero background">
+  <h1>Projects</h1>
+  <p class="subhead">These are completed or continuing projects that offer a variety of options to fit your preferences.</p>
+  <div class="ahp-title">AHP Projects</div>
+  <div class="tagline">Let's find a home that is perfect for you</div>
+  <div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search by project name, project location">
+    <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="projects-grid" id="projectsGrid"></div>
+  <div class="view-all-container" id="viewAllContainer" style="display: none;">
+    <button class="view-all-btn" id="viewAllBtn">View All Projects →</button>
+  </div>
+</div>
+
+<footer class="main-footer">
+  <div class="footer-logos">
+    <img src="../images/download boma.png" alt="Partner 1">
+    <img src="../images/logo.png" alt="Partner 2">
+    <img src="../images/ecitizen logo.png" alt="Partner 3">
+  </div>
+  <div>Ministry of Lands, Public-works,<br>Housing and Urban Development</div>
+  <div>State Department of Housing &<br>Urban Development</div>
+  <div style="margin: 1rem 0;">For enquiries, visit our <a href="../contacts/" style="color:#9aaebf; text-decoration:underline;">contact page</a>.</div>
+  <div>Copyright © 2026 Republic of Kenya. All rights reserved.</div>
+  <div class="footer-links"><a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></div>
+</footer>
+
+<button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
+<script src="../assets/js/main.js"></script>
+<script>
+  // ---------- FULL PROJECTS LIST (same as before) ----------
+  const allProjects = [
+    { name: "boma yangu alego usonga estate", location: "Siaya • Siaya Town", status: "ongoing" },
+    { name: "boma yangu archer's post estate", location: "Samburu • Samburu", status: "ongoing" },
+    { name: "boma yangu awendo estate", location: "Migori • Awendo Town", status: "ongoing" },
+    { name: "boma yangu bahati nakuru estate", location: "Nakuru • Bahati", status: "ongoing" },
+    { name: "boma yangu bahati phase 2 estate", location: "Nakuru • Nakuru City", status: "ongoing" },
+    { name: "boma yangu blue valley estate", location: "Nyeri • Nyeri Town", status: "ongoing" },
+    { name: "boma yangu bofa estate", location: "Kilifi • Kilifi", status: "ongoing" },
+    { name: "boma yangu bondo estate", location: "Siaya • Bondo", status: "ongoing" },
+    { name: "boma yangu buffalo mall phase 1 estate", location: "Nakuru • Naivasha", status: "ongoing" },
+    { name: "boma yangu busia atc phase 1 estate", location: "Busia • Busia", status: "ongoing" },
+    { name: "boma yangu busia atc phase 2 estate", location: "Busia • Busia Town", status: "ongoing" },
+    { name: "boma yangu chepalungu estate", location: "Bomet • Chepalungu", status: "completed" },
+    { name: "boma yangu chepkorio estate", location: "Elgeyo-Marakwet • Chepkorio Town", status: "ongoing" },
+    { name: "boma yangu chesumei estate", location: "Nandi • Chesumei, Kapsabet", status: "ongoing" },
+    { name: "boma yangu chuka pw estate", location: "Tharaka-Nithi • Chuka", status: "ongoing" },
+    { name: "boma yangu diani 'white house' estate", location: "Kwale • Msambweni", status: "ongoing" },
+    { name: "boma yangu elburgon estate", location: "Nakuru • Elburgon", status: "ongoing" },
+    { name: "boma yangu eldama ravine (survey camp) estate", location: "Baringo • Eldama Ravine", status: "ongoing" },
+    { name: "boma yangu eldoret railway city estate", location: "Uasin Gishu • Eldoret", status: "ongoing" },
+    { name: "boma yangu embakasi estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu embu civil servants estate", location: "Embu • Embu Town", status: "completed" },
+    { name: "boma yangu embu nhc estate", location: "Embu • Embu Town", status: "ongoing" },
+    { name: "boma yangu emgwen estate", location: "Nandi • Emgwen", status: "ongoing" },
+    { name: "boma yangu funyula estate", location: "Busia • Funyula", status: "ongoing" },
+    { name: "boma yangu garissa estate", location: "Garissa • Garissa Town", status: "ongoing" },
+    { name: "boma yangu garissa public works estate", location: "Garissa • Garissa Town", status: "ongoing" },
+    { name: "boma yangu gataka estate", location: "Kajiado • Gataka – Ongata Rongai", status: "ongoing" },
+    { name: "boma yangu gatanga estate", location: "Murang'a • Kenol", status: "ongoing" },
+    { name: "boma yangu gatundu estate", location: "Kiambu • Gatundu", status: "ongoing" },
+    { name: "boma yangu gichugu estate", location: "Kirinyaga • Gichugu", status: "ongoing" },
+    { name: "boma yangu hobley estate", location: "Mombasa • Mombasa", status: "ongoing" },
+    { name: "boma yangu homa bay estate", location: "Homa Bay • Homabay", status: "ongoing" },
+    { name: "boma yangu isiolo township estate", location: "Isiolo • Isiolo Township Ward", status: "ongoing" },
+    { name: "boma yangu iten estate", location: "Elgeyo-Marakwet • Iten Town", status: "ongoing" },
+    { name: "boma yangu jamaa estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu jogoo road phase 1 estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu jogoo road phase 1 lot 2 estate", location: "Nairobi • Jogoo Road", status: "ongoing" },
+    { name: "boma yangu kabarnet estate", location: "Baringo • Kabarnet", status: "ongoing" },
+    { name: "boma yangu kabete social protection estate", location: "Kiambu • Kabete", status: "ongoing" },
+    { name: "boma yangu kajiado central estate", location: "Kajiado • Kajiado", status: "ongoing" },
+    { name: "boma yangu kamiti lot 1 estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu kamiti lot 2 estate", location: "Kiambu • Ruiru", status: "ongoing" },
+    { name: "boma yangu kanduyi estate", location: "Bungoma • Kanduyi", status: "ongoing" },
+    { name: "boma yangu kapsuswa estate", location: "Uasin Gishu • Eldoret", status: "ongoing" },
+    { name: "boma yangu kaptumo estate", location: "Nandi • Kaptumo", status: "ongoing" },
+    { name: "boma yangu kasarani lot 1 estate", location: "Nairobi • Kasarani", status: "ongoing" },
+    { name: "boma yangu kasarani lot 2 estate", location: "Nairobi • Kasarani", status: "ongoing" },
+    { name: "boma yangu kasarani lot 3 estate", location: "Nairobi • Kasarani, Nairobi", status: "ongoing" },
+    { name: "boma yangu kasarani lot 4 estate", location: "Nairobi • Kasarani", status: "ongoing" },
+    { name: "boma yangu kcb taveta estate", location: "Taita–Taveta • Taveta", status: "ongoing" },
+    { name: "boma yangu kehancha estate", location: "Migori • Kehancha town", status: "ongoing" },
+    { name: "boma yangu kiambu town estate", location: "Kiambu • Kiambu", status: "ongoing" },
+    { name: "boma yangu kibera soweto east zone b estate", location: "Nairobi • Kibera", status: "ongoing" },
+    { name: "boma yangu kibra southlands lot 2 estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu kibra southlands lot 3 estate", location: "Nairobi • Nairobi", status: "ongoing" },
+    { name: "boma yangu kibra southlands lot 4 estate", location: "Nairobi • Kibra", status: "ongoing" },
+    { name: "boma yangu kibra southlands lot 5 estate", location: "Nairobi • Kibra", status: "ongoing" },
+    { name: "boma yangu kidiwa phase 2 estate", location: "Uasin Gishu • Eldoret", status: "ongoing" },
+    { name: "boma yangu kikuyu estate", location: "Kiambu • Kikuyu", status: "ongoing" },
+    { name: "boma yangu kilgoris estate", location: "Narok • Kilgoris Town", status: "ongoing" },
+    { name: "boma yangu kimumu estate", location: "Uasin Gishu • Eldoret City", status: "ongoing" },
+    { name: "boma yangu kinangop estate", location: "Nyandarua • Engineer", status: "ongoing" },
+    { name: "bomayangu kings boma (ruiru) estate", location: "Kiambu • Ruiru", status: "ongoing" },
+    { name: "bomayangu kings sapphire bondeni estate", location: "Nakuru • Bondeni", status: "completed" },
+    { name: "boma yangu kings serenity estate", location: "Kajiado • rongai", status: "completed" },
+    { name: "boma yangu kirinyaga nhc estate", location: "Kirinyaga • Kerugoya", status: "ongoing" },
+    { name: "boma yangu kitengela vet estate", location: "Kajiado • Kitengela", status: "ongoing" },
+    { name: "boma yangu konza city estate", location: "Machakos • Machakos Town", status: "ongoing" },
+    { name: "boma yangu kwa ngendu estate", location: "Kitui • Kitui Town", status: "ongoing" },
+    { name: "boma yangu lanet b estate", location: "Nakuru • Gilgil", status: "ongoing" },
+    { name: "boma yangu lari estate", location: "Kiambu • Lari", status: "ongoing" },
+    { name: "boma yangu limuru estate", location: "Kiambu • Limuru", status: "ongoing" },
+    { name: "boma yangu lumumba estate", location: "Kisumu • Kisumu", status: "ongoing" },
+    { name: "boma yangu lurambi (kakamega) estate", location: "Kakamega • Kakamega", status: "completed" },
+    { name: "boma yangu mabera estate", location: "Migori • Mabera", status: "ongoing" },
+    { name: "boma yangu machakos civil servants estate", location: "Machakos • Machakos Town", status: "completed" },
+    { name: "boma yangu machakos estate", location: "Machakos • Machakos", status: "ongoing" },
+    { name: "boma yangu machakos town phase 2 estate", location: "Machakos • Machakos", status: "ongoing" },
+    { name: "boma yangu maili tatu estate", location: "Trans-Nzoia • Kitale", status: "ongoing" },
+    { name: "boma yangu makenji estate", location: "Murang'a • Makenji", status: "ongoing" },
+    { name: "boma yangu makuyu estate", location: "Murang'a • Makuyu", status: "ongoing" },
+    { name: "boma yangu manga estate", location: "Nyamira • Manga", status: "ongoing" },
+    { name: "boma yangu maralal estate", location: "Samburu • Maralal", status: "ongoing" },
+    { name: "boma yangu marigat estate", location: "Baringo • Marigat", status: "ongoing" },
+    { name: "boma yangu masalani estate", location: "Garissa • Ijara", status: "ongoing" },
+    { name: "boma yangu mathare lot 1 estate", location: "Nairobi • Mathare", status: "ongoing" },
+    { name: "boma yangu mathare lot 2 estate", location: "Nairobi • Nairobi", status: "ongoing" },
+    { name: "boma yangu matuga estate", location: "Kwale • Matuga", status: "ongoing" },
+    { name: "boma yangu matunda estate", location: "Kakamega • Likuyani", status: "ongoing" },
+    { name: "boma yangu mavoko estate", location: "Machakos • Mavoko", status: "ongoing" },
+    { name: "boma yangu mbotela estate", location: "Nairobi • Nairobi City", status: "ongoing" },
+    { name: "boma yangu meru 1 estate", location: "Meru • Meru", status: "ongoing" },
+    { name: "boma yangu meru 2 estate", location: "Meru • Meru", status: "ongoing" },
+    { name: "boma yangu michinda estate", location: "Nakuru • Molo", status: "ongoing" },
+    { name: "boma yangu mogotio estate", location: "Baringo • Mogotio Town", status: "ongoing" },
+    { name: "boma yangu mokowe estate", location: "Lamu • Mokowe", status: "ongoing" },
+    { name: "boma yangu mtwapa city estate", location: "Kilifi • Mtwapa", status: "ongoing" },
+    { name: "boma yangu mukuru estate", location: "Nairobi • South B, Nairobi", status: "ongoing" },
+    { name: "boma yangu mukurwe-ini estate", location: "Nyeri • Mukurwe-ini", status: "ongoing" },
+    { name: "boma yangu mumias estate", location: "Trans-Nzoia • Mumias", status: "ongoing" },
+    { name: "boma yangu mwingi estate", location: "Kitui • Mwingi Town", status: "ongoing" },
+    { name: "boma yangu naivasha seza estate", location: "Nakuru • Suswa", status: "ongoing" },
+    { name: "boma yangu nandi hills estate", location: "Nandi • Nandi Hills", status: "ongoing" },
+    { name: "boma yangu nanyuki estate", location: "Laikipia • Nanyuki", status: "completed" },
+    { name: "boma yangu naromoru estate", location: "Nyeri • Kieni East Town", status: "ongoing" },
+    { name: "boma yangu nasewa industrial park estate", location: "Busia • Matayos", status: "ongoing" },
+    { name: "boma yangu ndarugo estate", location: "Kiambu •", status: "ongoing" },
+    { name: "boma yangu ngong vet estate", location: "Kajiado • Ngong", status: "ongoing" },
+    { name: "boma yangu nguruna estate", location: "Migori • Kegonga", status: "ongoing" },
+    { name: "boma yangu ntimaru estate", location: "Migori • Ntimaru", status: "ongoing" },
+    { name: "boma yangu nyahururu estate", location: "Laikipia • Nyahururu", status: "ongoing" },
+    { name: "boma yangu nyali (vok) estate", location: "Mombasa • Nyali", status: "ongoing" },
+    { name: "boma yangu nyanchenge estate", location: "Kisii • Nyanchenge", status: "ongoing" },
+    { name: "boma yangu nyanchwa estate", location: "Kisii • Kisii", status: "ongoing" },
+    { name: "boma yangu nyandarua nhc estate", location: "Nyandarua • Ol’ Kalou", status: "completed" },
+    { name: "boma yangu nyaribari masaba estate", location: "Kisii • Nyaribari Masaba", status: "ongoing" },
+    { name: "boma yangu ogembo estate", location: "Kisii • Ogembo", status: "ongoing" },
+    { name: "boma yangu ol kalou estate", location: "Nyandarua • Nyandarua Town", status: "ongoing" },
+    { name: "boma yangu parkroad estate", location: "Nairobi • Nairobi", status: "completed" },
+    { name: "boma yangu pioneer estate", location: "Uasin Gishu • Eldoret", status: "ongoing" },
+    { name: "boma yangu rongo estate", location: "Migori • Rongo", status: "ongoing" },
+    { name: "boma yangu ruring'u estate", location: "Nyeri • Nyeri Town", status: "ongoing" },
+    { name: "boma yangu shauri moyo a estate", location: "Nairobi • Nairobi", status: "ongoing" },
+    { name: "boma yangu shauri moyo b estate", location: "Nairobi • Shauri Moyo", status: "ongoing" },
+    { name: "boma yangu soilo estate", location: "Nakuru • Soilo, Nakuru", status: "ongoing" },
+    { name: "boma yangu sotik estate", location: "Bomet • Sotik", status: "ongoing" },
+    { name: "boma yangu starehe point 1 estate", location: "Nairobi • Starehe Constituency", status: "ongoing" },
+    { name: "boma yangu suam border post estate", location: "Trans-Nzoia • Suam Border Post", status: "ongoing" },
+    { name: "boma yangu talai estate", location: "Kericho • Kericho Town", status: "ongoing" },
+    { name: "boma yangu tezo estate", location: "Kilifi • Tezo Town", status: "ongoing" },
+    { name: "boma yangu thika bustani estate", location: "Kiambu • Thika", status: "ongoing" },
+    { name: "boma yangu thika depot estate", location: "Kiambu • Thika Town", status: "ongoing" },
+    { name: "boma yangu thika kings orchid estate", location: "Kiambu • Thika Town", status: "ongoing" },
+    { name: "boma yangu thika uti estate", location: "Kiambu • Thika", status: "ongoing" },
+    { name: "boma yangu timau estate", location: "Meru • Timau", status: "ongoing" },
+    { name: "boma yangu upper kanyakwar estate", location: "Kisumu • Kisumu", status: "ongoing" },
+    { name: "boma yangu vihiga estate", location: "Vihiga • Vihiga Town", status: "ongoing" },
+    { name: "boma yangu voi pool estate", location: "Taita–Taveta • Voi", status: "ongoing" },
+    { name: "boma yangu wajir township (skanska) estate", location: "Wajir • Wajir Township Ward (Skanska)", status: "ongoing" },
+    { name: "boma yangu wamagana estate", location: "Nyeri • Tetu", status: "ongoing" },
+    { name: "boma yangu watamu beach road estate", location: "Kilifi • Watamu", status: "ongoing" },
+    { name: "boma yangu wote pool estate", location: "Makueni • Wote", status: "ongoing" },
+    { name: "boma yangu yala estate", location: "Siaya • Yala", status: "ongoing" },
+    { name: "buxton point", location: "Mombasa • Mvita Constituency, Tononoka Ward", status: "completed" },
+    { name: "fairvalley heights", location: "Nairobi • Athi River", status: "sold_out" },
+    { name: "moke gardens affordable housing development", location: "Machakos • Athi River Town", status: "ongoing" },
+    { name: "pangani affordable housing project", location: "Nairobi • Next to Pangani Police station", status: "ongoing" },
+    { name: "seven star apartments mtwapa", location: "Kilifi • Mtwapa", status: "ongoing" }
+  ];
+
+  function renderProjectCard(p) {
+    let statusClass = '';
+    if (p.status === 'ongoing') statusClass = 'ongoing';
+    else if (p.status === 'completed') statusClass = 'completed';
+    else if (p.status === 'sold_out') statusClass = 'sold_out';
+    return `
+      <div class="project-card">
+        <div class="project-status ${statusClass}">${p.status.replace('_', ' ')}</div>
+        <div class="project-title">${escapeHtml(p.name)}</div>
+        <div class="price">From KES 0</div>
+        <div class="project-location"><i class="fas fa-map-marker-alt"></i> ${escapeHtml(p.location)}</div>
+      </div>
+    `;
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>]/g, function(m) {
+      if (m === '&') return '&amp;';
+      if (m === '<') return '&lt;';
+      if (m === '>') return '&gt;';
+      return m;
+    });
+  }
+
+  const projectsGrid = document.getElementById('projectsGrid');
+  const searchInput = document.getElementById('searchInput');
+  const searchBtn = document.getElementById('searchBtn');
+  const viewAllContainer = document.getElementById('viewAllContainer');
+  const viewAllBtn = document.getElementById('viewAllBtn');
+
+  let showingAll = false;
+  let currentFiltered = [];
+
+  function renderProjects(projects) {
+    if (projects.length === 0) {
+      projectsGrid.innerHTML = `<div class="no-results">No projects match your search. Try a different keyword.</div>`;
+      viewAllContainer.style.display = 'none';
+    } else {
+      projectsGrid.innerHTML = projects.map(renderProjectCard).join('');
+      if (!showingAll && allProjects.length > 9 && projects.length === Math.min(9, allProjects.length)) {
+        viewAllContainer.style.display = 'block';
+      } else {
+        viewAllContainer.style.display = 'none';
+      }
+    }
+  }
+
+  function updateDisplay() {
+    const term = searchInput.value.trim().toLowerCase();
+    let filtered = allProjects;
+    if (term) {
+      filtered = allProjects.filter(p => 
+        p.name.toLowerCase().includes(term) || 
+        p.location.toLowerCase().includes(term)
+      );
+    }
+    currentFiltered = filtered;
+    if (showingAll || term !== '') {
+      renderProjects(filtered);
+    } else {
+      renderProjects(filtered.slice(0, 9));
+    }
+  }
+
+  function showAllProjects() {
+    showingAll = true;
+    updateDisplay();
+  }
+
+  function handleSearch() {
+    showingAll = false;
+    updateDisplay();
+  }
+
+  updateDisplay();
+
+  searchBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    handleSearch();
+  });
+  searchInput.addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSearch();
+    }
+  });
+  viewAllBtn.addEventListener('click', showAllProjects);
+</script>
+</body>
+</html>
