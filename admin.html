@@ -245,7 +245,6 @@
   <div class="section">
     <div class="section-title"><i class="fas fa-sliders-h"></i> M-Pesa & Application Settings</div>
 
-    <!-- STK Toggle -->
     <div class="config-row">
       <label><i class="fas fa-bell"></i> STK Push Simulation</label>
       <select id="stkToggle">
@@ -255,21 +254,18 @@
       <span class="helper">Affects main page payment flow</span>
     </div>
 
-    <!-- Paybill Number -->
     <div class="config-row">
       <label><i class="fas fa-phone-alt"></i> Paybill Number</label>
       <input type="text" id="paybillNumber" value="787878">
       <button id="updatePaybillBtn" class="btn-primary">Update</button>
     </div>
 
-    <!-- Application Fee -->
     <div class="config-row">
       <label><i class="fas fa-money-bill-wave"></i> Application Fee (KES)</label>
       <input type="number" id="appFee" value="78" step="1" style="max-width:120px;">
       <button id="updateFeeBtn" class="btn-primary">Update</button>
     </div>
 
-    <!-- Application End Date -->
     <div class="config-row">
       <label><i class="fas fa-calendar-alt"></i> Application End Date</label>
       <input type="date" id="appEndDate" style="max-width:200px;">
@@ -279,7 +275,6 @@
 
     <hr>
 
-    <!-- Password Change Section -->
     <div class="section-title" style="margin-top:0;"><i class="fas fa-key"></i> Admin Password</div>
     <div class="config-row">
       <label>Current Password</label>
@@ -308,7 +303,6 @@
 
     <hr>
 
-    <!-- Recent Applications -->
     <div class="section-title" style="margin-top: 0;"><i class="fas fa-list-ul"></i> Recent Applications</div>
     <table class="applications-table">
       <thead>
@@ -326,7 +320,8 @@
 
 <script>
   // ---------- API CONFIG ----------
-  const API_BASE = 'http://localhost:4000/api';
+  // ✅ UPDATED to live backend URL
+  const API_BASE = 'https://bomayangu-backend.onrender.com/api';
   let authToken = sessionStorage.getItem('boma_admin_token') || null;
 
   // ---------- HELPER FUNCTIONS ----------
