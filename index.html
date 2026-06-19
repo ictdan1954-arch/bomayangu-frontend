@@ -1,73 +1,662 @@
-require('dotenv').config();
-const express = require('express');
-const cors = require('cors');
-const routes = require('./routes');
-const { sequelize } = require('./models');
-const errorHandler = require('./middleware/errorHandler');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boma Yangu Jobs | Affordable Housing Program</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section-title { font-size: 1.8rem; font-weight: 700; margin: 2rem 0 1.5rem; border-left: 5px solid #0b5e42; padding-left: 1rem; }
 
-const app = express();
-const PORT = process.env.PORT || 5000;
+    /* Hero */
+    .hero-welcome { background: white; padding: 3rem 2rem; border-bottom: 1px solid #eef2f6; }
+    .hero-container { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; }
+    .hero-left { flex: 1; }
+    .hero-left h1 { font-size: 2.8rem; font-weight: 800; color: #0b2f26; margin-bottom: 1rem; }
+    .hero-left p { font-size: 1.1rem; color: #334155; margin-bottom: 1.8rem; }
+    .ecitizen-card { background: #f1f5f9; border-radius: 60px; padding: 0.8rem 1.5rem; display: inline-flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .ecitizen-btn { background: #1e3a8a; color: white; padding: 0.5rem 1.2rem; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; }
+    .hero-carousel { flex: 1; background: #f8fafc; border-radius: 32px; padding: 0.5rem; }
+    .carousel-container { overflow: hidden; border-radius: 24px; }
+    .carousel-slides { display: flex; transition: transform 0.5s ease; }
+    .carousel-slide { min-width: 100%; }
+    .carousel-slide img { width: 100%; height: 340px; object-fit: cover; border-radius: 20px; }
+    .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
+    .dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
+    .dot.active { background: #0b5e42; width: 24px; border-radius: 10px; }
+    /* Stats */
+    .stats-grid { max-width: 1280px; margin: 2rem auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; text-align: center; padding: 0 2rem; }
+    .stat-card { background: #f8fafc; padding: 1.2rem 2rem; border-radius: 28px; flex: 1; min-width: 160px; }
+    .stat-number { font-size: 2.2rem; font-weight: 800; color: #0b5e42; }
 
-// ---------- CORS CONFIGURATION ----------
-const allowedOrigins = [
-    'https://bomayangu-frontend.vercel.app',  // your Vercel frontend
-    'https://bomayangu.vercel.app',          // alternative (if you use custom domain)
-    'http://localhost:3000',                 // local frontend dev
-    'http://localhost:5500',                 // local frontend dev (Live Server)
-    'http://localhost:5000'                  // local frontend dev
-];
-
-app.use(cors({
-    origin: function (origin, callback) {
-        // Allow requests with no origin (like mobile apps or curl)
-        if (!origin) return callback(null, true);
-        if (allowedOrigins.indexOf(origin) !== -1 || process.env.NODE_ENV === 'development') {
-            callback(null, true);
-        } else {
-            callback(new Error('Not allowed by CORS'));
-        }
-    },
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
-
-// ---------- MIDDLEWARE ----------
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true }));
-
-// ---------- ROUTES ----------
-app.use('/api', routes);
-
-// ---------- ERROR HANDLER ----------
-app.use(errorHandler);
-
-// ---------- HEALTH CHECK ----------
-app.get('/health', (req, res) => {
-    res.json({ status: 'OK', timestamp: new Date().toISOString() });
-});
-
-// ---------- START SERVER ----------
-const startServer = async () => {
-    try {
-        await sequelize.authenticate();
-        console.log('✅ Database connected successfully');
-
-        // Only sync in development – in production, use migrations
-        if (process.env.NODE_ENV === 'development') {
-            await sequelize.sync({ alter: true });
-            console.log('✅ Database synced (development)');
-        } else {
-            console.log('✅ Production mode – skipping auto-sync');
-        }
-
-        app.listen(PORT, () => {
-            console.log(`🚀 Server running on port ${PORT}`);
-        });
-    } catch (error) {
-        console.error('❌ Failed to start server:', error.message);
-        process.exit(1);
+    /* Application Notice Banner */
+    .app-notice {
+      background: #f0fdf4; border: 1px solid #d1fae5; border-radius: 60px; padding: 0.8rem 2rem; margin: 2rem 0 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
     }
-};
+    .app-notice .notice-text { font-weight: 500; color: #065f46; }
+    .app-notice .notice-text i { margin-right: 0.5rem; }
+    .app-notice .notice-date { background: #0b5e42; color: white; padding: 0.3rem 1rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; }
 
-startServer();
+    /* Filter Tabs */
+    .filter-tabs {
+      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #eef2f8; padding-bottom: 0.5rem;
+    }
+    .filter-tab {
+      background: transparent; border: none; padding: 0.6rem 1.6rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; color: #4a5b74; cursor: pointer; transition: all 0.2s;
+    }
+    .filter-tab:hover { background: #f1f5f9; color: #0b5e42; }
+    .filter-tab.active { background: #0b5e42; color: white; }
+
+    /* Job Cards */
+    .jobs-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;
+    }
+    .job-card {
+      background: white; border-radius: 24px; padding: 1.8rem 1.5rem 1.5rem; border: 1px solid #eef2f8; transition: all 0.25s ease; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .job-card:hover {
+      border-color: #cbd5e1; box-shadow: 0 12px 30px rgba(0,0,0,0.06); transform: translateY(-3px);
+    }
+    .job-card::before {
+      content: ''; position: absolute; top: 1.5rem; left: 0; width: 4px; height: 40%; background: #0b5e42; border-radius: 0 4px 4px 0; opacity: 0.4; transition: opacity 0.2s;
+    }
+    .job-card:hover::before { opacity: 0.8; }
+    .job-icon {
+      display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: #eef2ff; border-radius: 20px; font-size: 2.2rem; margin-bottom: 1rem;
+    }
+    .job-title { font-size: 1.3rem; font-weight: 700; margin: 0.5rem 0 0.3rem; color: #0f2c24; }
+    .job-desc { color: #4a5b74; font-size: 0.9rem; margin: 0.5rem 0 0.8rem; line-height: 1.5; min-height: 3rem; }
+    .job-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 0.4rem 0 0.8rem; }
+    .job-slots {
+      display: inline-flex; align-items: center; gap: 0.3rem; background: #eef2fa; padding: 0.3rem 0.9rem; border-radius: 40px; font-size: 0.8rem; font-weight: 600; color: #1e293b;
+    }
+    .job-slots i { color: #0b5e42; }
+    .job-salary { font-weight: 700; color: #0b5e42; font-size: 1rem; background: #f0fdf4; padding: 0.2rem 0.8rem; border-radius: 40px; }
+    .apply-btn {
+      background: linear-gradient(135deg, #0b5e42, #1a7b5c); color: white; border: none; width: 100%; padding: 0.8rem; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 0.8rem; font-size: 0.95rem; transition: all 0.2s; box-shadow: 0 2px 8px rgba(11,94,66,0.15);
+    }
+    .apply-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(11,94,66,0.25); background: linear-gradient(135deg, #094b35, #136a4e); }
+
+    /* Modals */
+    .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; z-index:2000; visibility:hidden; opacity:0; transition:0.2s; }
+    .modal-overlay.active { visibility:visible; opacity:1; }
+    .modal-container { background:white; max-width:500px; width:90%; border-radius:32px; padding:1.8rem; position:relative; }
+    .close-modal { position:absolute; right:20px; top:18px; font-size:1.8rem; cursor:pointer; }
+    .payment-options { display:flex; gap:1rem; margin:1rem 0; }
+    .pay-btn { flex:1; background:#eef2ff; border:none; padding:0.8rem; border-radius:50px; font-weight:600; cursor:pointer; }
+    .form-group { margin-bottom:1rem; }
+    .form-group input, .form-group select { width:100%; padding:0.7rem; border-radius:16px; border:1px solid #cfdfed; font-family:inherit; }
+    .form-group select { background: white; cursor:pointer; }
+    .document-notice {
+      background: #fef9e7; border-left: 4px solid #f59e0b; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.85rem; color: #78350f; margin: 1rem 0;
+    }
+    .toast-msg { position:fixed; bottom:100px; left:20px; background:#1e2a3e; color:white; padding:12px 20px; border-radius:40px; z-index:1100; }
+
+    .slots-available { color: #0b5e42; }
+    .slots-full { color: #b91c1c; }
+    .slots-few { color: #f59e0b; }
+
+    @media (max-width:800px) {
+      .hero-container { flex-direction:column; }
+      .hero-left h1 { font-size:2rem; }
+      .carousel-slide img { height:200px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" id="homeLogo">
+      <img src="images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
+      <img src="images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about/">About</a></li>
+      <li><a href="projects/">Projects</a></li>
+      <li><a href="faqs/">FAQs</a></li>
+      <li><a href="resources/">Resources</a></li>
+      <li><a href="contacts/">Contacts</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero -->
+<div class="hero-welcome">
+  <div class="hero-container">
+    <div class="hero-left">
+      <h1>Welcome to Boma Yangu Jobs</h1>
+      <p>The Boma Yangu platform is the gateway into the Affordable Housing Program. Start your journey towards home ownership. Fulfil your dreams by letting us help you achieve your home ownership goals.</p>
+      <div class="ecitizen-card">
+        <span><i class="fas fa-check-circle"></i> You can now access Boma Yangu using your eCitizen account</span>
+        <a href="https://accounts.ecitizen.go.ke/en" target="_blank" class="ecitizen-btn">eCitizen</a>
+      </div>
+    </div>
+    <div class="hero-carousel">
+      <div class="carousel-container">
+        <div class="carousel-slides" id="carouselSlides">
+          <div class="carousel-slide"><img src="images/affordable outside.jpg" alt="Affordable Housing 1"></div>
+          <div class="carousel-slide"><img src="images/boma3.jpg" alt="Housing 2"></div>
+          <div class="carousel-slide"><img src="images/boma2.jpg" alt="Housing 3"></div>
+          <div class="carousel-slide"><img src="images/HAI9R6vWYAAiqw_.jpg" alt="Housing 4"></div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Stats -->
+<div class="stats-grid">
+  <div class="stat-card"><div class="stat-number">128</div><div>Projects available</div></div>
+  <div class="stat-card"><div class="stat-number">102</div><div>Registered Applicants</div></div>
+  <div class="stat-card"><div class="stat-number">200+</div><div>Strategic partners</div></div>
+</div>
+
+<!-- Jobs Section -->
+<div class="container">
+  <!-- Application Notice Banner -->
+  <div class="app-notice" id="appNotice">
+    <span class="notice-text"><i class="fas fa-calendar-alt"></i> Applications are open until <strong id="endDateDisplay">13 August 2026</strong>. Verification begins immediately after you apply.</span>
+    <span class="notice-date"><i class="fas fa-clock"></i> <span id="daysLeft">0</span> days left</span>
+  </div>
+
+  <div class="section-title">🚀 Available job opportunities</div>
+  <!-- Filter Tabs -->
+  <div class="filter-tabs" id="filterTabs">
+    <button class="filter-tab active" data-category="all">All</button>
+    <button class="filter-tab" data-category="driver">Drivers</button>
+    <button class="filter-tab" data-category="cleaner">Cleaners</button>
+    <button class="filter-tab" data-category="caretaker">Caretakers</button>
+    <button class="filter-tab" data-category="security">Security</button>
+  </div>
+  <div class="jobs-grid" id="jobsContainer"></div>
+</div>
+
+<footer class="main-footer">
+  <p>Housing is a fundamental human need — The Constitution of Kenya, Article 43. Boma Yangu empowers communities through decent work & shelter.</p>
+  <p>📞 Customer Support: 0700 000 000 | 📧 jobs@bomayangu.go.ke</p>
+</footer>
+
+<button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
+
+<!-- Application Modal -->
+<div id="applyModal" class="modal-overlay">
+  <div class="modal-container">
+    <span class="close-modal" id="closeModalBtn">&times;</span>
+    <h3>Apply for a job</h3>
+    <form id="applicationForm">
+      <input type="hidden" id="jobIdField" value="">
+      
+      <div class="form-group">
+        <label>Select Job</label>
+        <select id="jobSelect" required>
+          <option value="">— Choose a job —</option>
+        </select>
+      </div>
+
+      <div class="form-group"><label>Full Name</label><input type="text" id="fullname" required placeholder="e.g. Jane Mwangi"></div>
+      <div class="form-group"><label>ID / Passport</label><input type="text" id="idNumber" required placeholder="e.g. 34567890"></div>
+      <div class="form-group"><label>Phone (M-Pesa)</label><input type="tel" id="phone" required placeholder="0712345678"></div>
+      
+      <!-- County dropdown -->
+      <div class="form-group">
+        <label>County</label>
+        <select id="county" required>
+          <option value="">— Select your county —</option>
+        </select>
+      </div>
+      
+      <!-- Constituency dropdown (dynamic) -->
+      <div class="form-group">
+        <label>Constituency</label>
+        <select id="constituency" required>
+          <option value="">— Select your constituency —</option>
+        </select>
+      </div>
+      
+      <div class="form-group"><label>Email (Optional)</label><input type="email" id="email" placeholder="e.g. applicant@example.com"></div>
+      
+      <div class="document-notice">
+        <i class="fas fa-file-alt" style="margin-right:8px;"></i>
+        <strong>Important:</strong> Please bring all original certifications and supporting documents when you receive a verification message via email or SMS.
+      </div>
+      
+      <div class="payment-options">
+        <button type="button" id="stkPushBtn" class="pay-btn">💳 STK Push (Prompt)</button>
+        <button type="button" id="paybillBtn" class="pay-btn">🏦 Paybill Number</button>
+      </div>
+      <p style="font-size:0.75rem;">Application fee: <strong id="displayFee">KES 78</strong> — payment completes submission.</p>
+    </form>
+  </div>
+</div>
+
+<!-- Paybill Modal -->
+<div id="paybillModal" class="modal-overlay">
+  <div class="modal-container">
+    <span class="close-modal" id="closePaybillModal">&times;</span>
+    <h3>💵 Complete via M-Pesa Paybill</h3>
+    <div style="background:#f0f6f0; padding:1rem; border-radius:20px; margin:1rem 0;">
+      <p><strong>Paybill:</strong> <span id="paybillNumberDisplay">787878</span></p>
+      <p><strong>Account:</strong> <span id="paybillAccRef">YOUR_PHONE</span></p>
+      <p><strong>Amount:</strong> KES <span id="paybillAmount">78</span></p>
+      <p>1. Go to M-Pesa → Lipa na M-Pesa → Paybill<br>2. Enter Business no: <span id="paybillNumberSmall"></span><br>3. Account: your phone number<br>4. Enter amount, PIN to confirm.</p>
+    </div>
+    <button id="confirmPaybillPaid" style="background:#0b5e42; color:white; border:none; width:100%; padding:12px; border-radius:40px;">✅ I have paid — Complete application</button>
+  </div>
+</div>
+
+<script src="assets/js/main.js"></script>
+<script>
+  // ========== CAROUSEL ==========
+  const slides = document.getElementById('carouselSlides');
+  const slideItems = document.querySelectorAll('.carousel-slide');
+  const dotsContainer = document.getElementById('carouselDots');
+  let currentIndex = 0, autoInterval;
+  function createDots() { if(!dotsContainer) return; dotsContainer.innerHTML = ''; slideItems.forEach((_,i)=>{let d=document.createElement('div');d.classList.add('dot');if(i===currentIndex)d.classList.add('active');d.addEventListener('click',()=>goToSlide(i));dotsContainer.appendChild(d);}); }
+  function goToSlide(index) { if(index<0) index=0; if(index>=slideItems.length) index=0; currentIndex=index; slides.style.transform=`translateX(-${currentIndex*100}%)`; document.querySelectorAll('.dot').forEach((d,i)=>{if(i===currentIndex)d.classList.add('active');else d.classList.remove('active');}); }
+  function nextSlide(){ goToSlide(currentIndex+1); }
+  function startAuto(){ autoInterval=setInterval(nextSlide,4000); }
+  function stopAuto(){ clearInterval(autoInterval); }
+  if(slideItems.length){ createDots(); startAuto(); const container=document.querySelector('.carousel-container'); container.addEventListener('mouseenter',stopAuto); container.addEventListener('mouseleave',startAuto); }
+
+  // ========== KENYA COUNTIES & CONSTITUENCIES ==========
+  const kenyaData = {
+    "Baringo": ["Baringo Central", "Baringo East", "Baringo North", "Baringo South", "Eldama Ravine", "Mogotio", "Tiaty"],
+    "Bomet": ["Bomet Central", "Bomet East", "Bomet West", "Chepalungu", "Kipkelion", "Sotik"],
+    "Bungoma": ["Bungoma Central", "Bungoma East", "Bungoma South", "Bumula", "Kanduyi", "Kimilili", "Mt. Elgon", "Sirisia", "Tongaren", "Webuye East", "Webuye West"],
+    "Busia": ["Budalangi", "Butula", "Funyula", "Matayos", "Nambale", "Teso North", "Teso South"],
+    "Elgeyo-Marakwet": ["Keiyo North", "Keiyo South", "Marakwet East", "Marakwet West"],
+    "Embu": ["Embu East", "Embu North", "Embu South", "Manyatta", "Mbeere North", "Mbeere South", "Runyenjes"],
+    "Garissa": ["Balambala", "Dadaab", "Fafi", "Garissa", "Hulugho", "Ijara", "Lagdera"],
+    "Homa Bay": ["Homa Bay", "Homa Bay Town", "Kabondo Kasipul", "Kasipul", "Mbita", "Ndhiwa", "Rangwe", "Suba", "Suba North"],
+    "Isiolo": ["Isiolo", "Merti"],
+    "Kajiado": ["Kajiado Central", "Kajiado East", "Kajiado North", "Kajiado South", "Kajiado West", "Kilome", "Kitengela", "Magadi", "Mashuuru", "Olkejuado", "Oloitoktok"],
+    "Kakamega": ["Butere", "Ikolomani", "Kakamega Central", "Kakamega East", "Kakamega North", "Kakamega South", "Khwisero", "Likuyani", "Lugari", "Malava", "Matungu", "Mumias", "Mumias East", "Mumias West", "Navakholo", "Shinyalu", "Vihiga"],
+    "Kericho": ["Ainamoi", "Belgut", "Bureti", "Kipkelion", "Kipkelion East", "Kipkelion West", "Londiani", "Soin", "Tinet"],
+    "Kiambu": ["Gatundu North", "Gatundu South", "Githunguri", "Juja", "Kabete", "Kasarani", "Kiambaa", "Kiambu", "Kikuyu", "Lari", "Limuru", "Mwiki", "Ndenderu", "Ruiru", "Thika", "Thika Town"],
+    "Kilifi": ["Baharini", "Bamba", "Chonyi", "Ganze", "Kaloleni", "Kilifi", "Kilifi North", "Kilifi South", "Kinango", "Magarini", "Mariakani", "Mtwapa", "Rabai", "Voi"],
+    "Kirinyaga": ["Gichugu", "Kirinyaga Central", "Kirinyaga East", "Kirinyaga West", "Mwea", "Ndia", "Runyenjes"],
+    "Kisii": ["Bonchari", "Bobasi", "Bomachoge", "Bomachoge Chache", "Bomachoge Masaba", "Bombaba", "Kitutu Chache", "Kitutu Masaba", "Nyaribari Chache", "Nyaribari Masaba", "Ragwe", "Sameta", "South Mugirango"],
+    "Kisumu": ["Kisumu Central", "Kisumu East", "Kisumu West", "Nyando", "Nyakach", "Rachuonyo", "Rachuonyo East", "Rachuonyo North", "Rachuonyo South", "Seme"],
+    "Kitui": ["Kitui Central", "Kitui East", "Kitui South", "Kitui West", "Kyuso", "Mumoni", "Mutitu", "Mwingi", "Mwingi Central", "Mwingi East", "Mwingi North", "Mwingi South", "Nguni", "Nzambani", "Tseikuru"],
+    "Kwale": ["Kinango", "Kwale", "Lunga Lunga", "Matuga", "Msambweni"],
+    "Laikipia": ["Laikipia Central", "Laikipia East", "Laikipia North", "Laikipia West", "Nyahururu", "Rumuruti"],
+    "Lamu": ["Lamu", "Lamu East", "Lamu West"],
+    "Machakos": ["Kathiani", "Machakos", "Machakos Central", "Machakos Town", "Masinga", "Matungulu", "Mavoko", "Mwala", "Yatta", "Yatta East"],
+    "Makueni": ["Kaiti", "Kibwezi", "Kibwezi East", "Kibwezi West", "Kilome", "Makindu", "Makueni", "Makueni Central", "Makueni East", "Makueni West", "Mbooni", "Mbooni East", "Mbooni West", "Nzaui"],
+    "Mandera": ["Banisa", "Dabel", "El Wak", "Lafey", "Mandera", "Mandera Central", "Mandera East", "Mandera North", "Mandera South", "Mandera West", "Rhamu"],
+    "Marsabit": ["Laisamis", "Loiyangalani", "Marsabit", "Marsabit Central", "Marsabit East", "Marsabit North", "Marsabit South", "Moyale", "North Horr", "Saku"],
+    "Meru": ["Buuri", "Igembe Central", "Igembe East", "Igembe North", "Igembe South", "Igembe West", "Imenti Central", "Imenti East", "Imenti North", "Imenti South", "Imenti West", "Meru Central", "Meru North", "Meru South", "Nkubu", "Nyambene", "South Imenti", "Tigania", "Tigania East", "Tigania West"],
+    "Migori": ["Awendo", "Kuria East", "Kuria West", "Nyatike", "Rongo", "Suna East", "Suna West", "Uriri"],
+    "Mombasa": ["Changamwe", "Jomvu", "Kisauni", "Likoni", "Mvita", "Nyali"],
+    "Murang'a": ["Gatanga", "Kandara", "Kangema", "Kiharu", "Kigumo", "Maragua", "Mathioya", "Murang'a", "Murang'a East", "Murang'a South", "Murang'a West", "Ruiru"],
+    "Nairobi": ["Dagoretti", "Dagoretti North", "Dagoretti South", "Embakasi", "Embakasi Central", "Embakasi East", "Embakasi North", "Embakasi South", "Embakasi West", "Kamukunji", "Kasarani", "Kasarani North", "Kasarani South", "Kibera", "Lang'ata", "Lang'ata West", "Makadara", "Mathare", "Nairobi Central", "Nairobi East", "Nairobi North", "Nairobi West", "Roysambu", "Ruai", "Starehe", "Westlands"],
+    "Nakuru": ["Bahati", "Gilgil", "Kuresoi", "Kuresoi North", "Kuresoi South", "Molo", "Nakuru", "Nakuru Central", "Nakuru East", "Nakuru North", "Nakuru South", "Nakuru Town", "Naivasha", "Njoro", "Olkalou", "Rongai", "Subukia"],
+    "Nandi": ["Aldai", "Chesumei", "Emgwen", "Kapsabet", "Kosirai", "Mosop", "Nandi Hills", "Tinderet"],
+    "Narok": ["Kilgoris", "Narok", "Narok East", "Narok North", "Narok South", "Narok West", "Trans Mara"],
+    "Nyamira": ["Borabu", "Manga", "Nyamira", "Nyamira North", "Nyamira South", "Nyamira West", "North Mugirango"],
+    "Nyandarua": ["Kinangop", "Kipipiri", "Ndaragwa", "Ol Jorok", "Ol Kalou", "Ol Kalou Central", "Ol Kalou East", "Ol Kalou North", "Ol Kalou South", "Ol Kalou West", "Rurii"],
+    "Nyeri": ["Kieni East", "Kieni West", "Mathira", "Mukurweini", "Nyeri", "Nyeri Central", "Nyeri East", "Nyeri South", "Nyeri Town", "Othaya", "Tetu"],
+    "Samburu": ["Kirisia", "Lodokejek", "Samburu East", "Samburu North", "Samburu West", "Wamba"],
+    "Siaya": ["Alego", "Alego Usonga", "Bondo", "Gem", "Rarieda", "Ugenya", "Ugunja", "Usonga"],
+    "Taita-Taveta": ["Mwatate", "Taita", "Taveta", "Voi", "Wundanyi"],
+    "Tana River": ["Bura", "Galole", "Garsen", "Tana Delta", "Tana North", "Tana River"],
+    "Tharaka-Nithi": ["Chuka", "Igambang'ombe", "Maara", "Mutha", "Tharaka"],
+    "Trans-Nzoia": ["Endebess", "Kiminini", "Kwanza", "Saboti", "Trans-Nzoia East", "Trans-Nzoia West", "Turbo"],
+    "Turkana": ["Kakuma", "Lodwar", "Loima", "Todonyang", "Turbi", "Turkana Central", "Turkana East", "Turkana North", "Turkana South", "Turkana West"],
+    "Uasin Gishu": ["Ainabkoi", "Kapseret", "Kesses", "Moiben", "Soy", "Turbo", "Uasin Gishu Central", "Uasin Gishu East", "Uasin Gishu North", "Uasin Gishu South", "Uasin Gishu West"],
+    "Vihiga": ["Emuhaya", "Hamisi", "Luanda", "Sabatia", "Vihiga"],
+    "Wajir": ["Eldas", "Tarbaj", "Wajir", "Wajir East", "Wajir North", "Wajir South", "Wajir West"],
+    "West Pokot": ["Kacheliba", "Kapenguria", "Pokot South", "West Pokot", "West Pokot East", "West Pokot North", "West Pokot South"]
+  };
+
+  const countySelect = document.getElementById('county');
+  const constituencySelect = document.getElementById('constituency');
+
+  const counties = Object.keys(kenyaData).sort();
+  counties.forEach(county => {
+    const option = document.createElement('option');
+    option.value = county;
+    option.textContent = county;
+    countySelect.appendChild(option);
+  });
+
+  countySelect.addEventListener('change', function() {
+    const selectedCounty = this.value;
+    constituencySelect.innerHTML = '<option value="">— Select your constituency —</option>';
+    if (selectedCounty && kenyaData[selectedCounty]) {
+      const constituencies = kenyaData[selectedCounty].sort();
+      constituencies.forEach(cons => {
+        const option = document.createElement('option');
+        option.value = cons;
+        option.textContent = cons;
+        constituencySelect.appendChild(option);
+      });
+    }
+  });
+
+  // ========== API CONFIG ==========
+  const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+  let allJobs = [];
+
+  async function fetchJobs() {
+    try {
+      const response = await fetch(`${API_BASE}/jobs`);
+      if (!response.ok) {
+        const text = await response.text();
+        throw new Error(`HTTP ${response.status}: ${text}`);
+      }
+      allJobs = await response.json();
+      renderJobs('all');
+    } catch (error) {
+      console.error('Fetch jobs error:', error);
+      showToast('Could not load jobs: ' + error.message, true);
+      allJobs = [];
+      renderJobs('all');
+    }
+  }
+
+  let appConfig = { stkEnabled: true, paybillNumber: "787878", applicationFee: 78, applicationEndDate: "2026-08-13" };
+
+  async function fetchConfig() {
+    try {
+      const response = await fetch(`${API_BASE}/config/public`);
+      if (!response.ok) throw new Error('Failed to fetch config');
+      const data = await response.json();
+      appConfig = data;
+      updateNotice();
+      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+    } catch (error) {
+      console.warn('Could not fetch config, using defaults:', error);
+      appConfig = { stkEnabled: true, paybillNumber: "787878", applicationFee: 78, applicationEndDate: "2026-08-13" };
+      updateNotice();
+      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+    }
+  }
+
+  function renderJobs(filterCategory = 'all') {
+    const container = document.getElementById('jobsContainer');
+    if (!container) return;
+    let filtered = allJobs;
+    if (filterCategory !== 'all') {
+      filtered = allJobs.filter(job => job.category === filterCategory);
+    }
+    container.innerHTML = '';
+    if (filtered.length === 0) {
+      container.innerHTML = `<div class="no-results" style="grid-column:1/-1; text-align:center; padding:2rem; background:white; border-radius:28px;">No jobs found in this category. Try another filter.</div>`;
+      return;
+    }
+    filtered.forEach(job => {
+      let icon = '🧹';
+      if (job.category === 'driver') icon = '🚛';
+      else if (job.category === 'cleaner') icon = '🧽';
+      else if (job.category === 'caretaker') icon = '🏡';
+      else if (job.category === 'security') icon = '🛡️';
+
+      const card = document.createElement('div');
+      card.className = 'job-card';
+      const slots = job.slots;
+      let slotStatus;
+      if (typeof slots === 'string') {
+        slotStatus = `<span class="slots-available">Available in ${slots}</span>`;
+      } else if (slots > 5) {
+        slotStatus = '<span class="slots-available">Available</span>';
+      } else if (slots > 0) {
+        slotStatus = `<span class="slots-few">${slots} slots left</span>`;
+      } else {
+        slotStatus = '<span class="slots-full">No more vacant</span>';
+      }
+      card.innerHTML = `
+        <div class="job-icon">${icon}</div>
+        <div class="job-title">${escapeHtml(job.title)}</div>
+        <div class="job-desc">${escapeHtml(job.description || '')}</div>
+        <div class="job-meta">
+          <span class="job-slots"><i class="fas fa-users"></i> ${slotStatus}</span>
+          <span class="job-salary">💰 KES ${job.salary ? job.salary.toLocaleString() : '0'}/month</span>
+        </div>
+        <button class="apply-btn" data-jobid="${job.id}">Apply Now →</button>
+      `;
+      card.querySelector('.apply-btn').addEventListener('click', () => openApplyModal(job));
+      container.appendChild(card);
+    });
+  }
+
+  function setupFilterTabs() {
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', function() {
+        tabs.forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+        renderJobs(this.dataset.category);
+      });
+    });
+  }
+
+  function populateJobDropdown(selectedId) {
+    const select = document.getElementById('jobSelect');
+    if (!select) return;
+    select.innerHTML = '<option value="">— Choose a job —</option>';
+    allJobs.forEach(job => {
+      const option = document.createElement('option');
+      option.value = job.id;
+      option.textContent = `${job.title} (KES ${job.salary ? job.salary.toLocaleString() : '0'}/month)`;
+      if (job.id === selectedId) option.selected = true;
+      select.appendChild(option);
+    });
+  }
+
+  let pendingApplicationId = null;
+
+  function openApplyModal(job) {
+    populateJobDropdown(job.id);
+    document.getElementById('jobIdField').value = job.id;
+    document.getElementById('fullname').value = '';
+    document.getElementById('idNumber').value = '';
+    document.getElementById('phone').value = '';
+    document.getElementById('county').value = '';
+    document.getElementById('constituency').value = '';
+    document.getElementById('email').value = '';
+    pendingApplicationId = null;
+    document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+    document.getElementById('applyModal').classList.add('active');
+  }
+
+  document.getElementById('jobSelect')?.addEventListener('change', function() {
+    document.getElementById('jobIdField').value = this.value;
+  });
+
+  async function createApplication(formData) {
+    try {
+      const response = await fetch(`${API_BASE}/applications`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      if (!response.ok) {
+        const err = await response.json();
+        throw new Error(err.error || 'Failed to create application');
+      }
+      const data = await response.json();
+      return data.applicationId;
+    } catch (error) {
+      showToast(error.message, true);
+      return null;
+    }
+  }
+
+  async function initiateSTKPush(applicationId, phone) {
+    try {
+      const response = await fetch(`${API_BASE}/payments/stk-push`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ applicationId, phoneNumber: phone })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'STK Push failed');
+      return data;
+    } catch (error) {
+      showToast(error.message, true);
+      return null;
+    }
+  }
+
+  async function initiatePaybill(applicationId, phone) {
+    try {
+      const response = await fetch(`${API_BASE}/payments/paybill`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ applicationId, phoneNumber: phone })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || 'Paybill initiation failed');
+      return data;
+    } catch (error) {
+      showToast(error.message, true);
+      return null;
+    }
+  }
+
+  document.getElementById('stkPushBtn')?.addEventListener('click', async () => {
+    const select = document.getElementById('jobSelect');
+    const selectedJobId = parseInt(select.value);
+    if (!selectedJobId) { showToast("Please select a job", true); return; }
+    const name = document.getElementById('fullname').value.trim();
+    const idNum = document.getElementById('idNumber').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const county = document.getElementById('county').value.trim();
+    const constituency = document.getElementById('constituency').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!name || !idNum || !phone || !county || !constituency) {
+      showToast("Please fill all required fields (County and Constituency are required).", true);
+      return;
+    }
+    if (!/^[0-9]{9,12}$/.test(phone.replace(/\D/g,''))) { showToast("Valid phone number required", true); return; }
+
+    let appId = pendingApplicationId;
+    if (!appId) {
+      appId = await createApplication({
+        fullName: name,
+        idNumber: idNum,
+        phone: phone,
+        county: county,
+        constituency: constituency,
+        email: email || '',
+        jobId: selectedJobId
+      });
+      if (!appId) return;
+      pendingApplicationId = appId;
+    }
+
+    const result = await initiateSTKPush(appId, phone);
+    if (result && result.success) {
+      showToast("✅ STK Push sent! Check your phone to complete payment.");
+      document.getElementById('applyModal').classList.remove('active');
+    }
+  });
+
+  document.getElementById('paybillBtn')?.addEventListener('click', async () => {
+    const select = document.getElementById('jobSelect');
+    const selectedJobId = parseInt(select.value);
+    if (!selectedJobId) { showToast("Please select a job", true); return; }
+    const name = document.getElementById('fullname').value.trim();
+    const idNum = document.getElementById('idNumber').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const county = document.getElementById('county').value.trim();
+    const constituency = document.getElementById('constituency').value.trim();
+    const email = document.getElementById('email').value.trim();
+
+    if (!name || !idNum || !phone || !county || !constituency) {
+      showToast("Please fill all required fields.", true);
+      return;
+    }
+
+    let appId = pendingApplicationId;
+    if (!appId) {
+      appId = await createApplication({
+        fullName: name,
+        idNumber: idNum,
+        phone: phone,
+        county: county,
+        constituency: constituency,
+        email: email || '',
+        jobId: selectedJobId
+      });
+      if (!appId) return;
+      pendingApplicationId = appId;
+    }
+
+    const result = await initiatePaybill(appId, phone);
+    if (result && result.success) {
+      document.getElementById('paybillNumberDisplay').innerText = result.paybillNumber;
+      document.getElementById('paybillNumberSmall').innerText = result.paybillNumber;
+      document.getElementById('paybillAmount').innerText = result.amount;
+      document.getElementById('paybillAccRef').innerText = phone;
+      document.getElementById('paybillModal').classList.add('active');
+      document.getElementById('applyModal').classList.remove('active');
+      window._pendingPaybillAppId = appId;
+    }
+  });
+
+  document.getElementById('confirmPaybillPaid')?.addEventListener('click', () => {
+    const appId = window._pendingPaybillAppId;
+    if (!appId) { showToast("No pending application", true); return; }
+    showToast("✅ Payment submitted! Our team will verify your payment shortly.");
+    document.getElementById('paybillModal').classList.remove('active');
+    delete window._pendingPaybillAppId;
+  });
+
+  function closeModals() {
+    document.getElementById('applyModal').classList.remove('active');
+    document.getElementById('paybillModal').classList.remove('active');
+  }
+
+  document.getElementById('closeModalBtn')?.addEventListener('click', closeModals);
+  document.getElementById('closePaybillModal')?.addEventListener('click', closeModals);
+  window.addEventListener('click', (e) => { if (e.target.classList.contains('modal-overlay')) closeModals(); });
+
+  function showToast(msg, isError = false) {
+    let t = document.querySelector('.toast-msg');
+    if (t) t.remove();
+    let div = document.createElement('div');
+    div.className = 'toast-msg';
+    div.innerText = msg;
+    if (isError) div.style.background = '#b91c1c';
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3500);
+  }
+
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>]/g, m => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;' }[m]));
+  }
+
+  function updateNotice() {
+    const endDate = appConfig.applicationEndDate || '2026-08-13';
+    const d = new Date(endDate + 'T00:00:00');
+    const formatted = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+    document.getElementById('endDateDisplay').textContent = formatted;
+    const now = new Date();
+    const end = new Date(endDate + 'T23:59:59');
+    const diff = Math.ceil((end - now) / (1000 * 60 * 60 * 24));
+    document.getElementById('daysLeft').textContent = diff > 0 ? diff : 0;
+  }
+
+  document.getElementById('adminFloatBtn')?.addEventListener('click', () => {
+    window.location.href = 'admin.html';
+  });
+
+  async function init() {
+    await fetchConfig();
+    await fetchJobs();
+    setupFilterTabs();
+  }
+
+  init();
+</script>
+</body>
+</html>
