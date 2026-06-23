@@ -316,12 +316,22 @@
       ...(authToken && { 'Authorization': `Bearer ${authToken}` })
     };
     const config = { ...options, headers };
-    const response = await fetch(url, config);
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `HTTP ${response.status}`);
+    try {
+      const response = await fetch(url, config);
+      if (!response.ok) {
+        if (response.status === 401 || response.status === 403) {
+          // Token expired or invalid – force logout
+          logout();
+          throw new Error('Session expired. Please log in again.');
+        }
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `HTTP ${response.status}`);
+      }
+      return response.json();
+    } catch (error) {
+      console.error('API fetch error:', error);
+      throw error;
     }
-    return response.json();
   }
 
   function showToast(msg, isError = false) {
@@ -378,6 +388,11 @@
     sessionStorage.removeItem('boma_admin_token');
     document.getElementById('loginOverlay').style.display = 'flex';
     document.getElementById('adminDashboard').style.display = 'none';
+    // Clear any displayed data
+    document.getElementById('jobsTableBody').innerHTML = '';
+    document.getElementById('appsTableBody').innerHTML = '';
+    document.getElementById('totalJobsCount').innerText = '0';
+    document.getElementById('totalAppsCount').innerText = '0';
   }
 
   function checkAuth() {
@@ -640,7 +655,6 @@
     const config = await apiFetch('/admin/config');
     const stkEnabled = config.stk_enabled === 'true' || config.stk_enabled === true;
     document.getElementById("stkToggle").value = stkEnabled ? "enabled" : "disabled";
-    // Paybill removed – no need to set it
     document.getElementById("appFee").value = config.application_fee || 78;
     document.getElementById("appEndDate").value = config.application_end_date || "2026-08-13";
     updateStats();
