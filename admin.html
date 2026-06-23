@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-  <title>Boma Yangu Admin | Professional Dashboard</title>
+  <title>Boma Yangu Admin</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
@@ -18,31 +18,31 @@
       z-index:2000; padding:1rem;
     }
     .login-card {
-      background:white; padding:1.8rem 1.5rem; border-radius:28px;
+      background:white; padding:2rem 1.5rem; border-radius:28px;
       width:100%; max-width:360px; text-align:center;
-      box-shadow:0 20px 40px -12px rgba(0,0,0,0.25);
+      box-shadow:0 20px 40px -12px rgba(0,0,0,0.3);
     }
-    .login-card h2 { font-size:1.5rem; font-weight:700; color:#0b5e42; margin-bottom:0.6rem; }
+    .login-card h2 { font-size:1.6rem; font-weight:700; color:#0b5e42; margin-bottom:0.6rem; }
     .login-card input {
-      width:100%; padding:0.6rem 1rem; margin:0.6rem 0;
+      width:100%; padding:0.7rem 1rem; margin:0.6rem 0;
       border-radius:40px; border:1px solid #e2e8f0;
-      font-size:0.95rem; transition:0.2s; min-height:40px;
+      font-size:0.95rem; transition:0.2s; min-height:44px;
     }
-    .login-card input:focus { outline:none; border-color:#0b5e42; box-shadow:0 0 0 2px rgba(11,94,66,0.1); }
+    .login-card input:focus { outline:none; border-color:#0b5e42; box-shadow:0 0 0 3px rgba(11,94,66,0.1); }
     .login-card button {
       background:#0b5e42; color:white; border:none;
-      padding:0.7rem; width:100%; border-radius:40px;
-      font-weight:600; cursor:pointer; font-size:0.95rem;
-      transition:0.2s; min-height:40px;
+      padding:0.8rem; width:100%; border-radius:40px;
+      font-weight:600; cursor:pointer; font-size:1rem;
+      transition:0.2s; min-height:48px;
     }
     .login-card button:hover { background:#094b35; transform:translateY(-1px); }
-    .error-msg { color:#dc2626; margin-top:6px; font-size:0.8rem; }
+    .error-msg { color:#dc2626; margin-top:6px; font-size:0.85rem; }
 
     .password-wrapper { position:relative; width:100%; margin:0.4rem 0; }
-    .password-wrapper input { width:100%; padding-right:40px; }
+    .password-wrapper input { width:100%; padding-right:44px; }
     .toggle-password {
-      position:absolute; right:12px; top:50%; transform:translateY(-50%);
-      cursor:pointer; color:#6b7280; font-size:1rem; padding:2px;
+      position:absolute; right:14px; top:50%; transform:translateY(-50%);
+      cursor:pointer; color:#6b7280; font-size:1.1rem; padding:4px;
     }
     .toggle-password:hover { color:#0b5e42; }
 
@@ -55,37 +55,39 @@
       background:white; border-radius:20px; padding:0.6rem 1rem;
       display:flex; flex-wrap:wrap; justify-content:space-between;
       align-items:center; gap:0.6rem; margin-bottom:1rem;
-      box-shadow:0 2px 8px rgba(0,0,0,0.02); border:1px solid #eef2f6;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04); border:1px solid #eef2f6;
     }
     .dashboard-header h1 {
-      font-size:1.1rem; font-weight:700; color:#0b5e42;
-      display:flex; align-items:center; gap:6px;
+      font-size:1.2rem; font-weight:700; color:#0b5e42;
+      display:flex; align-items:center; gap:8px;
     }
     .logout-btn {
-      background:#f1f5f9; border:none; padding:0.3rem 1rem;
-      border-radius:30px; font-weight:500; cursor:pointer;
+      background:#f1f5f9; border:none; padding:0.4rem 1.2rem;
+      border-radius:30px; font-weight:600; cursor:pointer;
       transition:0.2s; display:flex; align-items:center; gap:6px;
-      min-height:34px; font-size:0.85rem;
+      min-height:38px; font-size:0.85rem; color:#1e293b;
     }
-    .logout-btn:hover { background:#e2e8f0; }
+    .logout-btn:hover { background:#e2e8f0; color:#0b5e42; }
 
+    /* ---------- STATS ROW (horizontal) ---------- */
     .stats-grid {
-      display:flex; gap:0.6rem; margin-bottom:1rem; flex-wrap:wrap;
+      display:flex; gap:0.5rem; margin-bottom:1rem; flex-wrap:nowrap;
+      overflow-x:auto; padding-bottom:0.2rem;
     }
     .stat-card {
-      background:white; border-radius:18px; padding:0.6rem 1rem;
-      flex:1; min-width:100px; border:1px solid #eef2f8;
-      display:flex; align-items:center; gap:0.5rem;
-      box-shadow:0 1px 4px rgba(0,0,0,0.01);
+      background:white; border-radius:16px; padding:0.4rem 0.8rem;
+      flex:0 0 auto; min-width:80px; border:1px solid #eef2f8;
+      display:flex; align-items:center; gap:0.4rem;
+      box-shadow:0 1px 4px rgba(0,0,0,0.02);
     }
-    .stat-icon { font-size:1.4rem; color:#0b5e42; }
-    .stat-info h3 { font-size:1.2rem; font-weight:800; color:#0f2c24; }
-    .stat-info p { color:#5b6e8c; font-weight:500; font-size:0.7rem; }
+    .stat-icon { font-size:1.2rem; color:#0b5e42; }
+    .stat-info h3 { font-size:1rem; font-weight:700; color:#0f2c24; }
+    .stat-info p { color:#5b6e8c; font-weight:500; font-size:0.6rem; text-transform:uppercase; letter-spacing:0.3px; }
 
     .section {
       background:white; border-radius:20px; padding:0.8rem;
       margin-bottom:1rem; border:1px solid #eef2f6;
-      box-shadow:0 2px 8px rgba(0,0,0,0.01);
+      box-shadow:0 2px 8px rgba(0,0,0,0.02);
     }
     .section-title {
       font-size:1rem; font-weight:700; margin-bottom:0.6rem;
@@ -159,7 +161,7 @@
       border-radius:40px;
     }
     .config-row label {
-      font-weight:600; min-width:120px; color:#1e293b;
+      font-weight:600; min-width:100px; color:#1e293b;
       font-size:0.8rem;
     }
     .config-row input, .config-row select {
@@ -187,19 +189,19 @@
     /* ---------- RESPONSIVE ---------- */
     @media (max-width:768px) {
       .dashboard { padding:0.4rem; }
-      .dashboard-header { flex-direction:column; align-items:stretch; text-align:center; padding:0.6rem; }
-      .dashboard-header h1 { justify-content:center; font-size:1rem; }
-      .logout-btn { justify-content:center; }
-      .stats-grid { flex-direction:column; gap:0.4rem; }
-      .stat-card { min-width:unset; padding:0.4rem 0.8rem; }
-      .stat-icon { font-size:1.2rem; }
-      .stat-info h3 { font-size:1rem; }
-      .stat-info p { font-size:0.65rem; }
+      .dashboard-header { padding:0.4rem 0.6rem; }
+      .dashboard-header h1 { font-size:1rem; }
+      .logout-btn { font-size:0.75rem; padding:0.2rem 0.8rem; min-height:32px; }
+      .stats-grid { gap:0.3rem; }
+      .stat-card { padding:0.2rem 0.6rem; min-width:70px; }
+      .stat-icon { font-size:1rem; }
+      .stat-info h3 { font-size:0.9rem; }
+      .stat-info p { font-size:0.55rem; }
       .add-job-form { flex-direction:column; align-items:stretch; }
       .add-job-form input, .add-job-form textarea { min-width:unset; }
       .config-row {
         flex-direction:column; align-items:stretch;
-        border-radius:20px; padding:0.4rem 0.8rem;
+        border-radius:20px; padding:0.4rem 0.6rem;
       }
       .config-row label { min-width:unset; }
       .config-row .btn-primary { align-self:flex-end; }
@@ -213,8 +215,8 @@
 
     @media (max-width:480px) {
       .login-card { padding:1.2rem; }
-      .login-card h2 { font-size:1.2rem; }
-      .stat-card { flex-direction:column; text-align:center; }
+      .login-card h2 { font-size:1.3rem; }
+      .stat-card { flex-direction:column; text-align:center; padding:0.3rem 0.4rem; min-width:60px; }
       .stat-icon { margin-bottom:0.1rem; }
       .config-row input, .config-row select { min-height:30px; }
     }
@@ -244,14 +246,23 @@
     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
 
-  <div class="stats-grid">
+  <!-- Stats in horizontal row -->
+  <div class="stats-grid" id="statsGrid">
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
       <div class="stat-info"><h3 id="totalJobsCount">0</h3><p>Jobs</p></div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-users"></i></div>
-      <div class="stat-info"><h3 id="totalAppsCount">0</h3><p>Applications</p></div>
+      <div class="stat-info"><h3 id="totalAppsCount">0</h3><p>Apps</p></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-clock"></i></div>
+      <div class="stat-info"><h3 id="pendingAppsCount">0</h3><p>Pending</p></div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+      <div class="stat-info"><h3 id="completedAppsCount">0</h3><p>Completed</p></div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-mobile-alt"></i></div>
@@ -451,6 +462,8 @@
     document.getElementById('appsTableBody').innerHTML = '';
     document.getElementById('totalJobsCount').innerText = '0';
     document.getElementById('totalAppsCount').innerText = '0';
+    document.getElementById('pendingAppsCount').innerText = '0';
+    document.getElementById('completedAppsCount').innerText = '0';
   }
 
   function checkAuth() {
@@ -675,6 +688,15 @@
   async function loadApplications() {
     const apps = await apiFetch('/admin/applications');
     renderApplicationsTable(apps);
+    // Update pending and completed counts
+    let pending = 0, completed = 0;
+    apps.forEach(app => {
+      if (app.status === 'paid' || app.status === 'completed') completed++;
+      else pending++;
+    });
+    document.getElementById('pendingAppsCount').innerText = pending;
+    document.getElementById('completedAppsCount').innerText = completed;
+    document.getElementById('totalAppsCount').innerText = apps.length;
     return apps;
   }
 
@@ -704,7 +726,6 @@
         row.insertCell(9).innerText = app.payment_method || "—";
       });
     }
-    document.getElementById("totalAppsCount").innerText = apps.length;
   }
 
   // ---------- CONFIG ----------
@@ -724,8 +745,9 @@
         method: 'PUT',
         body: JSON.stringify({ key, value })
       });
+      // Reload config to reflect changes immediately
+      await loadConfig();
       showToast(`Config updated: ${key} = ${value}`);
-      loadConfig();
     } catch (e) {
       showToast(e.message, true);
     }
