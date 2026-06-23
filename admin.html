@@ -4,237 +4,219 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Boma Yangu Admin | Professional Dashboard</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', sans-serif; background: #f1f5f9; color: #1a2c3e; line-height: 1.5; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f1f5f9; color:#1a2c3e; line-height:1.4; }
 
     /* ---------- LOGIN ---------- */
     .login-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(135deg, #0b2f26 0%, #1a4d3e 100%);
-      display: flex; align-items: center; justify-content: center; z-index: 2000;
-      padding: 1rem;
+      position:fixed; top:0; left:0; width:100%; height:100%;
+      background:linear-gradient(135deg,#0b2f26 0%,#1a4d3e 100%);
+      display:flex; align-items:center; justify-content:center;
+      z-index:2000; padding:1rem;
     }
     .login-card {
-      background: white; padding: 2.5rem 2rem; border-radius: 32px;
-      width: 100%; max-width: 400px;
-      text-align: center; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      background:white; padding:1.8rem 1.5rem; border-radius:28px;
+      width:100%; max-width:360px; text-align:center;
+      box-shadow:0 20px 40px -12px rgba(0,0,0,0.25);
     }
-    .login-card h2 { font-size: 1.8rem; font-weight: 700; color: #0b5e42; margin-bottom: 1rem; }
+    .login-card h2 { font-size:1.5rem; font-weight:700; color:#0b5e42; margin-bottom:0.6rem; }
     .login-card input {
-      width: 100%; padding: 14px 18px; margin: 12px 0;
-      border-radius: 60px; border: 1px solid #e2e8f0;
-      font-size: 1rem; transition: 0.2s;
-      min-height: 48px;
+      width:100%; padding:0.6rem 1rem; margin:0.6rem 0;
+      border-radius:40px; border:1px solid #e2e8f0;
+      font-size:0.95rem; transition:0.2s; min-height:40px;
     }
-    .login-card input:focus { outline: none; border-color: #0b5e42; box-shadow: 0 0 0 3px rgba(11,94,66,0.1); }
+    .login-card input:focus { outline:none; border-color:#0b5e42; box-shadow:0 0 0 2px rgba(11,94,66,0.1); }
     .login-card button {
-      background: #0b5e42; color: white; border: none;
-      padding: 14px; width: 100%; border-radius: 60px;
-      font-weight: 600; cursor: pointer; font-size: 1rem;
-      transition: 0.2s; min-height: 48px;
+      background:#0b5e42; color:white; border:none;
+      padding:0.7rem; width:100%; border-radius:40px;
+      font-weight:600; cursor:pointer; font-size:0.95rem;
+      transition:0.2s; min-height:40px;
     }
-    .login-card button:hover { background: #094b35; transform: translateY(-1px); }
-    .error-msg { color: #dc2626; margin-top: 12px; font-size: 0.85rem; }
+    .login-card button:hover { background:#094b35; transform:translateY(-1px); }
+    .error-msg { color:#dc2626; margin-top:6px; font-size:0.8rem; }
 
-    .password-wrapper { position: relative; width: 100%; margin: 12px 0; }
-    .password-wrapper input { width: 100%; padding-right: 50px; }
+    .password-wrapper { position:relative; width:100%; margin:0.4rem 0; }
+    .password-wrapper input { width:100%; padding-right:40px; }
     .toggle-password {
-      position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
-      cursor: pointer; color: #6b7280; font-size: 1.2rem;
-      padding: 4px;
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      cursor:pointer; color:#6b7280; font-size:1rem; padding:2px;
     }
-    .toggle-password:hover { color: #0b5e42; }
+    .toggle-password:hover { color:#0b5e42; }
 
     /* ---------- DASHBOARD ---------- */
     .dashboard {
-      display: none;
-      max-width: 1440px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem;
+      display:none; max-width:1440px; margin:0 auto;
+      padding:0.8rem 0.6rem;
     }
     .dashboard-header {
-      background: white; border-radius: 28px; padding: 1.2rem 1.5rem;
-      display: flex; flex-wrap: wrap;
-      justify-content: space-between; align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
-      border: 1px solid #eef2f6;
+      background:white; border-radius:20px; padding:0.6rem 1rem;
+      display:flex; flex-wrap:wrap; justify-content:space-between;
+      align-items:center; gap:0.6rem; margin-bottom:1rem;
+      box-shadow:0 2px 8px rgba(0,0,0,0.02); border:1px solid #eef2f6;
     }
     .dashboard-header h1 {
-      font-size: 1.4rem; font-weight: 700; color: #0b5e42;
-      display: flex; align-items: center; gap: 8px;
+      font-size:1.1rem; font-weight:700; color:#0b5e42;
+      display:flex; align-items:center; gap:6px;
     }
     .logout-btn {
-      background: #f1f5f9; border: none; padding: 8px 18px;
-      border-radius: 40px; font-weight: 500; cursor: pointer;
-      transition: 0.2s; display: flex; align-items: center; gap: 8px;
-      min-height: 44px;
+      background:#f1f5f9; border:none; padding:0.3rem 1rem;
+      border-radius:30px; font-weight:500; cursor:pointer;
+      transition:0.2s; display:flex; align-items:center; gap:6px;
+      min-height:34px; font-size:0.85rem;
     }
-    .logout-btn:hover { background: #e2e8f0; }
+    .logout-btn:hover { background:#e2e8f0; }
 
     .stats-grid {
-      display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap;
+      display:flex; gap:0.6rem; margin-bottom:1rem; flex-wrap:wrap;
     }
     .stat-card {
-      background: white; border-radius: 24px; padding: 1rem 1.5rem;
-      flex: 1; min-width: 140px; border: 1px solid #eef2f8;
-      display: flex; align-items: center; gap: 0.8rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      background:white; border-radius:18px; padding:0.6rem 1rem;
+      flex:1; min-width:100px; border:1px solid #eef2f8;
+      display:flex; align-items:center; gap:0.5rem;
+      box-shadow:0 1px 4px rgba(0,0,0,0.01);
     }
-    .stat-icon { font-size: 2rem; color: #0b5e42; }
-    .stat-info h3 { font-size: 1.6rem; font-weight: 800; color: #0f2c24; }
-    .stat-info p { color: #5b6e8c; font-weight: 500; font-size: 0.9rem; }
+    .stat-icon { font-size:1.4rem; color:#0b5e42; }
+    .stat-info h3 { font-size:1.2rem; font-weight:800; color:#0f2c24; }
+    .stat-info p { color:#5b6e8c; font-weight:500; font-size:0.7rem; }
 
     .section {
-      background: white; border-radius: 28px; padding: 1.5rem;
-      margin-bottom: 2rem; border: 1px solid #eef2f6;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+      background:white; border-radius:20px; padding:0.8rem;
+      margin-bottom:1rem; border:1px solid #eef2f6;
+      box-shadow:0 2px 8px rgba(0,0,0,0.01);
     }
     .section-title {
-      font-size: 1.3rem; font-weight: 700; margin-bottom: 1.2rem;
-      display: flex; align-items: center; gap: 10px;
-      border-left: 4px solid #0b5e42; padding-left: 1rem;
+      font-size:1rem; font-weight:700; margin-bottom:0.6rem;
+      display:flex; align-items:center; gap:6px;
+      border-left:3px solid #0b5e42; padding-left:0.6rem;
     }
-    .section-title i { color: #0b5e42; }
+    .section-title i { color:#0b5e42; }
 
     /* ---------- TABLES ---------- */
     .table-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      margin: 0 -0.5rem;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      margin:0 -0.3rem;
     }
     .jobs-table, .applications-table {
-      width: 100%; border-collapse: collapse;
-      min-width: 600px;
+      width:100%; border-collapse:collapse; min-width:500px;
     }
     .jobs-table th, .applications-table th {
-      text-align: left; padding: 0.8rem 0.5rem;
-      color: #4a627a; font-weight: 600;
-      border-bottom: 2px solid #eef2f8;
-      white-space: nowrap;
-      font-size: 0.85rem;
+      text-align:left; padding:0.4rem 0.3rem;
+      color:#4a627a; font-weight:600; border-bottom:1px solid #eef2f8;
+      white-space:nowrap; font-size:0.7rem;
     }
     .jobs-table td, .applications-table td {
-      padding: 0.8rem 0.5rem;
-      border-bottom: 1px solid #f0f4fa;
-      vertical-align: middle;
-      font-size: 0.85rem;
+      padding:0.4rem 0.3rem; border-bottom:1px solid #f0f4fa;
+      vertical-align:middle; font-size:0.75rem;
     }
-    .jobs-table tr:hover td { background: #fafcfd; }
+    .jobs-table tr:hover td { background:#fafcfd; }
     .jobs-table input, .jobs-table select {
-      padding: 6px 10px; border-radius: 20px;
-      border: 1px solid #cfdfed; width: 100%; min-width: 70px;
-      font-family: inherit; background: white;
-      min-height: 36px;
+      padding:2px 6px; border-radius:16px; border:1px solid #cfdfed;
+      width:100%; min-width:60px; font-family:inherit;
+      background:white; min-height:28px; font-size:0.7rem;
     }
-    .category-input { min-width: 100px; }
-    .salary-input { width: 100px; text-align: center; }
-    .slot-type-select { min-width: 110px; }
-    .slot-value-input { width: 80px; }
+    .category-input { min-width:80px; }
+    .salary-input { width:80px; text-align:center; }
+    .slot-type-select { min-width:90px; }
+    .slot-value-input { width:60px; }
 
     .action-btn {
-      background: #f1f5f9; border: none; padding: 6px 12px;
-      border-radius: 30px; cursor: pointer; font-size: 0.8rem;
-      margin-right: 4px; transition: 0.2s;
-      min-height: 32px;
+      background:#f1f5f9; border:none; padding:2px 8px;
+      border-radius:20px; cursor:pointer; font-size:0.7rem;
+      margin-right:2px; transition:0.2s; min-height:24px;
     }
-    .action-btn:hover { background: #e2e8f0; }
-    .delete-btn { color: #b91c1c; }
-    .delete-btn:hover { background: #fee2e2; }
+    .action-btn:hover { background:#e2e8f0; }
+    .delete-btn { color:#b91c1c; }
+    .delete-btn:hover { background:#fee2e2; }
 
-    /* ---------- ADD JOB FORM ---------- */
+    /* ---------- ADD JOB ---------- */
     .add-job-form {
-      display: flex; flex-wrap: wrap; gap: 0.8rem;
-      margin-top: 1.5rem; align-items: flex-end;
+      display:flex; flex-wrap:wrap; gap:0.5rem;
+      margin-top:0.8rem; align-items:flex-end;
     }
     .add-job-form input, .add-job-form textarea {
-      padding: 10px 16px; border-radius: 40px;
-      border: 1px solid #cfdfed; flex: 1; min-width: 140px;
-      background: white; min-height: 44px;
-      font-size: 0.9rem;
+      padding:0.3rem 0.8rem; border-radius:30px;
+      border:1px solid #cfdfed; flex:1; min-width:120px;
+      background:white; min-height:34px; font-size:0.8rem;
     }
     .btn-primary {
-      background: #0b5e42; color: white; border: none;
-      padding: 10px 20px; border-radius: 40px;
-      font-weight: 600; cursor: pointer; transition: 0.2s;
-      min-height: 44px; display: inline-flex;
-      align-items: center; gap: 6px;
+      background:#0b5e42; color:white; border:none;
+      padding:0.3rem 1rem; border-radius:30px;
+      font-weight:600; cursor:pointer; transition:0.2s;
+      min-height:34px; display:inline-flex; align-items:center;
+      gap:4px; font-size:0.8rem;
     }
-    .btn-primary:hover { background: #094b35; transform: translateY(-1px); }
+    .btn-primary:hover { background:#094b35; transform:translateY(-1px); }
 
-    /* ---------- CONFIG ROWS ---------- */
+    /* ---------- CONFIG ---------- */
     .config-row {
-      display: flex; flex-wrap: wrap; align-items: center;
-      gap: 0.8rem; margin-bottom: 1rem;
-      background: #fafcfd; padding: 0.6rem 1rem;
-      border-radius: 60px;
+      display:flex; flex-wrap:wrap; align-items:center;
+      gap:0.4rem; margin-bottom:0.4rem;
+      background:#fafcfd; padding:0.3rem 0.8rem;
+      border-radius:40px;
     }
     .config-row label {
-      font-weight: 600; min-width: 160px; color: #1e293b;
-      font-size: 0.9rem;
+      font-weight:600; min-width:120px; color:#1e293b;
+      font-size:0.8rem;
     }
     .config-row input, .config-row select {
-      padding: 8px 16px; border-radius: 40px;
-      border: 1px solid #cfdfed; background: white;
-      flex: 1; min-width: 120px; min-height: 44px;
-      font-size: 0.9rem;
+      padding:0.2rem 0.8rem; border-radius:30px;
+      border:1px solid #cfdfed; background:white;
+      flex:1; min-width:100px; min-height:34px;
+      font-size:0.8rem;
     }
-    .config-row .btn-primary { padding: 6px 16px; flex: 0 0 auto; min-height: 40px; }
-    .config-row .helper { font-size: 0.7rem; color: #6b7280; }
+    .config-row .btn-primary { padding:0.2rem 0.8rem; min-height:30px; font-size:0.75rem; }
+    .config-row .helper { font-size:0.6rem; color:#6b7280; }
 
-    hr { margin: 1.5rem 0; border: 0; border-top: 1px solid #eef2f8; }
+    hr { margin:0.6rem 0; border:0; border-top:1px solid #eef2f8; }
 
     /* ---------- TOAST ---------- */
     .toast {
-      position: fixed; bottom: 20px; left: 20px; right: 20px;
-      max-width: 400px; margin: 0 auto;
-      background: #1e293b; color: white; padding: 12px 24px;
-      border-radius: 60px; z-index: 999; font-weight: 500;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      text-align: center;
+      position:fixed; bottom:16px; left:16px; right:16px;
+      max-width:360px; margin:0 auto;
+      background:#1e293b; color:white; padding:8px 16px;
+      border-radius:40px; z-index:999; font-weight:500;
+      box-shadow:0 4px 12px rgba(0,0,0,0.15);
+      text-align:center; font-size:0.85rem;
     }
-    .toast.error { background: #b91c1c; }
+    .toast.error { background:#b91c1c; }
 
     /* ---------- RESPONSIVE ---------- */
-    @media (max-width: 768px) {
-      .dashboard { padding: 0.8rem; }
-      .dashboard-header {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-        padding: 1rem;
-      }
-      .dashboard-header h1 { justify-content: center; font-size: 1.2rem; }
-      .logout-btn { justify-content: center; }
-      .stats-grid { flex-direction: column; }
-      .stat-card { min-width: unset; }
-      .add-job-form { flex-direction: column; align-items: stretch; }
-      .add-job-form input, .add-job-form textarea { min-width: unset; }
+    @media (max-width:768px) {
+      .dashboard { padding:0.4rem; }
+      .dashboard-header { flex-direction:column; align-items:stretch; text-align:center; padding:0.6rem; }
+      .dashboard-header h1 { justify-content:center; font-size:1rem; }
+      .logout-btn { justify-content:center; }
+      .stats-grid { flex-direction:column; gap:0.4rem; }
+      .stat-card { min-width:unset; padding:0.4rem 0.8rem; }
+      .stat-icon { font-size:1.2rem; }
+      .stat-info h3 { font-size:1rem; }
+      .stat-info p { font-size:0.65rem; }
+      .add-job-form { flex-direction:column; align-items:stretch; }
+      .add-job-form input, .add-job-form textarea { min-width:unset; }
       .config-row {
-        flex-direction: column;
-        align-items: stretch;
-        border-radius: 30px;
-        padding: 0.8rem 1rem;
+        flex-direction:column; align-items:stretch;
+        border-radius:20px; padding:0.4rem 0.8rem;
       }
-      .config-row label { min-width: unset; }
-      .config-row .btn-primary { align-self: flex-end; }
-      .jobs-table, .applications-table { font-size: 0.75rem; }
-      .jobs-table th, .applications-table th { padding: 0.5rem 0.3rem; }
-      .jobs-table td, .applications-table td { padding: 0.5rem 0.3rem; }
-      .jobs-table input, .jobs-table select { min-height: 32px; font-size: 0.75rem; }
-      .section { padding: 1rem; }
-      .section-title { font-size: 1.1rem; }
+      .config-row label { min-width:unset; }
+      .config-row .btn-primary { align-self:flex-end; }
+      .jobs-table, .applications-table { font-size:0.65rem; min-width:400px; }
+      .jobs-table th, .applications-table th { padding:0.3rem 0.2rem; }
+      .jobs-table td, .applications-table td { padding:0.3rem 0.2rem; }
+      .jobs-table input, .jobs-table select { min-height:24px; font-size:0.65rem; }
+      .section { padding:0.6rem; }
+      .section-title { font-size:0.9rem; }
     }
 
-    @media (max-width: 480px) {
-      .login-card { padding: 1.5rem; }
-      .login-card h2 { font-size: 1.4rem; }
-      .stat-card { flex-direction: column; text-align: center; }
-      .stat-icon { margin-bottom: 0.2rem; }
+    @media (max-width:480px) {
+      .login-card { padding:1.2rem; }
+      .login-card h2 { font-size:1.2rem; }
+      .stat-card { flex-direction:column; text-align:center; }
+      .stat-icon { margin-bottom:0.1rem; }
+      .config-row input, .config-row select { min-height:30px; }
     }
   </style>
 </head>
@@ -251,21 +233,21 @@
     </div>
     <button id="loginBtn"><i class="fas fa-sign-in-alt"></i> Login</button>
     <div id="loginError" class="error-msg"></div>
-    <p style="margin-top: 0.5rem; font-size: 0.75rem; color: #6b7280;">Use your admin credentials</p>
+    <p style="margin-top:0.3rem; font-size:0.7rem; color:#6b7280;">Use your admin credentials</p>
   </div>
 </div>
 
 <!-- ========== DASHBOARD ========== -->
 <div id="adminDashboard" class="dashboard">
   <div class="dashboard-header">
-    <h1><i class="fas fa-building"></i> Boma Yangu – Admin Console</h1>
+    <h1><i class="fas fa-building"></i> Boma Yangu Admin</h1>
     <button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</button>
   </div>
 
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-briefcase"></i></div>
-      <div class="stat-info"><h3 id="totalJobsCount">0</h3><p>Total Jobs</p></div>
+      <div class="stat-info"><h3 id="totalJobsCount">0</h3><p>Jobs</p></div>
     </div>
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-users"></i></div>
@@ -273,118 +255,111 @@
     </div>
     <div class="stat-card">
       <div class="stat-icon"><i class="fas fa-mobile-alt"></i></div>
-      <div class="stat-info"><h3 id="stkStatusBadge">Enabled</h3><p>STK Push Mode</p></div>
+      <div class="stat-info"><h3 id="stkStatusBadge">Enabled</h3><p>STK Push</p></div>
     </div>
   </div>
 
   <!-- Manage Jobs -->
   <div class="section">
-    <div class="section-title"><i class="fas fa-tasks"></i> Manage Job Vacancies</div>
+    <div class="section-title"><i class="fas fa-tasks"></i> Manage Jobs</div>
     <div class="table-wrapper">
       <table class="jobs-table">
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Job Title</th>
-            <th>Description</th>
-            <th>Category</th>
-            <th>Salary (KES)</th>
-            <th>Slots</th>
-            <th>Actions</th>
+            <th>ID</th><th>Title</th><th>Desc</th><th>Category</th>
+            <th>Salary</th><th>Slots</th><th>Actions</th>
           </tr>
         </thead>
         <tbody id="jobsTableBody"></tbody>
       </table>
     </div>
     <div class="add-job-form">
-      <input type="text" id="newJobTitle" placeholder="Job title">
+      <input type="text" id="newJobTitle" placeholder="Title">
       <input type="text" id="newJobDesc" placeholder="Description">
       <input type="text" id="newJobCategory" placeholder="Category">
-      <input type="number" id="newJobSalary" placeholder="Salary (KES)">
-      <div style="display:flex; gap:0.5rem; align-items:center; flex:1; min-width:180px;">
-        <select id="newSlotType" style="padding:10px 16px; border-radius:40px; border:1px solid #cfdfed; flex:1; min-height:44px;">
-          <option value="number">Number of slots</option>
-          <option value="none">No slots</option>
-          <option value="county">Available in ...</option>
+      <input type="number" id="newJobSalary" placeholder="Salary">
+      <div style="display:flex; gap:0.3rem; align-items:center; flex:1; min-width:150px;">
+        <select id="newSlotType" style="padding:0.3rem 0.6rem; border-radius:30px; border:1px solid #cfdfed; flex:1; min-height:34px;">
+          <option value="number">Number</option>
+          <option value="none">None</option>
+          <option value="county">County</option>
         </select>
-        <input type="text" id="newSlotValue" placeholder="e.g. 5 or Nairobi" style="padding:10px 16px; border-radius:40px; border:1px solid #cfdfed; flex:1; min-height:44px;">
+        <input type="text" id="newSlotValue" placeholder="e.g. 5" style="padding:0.3rem 0.6rem; border-radius:30px; border:1px solid #cfdfed; flex:1; min-height:34px;">
       </div>
-      <button id="addJobBtn" class="btn-primary"><i class="fas fa-plus"></i> Add Job</button>
+      <button id="addJobBtn" class="btn-primary"><i class="fas fa-plus"></i> Add</button>
     </div>
   </div>
 
   <!-- Settings -->
   <div class="section">
-    <div class="section-title"><i class="fas fa-sliders-h"></i> M-Pesa & Application Settings</div>
+    <div class="section-title"><i class="fas fa-sliders-h"></i> Settings</div>
 
     <div class="config-row">
-      <label><i class="fas fa-bell"></i> STK Push Simulation</label>
+      <label><i class="fas fa-bell"></i> STK Push</label>
       <select id="stkToggle">
-        <option value="enabled">Enabled (auto-approve)</option>
-        <option value="disabled">Disabled (simulate failure)</option>
+        <option value="enabled">Enabled</option>
+        <option value="disabled">Disabled</option>
       </select>
-      <span class="helper">Affects main page payment flow</span>
+      <span class="helper">Main page</span>
     </div>
 
-    <!-- Paybill removed -->
-
     <div class="config-row">
-      <label><i class="fas fa-money-bill-wave"></i> Application Fee (KES)</label>
-      <input type="number" id="appFee" value="78" step="1" style="max-width:140px;">
+      <label><i class="fas fa-money-bill-wave"></i> Fee (KES)</label>
+      <input type="number" id="appFee" value="78" step="1" style="max-width:100px;">
       <button id="updateFeeBtn" class="btn-primary">Update</button>
     </div>
 
     <div class="config-row">
-      <label><i class="fas fa-calendar-alt"></i> Application End Date</label>
-      <input type="date" id="appEndDate" style="max-width:200px;">
+      <label><i class="fas fa-calendar-alt"></i> End Date</label>
+      <input type="date" id="appEndDate" style="max-width:160px;">
       <button id="updateEndDateBtn" class="btn-primary">Update</button>
-      <span class="helper">Shown on homepage</span>
+      <span class="helper">Homepage</span>
     </div>
 
     <hr>
 
-    <div class="section-title" style="margin-top:0;"><i class="fas fa-key"></i> Admin Password</div>
+    <div class="section-title" style="margin-top:0;"><i class="fas fa-key"></i> Password</div>
     <div class="config-row">
-      <label>Current Password</label>
+      <label>Current</label>
       <div class="password-wrapper" style="flex:1; margin:0;">
-        <input type="password" id="currentPassword" placeholder="Current password" style="width:100%; padding-right:50px; min-height:44px;">
-        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleCurrentPassword"></i>
+        <input type="password" id="currentPassword" placeholder="Current" style="width:100%; padding-right:36px; min-height:34px;">
+        <i class="fas fa-eye toggle-password" style="right:10px;" id="toggleCurrentPassword"></i>
       </div>
     </div>
     <div class="config-row">
-      <label>New Password</label>
+      <label>New</label>
       <div class="password-wrapper" style="flex:1; margin:0;">
-        <input type="password" id="newPassword" placeholder="New password" style="width:100%; padding-right:50px; min-height:44px;">
-        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleNewPassword"></i>
+        <input type="password" id="newPassword" placeholder="New" style="width:100%; padding-right:36px; min-height:34px;">
+        <i class="fas fa-eye toggle-password" style="right:10px;" id="toggleNewPassword"></i>
       </div>
     </div>
     <div class="config-row">
-      <label>Confirm New Password</label>
+      <label>Confirm</label>
       <div class="password-wrapper" style="flex:1; margin:0;">
-        <input type="password" id="confirmPassword" placeholder="Confirm new password" style="width:100%; padding-right:50px; min-height:44px;">
-        <i class="fas fa-eye toggle-password" style="right:18px;" id="toggleConfirmPassword"></i>
+        <input type="password" id="confirmPassword" placeholder="Confirm" style="width:100%; padding-right:36px; min-height:34px;">
+        <i class="fas fa-eye toggle-password" style="right:10px;" id="toggleConfirmPassword"></i>
       </div>
     </div>
     <div class="config-row" style="justify-content:flex-end;">
-      <button id="changePasswordBtn" class="btn-primary"><i class="fas fa-save"></i> Update Password</button>
+      <button id="changePasswordBtn" class="btn-primary"><i class="fas fa-save"></i> Update</button>
     </div>
 
     <hr>
 
-    <div class="section-title" style="margin-top: 0;"><i class="fas fa-list-ul"></i> Recent Applications</div>
+    <div class="section-title" style="margin-top:0;"><i class="fas fa-list-ul"></i> Recent Applications</div>
     <div class="table-wrapper">
       <table class="applications-table">
         <thead>
           <tr>
-            <th>ID</th><th>Name</th><th>Job Title</th><th>Phone</th>
-            <th>County</th><th>Constituency</th><th>Email</th>
-            <th>Applied At</th><th>Status</th><th>Payment</th>
+            <th>ID</th><th>Name</th><th>Job</th><th>Phone</th>
+            <th>County</th><th>Const.</th><th>Email</th>
+            <th>Applied</th><th>Status</th><th>Payment</th>
           </tr>
         </thead>
         <tbody id="appsTableBody"></tbody>
       </table>
     </div>
-    <button id="refreshAppsBtn" class="btn-primary" style="margin-top: 1rem;"><i class="fas fa-sync-alt"></i> Refresh</button>
+    <button id="refreshAppsBtn" class="btn-primary" style="margin-top:0.6rem;"><i class="fas fa-sync-alt"></i> Refresh</button>
   </div>
 </div>
 
@@ -583,7 +558,7 @@
 
       const wrapper = document.createElement("div");
       wrapper.style.display = "flex";
-      wrapper.style.gap = "0.5rem";
+      wrapper.style.gap = "0.3rem";
       wrapper.style.alignItems = "center";
       wrapper.appendChild(slotSelect);
       wrapper.appendChild(slotValueInput);
@@ -591,7 +566,7 @@
 
       const actionsCell = row.insertCell(6);
       const saveBtn = document.createElement("button");
-      saveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+      saveBtn.innerHTML = '<i class="fas fa-save"></i>';
       saveBtn.className = "action-btn";
       const delBtn = document.createElement("button");
       delBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
@@ -708,7 +683,7 @@
     if (!tbody) return;
     tbody.innerHTML = "";
     if (apps.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem;">No applications yet</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:0.8rem;">No applications yet</td></tr>`;
     } else {
       apps.slice().reverse().forEach(app => {
         const row = tbody.insertRow();
