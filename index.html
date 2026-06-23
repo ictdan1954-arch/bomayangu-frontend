@@ -2,114 +2,273 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Boma Yangu Jobs | Affordable Housing Program</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
   <style>
+    /* ---------- RESET & BASE ---------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f8fafc; color: #1a2c3e; line-height: 1.6; }
+
     .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
     .section-title { font-size: 1.8rem; font-weight: 700; margin: 2rem 0 1.5rem; border-left: 5px solid #0b5e42; padding-left: 1rem; }
 
-    /* Hero */
+    /* ---------- NAVBAR ---------- */
+    .navbar {
+      background: white;
+      padding: 0.8rem 2rem;
+      border-bottom: 1px solid #eef2f6;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .logo img { height: 48px; width: auto; }
+    .hamburger {
+      display: none;
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      color: #0b5e42;
+      cursor: pointer;
+      padding: 0.5rem;
+      touch-action: manipulation;
+    }
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+    .nav-links li a {
+      text-decoration: none;
+      color: #1e293b;
+      font-weight: 500;
+      padding: 0.5rem 0.2rem;
+      border-bottom: 2px solid transparent;
+      transition: 0.2s;
+      font-size: 0.95rem;
+    }
+    .nav-links li a:hover { border-bottom-color: #0b5e42; color: #0b5e42; }
+
+    /* ---------- HERO ---------- */
     .hero-welcome { background: white; padding: 3rem 2rem; border-bottom: 1px solid #eef2f6; }
     .hero-container { max-width: 1280px; margin: 0 auto; display: flex; flex-wrap: wrap; align-items: center; gap: 2rem; }
     .hero-left { flex: 1; }
     .hero-left h1 { font-size: 2.8rem; font-weight: 800; color: #0b2f26; margin-bottom: 1rem; }
     .hero-left p { font-size: 1.1rem; color: #334155; margin-bottom: 1.8rem; }
-    .ecitizen-card { background: #f1f5f9; border-radius: 60px; padding: 0.8rem 1.5rem; display: inline-flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-    .ecitizen-btn { background: #1e3a8a; color: white; padding: 0.5rem 1.2rem; border-radius: 40px; text-decoration: none; font-weight: 600; display: inline-block; }
+    .ecitizen-card {
+      background: #f1f5f9;
+      border-radius: 60px;
+      padding: 0.8rem 1.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .ecitizen-btn {
+      background: #1e3a8a;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
     .hero-carousel { flex: 1; background: #f8fafc; border-radius: 32px; padding: 0.5rem; }
     .carousel-container { overflow: hidden; border-radius: 24px; }
     .carousel-slides { display: flex; transition: transform 0.5s ease; }
     .carousel-slide { min-width: 100%; }
     .carousel-slide img { width: 100%; height: 340px; object-fit: cover; border-radius: 20px; }
     .carousel-dots { display: flex; justify-content: center; gap: 8px; margin-top: 12px; }
-    .dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; }
+    .dot { width: 10px; height: 10px; background: #cbd5e1; border-radius: 50%; cursor: pointer; transition: 0.2s; }
     .dot.active { background: #0b5e42; width: 24px; border-radius: 10px; }
-    /* Stats */
-    .stats-grid { max-width: 1280px; margin: 2rem auto; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 2rem; text-align: center; padding: 0 2rem; }
-    .stat-card { background: #f8fafc; padding: 1.2rem 2rem; border-radius: 28px; flex: 1; min-width: 160px; }
+
+    /* ---------- STATS ---------- */
+    .stats-grid {
+      max-width: 1280px; margin: 2rem auto; display: flex;
+      justify-content: space-between; flex-wrap: wrap; gap: 2rem;
+      text-align: center; padding: 0 2rem;
+    }
+    .stat-card {
+      background: #f8fafc; padding: 1.2rem 2rem; border-radius: 28px;
+      flex: 1; min-width: 160px;
+    }
     .stat-number { font-size: 2.2rem; font-weight: 800; color: #0b5e42; }
 
-    /* Application Notice Banner */
+    /* ---------- NOTICE BANNER ---------- */
     .app-notice {
-      background: #f0fdf4; border: 1px solid #d1fae5; border-radius: 60px; padding: 0.8rem 2rem; margin: 2rem 0 1.5rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem;
+      background: #f0fdf4; border: 1px solid #d1fae5; border-radius: 60px;
+      padding: 0.8rem 2rem; margin: 2rem 0 1.5rem;
+      display: flex; flex-wrap: wrap; align-items: center;
+      justify-content: space-between; gap: 1rem;
     }
     .app-notice .notice-text { font-weight: 500; color: #065f46; }
     .app-notice .notice-text i { margin-right: 0.5rem; }
-    .app-notice .notice-date { background: #0b5e42; color: white; padding: 0.3rem 1rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; }
+    .app-notice .notice-date {
+      background: #0b5e42; color: white; padding: 0.3rem 1rem;
+      border-radius: 40px; font-weight: 600; font-size: 0.9rem;
+    }
 
-    /* Filter Tabs */
+    /* ---------- FILTER TABS ---------- */
     .filter-tabs {
-      display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; border-bottom: 1px solid #eef2f8; padding-bottom: 0.5rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+      margin-bottom: 2rem; border-bottom: 1px solid #eef2f8;
+      padding-bottom: 0.5rem;
     }
     .filter-tab {
-      background: transparent; border: none; padding: 0.6rem 1.6rem; border-radius: 40px; font-weight: 600; font-size: 0.9rem; color: #4a5b74; cursor: pointer; transition: all 0.2s;
+      background: transparent; border: none; padding: 0.6rem 1.6rem;
+      border-radius: 40px; font-weight: 600; font-size: 0.9rem;
+      color: #4a5b74; cursor: pointer; transition: all 0.2s;
+      min-height: 44px;
     }
     .filter-tab:hover { background: #f1f5f9; color: #0b5e42; }
     .filter-tab.active { background: #0b5e42; color: white; }
 
-    /* Job Cards */
+    /* ---------- JOB CARDS ---------- */
     .jobs-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
     }
     .job-card {
-      background: white; border-radius: 24px; padding: 1.8rem 1.5rem 1.5rem; border: 1px solid #eef2f8; transition: all 0.25s ease; position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      background: white; border-radius: 24px; padding: 1.8rem 1.5rem 1.5rem;
+      border: 1px solid #eef2f8; transition: all 0.25s ease;
+      position: relative; box-shadow: 0 2px 8px rgba(0,0,0,0.02);
     }
     .job-card:hover {
-      border-color: #cbd5e1; box-shadow: 0 12px 30px rgba(0,0,0,0.06); transform: translateY(-3px);
+      border-color: #cbd5e1; box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+      transform: translateY(-3px);
     }
     .job-card::before {
-      content: ''; position: absolute; top: 1.5rem; left: 0; width: 4px; height: 40%; background: #0b5e42; border-radius: 0 4px 4px 0; opacity: 0.4; transition: opacity 0.2s;
+      content: ''; position: absolute; top: 1.5rem; left: 0;
+      width: 4px; height: 40%; background: #0b5e42;
+      border-radius: 0 4px 4px 0; opacity: 0.4;
+      transition: opacity 0.2s;
     }
     .job-card:hover::before { opacity: 0.8; }
     .job-icon {
-      display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; background: #eef2ff; border-radius: 20px; font-size: 2.2rem; margin-bottom: 1rem;
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 64px; height: 64px; background: #eef2ff;
+      border-radius: 20px; font-size: 2.2rem; margin-bottom: 1rem;
+      color: #0b5e42;
     }
     .job-title { font-size: 1.3rem; font-weight: 700; margin: 0.5rem 0 0.3rem; color: #0f2c24; }
     .job-desc { color: #4a5b74; font-size: 0.9rem; margin: 0.5rem 0 0.8rem; line-height: 1.5; min-height: 3rem; }
     .job-meta { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; margin: 0.4rem 0 0.8rem; }
     .job-slots {
-      display: inline-flex; align-items: center; gap: 0.3rem; background: #eef2fa; padding: 0.3rem 0.9rem; border-radius: 40px; font-size: 0.8rem; font-weight: 600; color: #1e293b;
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      background: #eef2fa; padding: 0.3rem 0.9rem; border-radius: 40px;
+      font-size: 0.8rem; font-weight: 600; color: #1e293b;
     }
     .job-slots i { color: #0b5e42; }
-    .job-salary { font-weight: 700; color: #0b5e42; font-size: 1rem; background: #f0fdf4; padding: 0.2rem 0.8rem; border-radius: 40px; }
-    .apply-btn {
-      background: linear-gradient(135deg, #0b5e42, #1a7b5c); color: white; border: none; width: 100%; padding: 0.8rem; border-radius: 40px; font-weight: 600; cursor: pointer; margin-top: 0.8rem; font-size: 0.95rem; transition: all 0.2s; box-shadow: 0 2px 8px rgba(11,94,66,0.15);
+    .job-salary {
+      font-weight: 700; color: #0b5e42; font-size: 1rem;
+      background: #f0fdf4; padding: 0.2rem 0.8rem; border-radius: 40px;
     }
-    .apply-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(11,94,66,0.25); background: linear-gradient(135deg, #094b35, #136a4e); }
+    .apply-btn {
+      background: linear-gradient(135deg, #0b5e42, #1a7b5c);
+      color: white; border: none; width: 100%; padding: 0.8rem;
+      border-radius: 40px; font-weight: 600; cursor: pointer;
+      margin-top: 0.8rem; font-size: 0.95rem; transition: all 0.2s;
+      box-shadow: 0 2px 8px rgba(11,94,66,0.15);
+      min-height: 48px;
+    }
+    .apply-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(11,94,66,0.25);
+      background: linear-gradient(135deg, #094b35, #136a4e);
+    }
 
-    /* Modals */
-    .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); backdrop-filter:blur(3px); display:flex; align-items:center; justify-content:center; z-index:2000; visibility:hidden; opacity:0; transition:0.2s; }
+    /* ---------- MODAL ---------- */
+    .modal-overlay {
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background:rgba(0,0,0,0.5); backdrop-filter:blur(3px);
+      display:flex; align-items:center; justify-content:center;
+      z-index:2000; visibility:hidden; opacity:0; transition:0.2s;
+    }
     .modal-overlay.active { visibility:visible; opacity:1; }
-    .modal-container { background:white; max-width:500px; width:90%; border-radius:32px; padding:1.8rem; position:relative; }
-    .close-modal { position:absolute; right:20px; top:18px; font-size:1.8rem; cursor:pointer; }
+    .modal-container {
+      background:white; max-width:500px; width:90%;
+      border-radius:32px; padding:1.8rem; position:relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .close-modal {
+      position:absolute; right:20px; top:18px;
+      font-size:1.8rem; cursor:pointer;
+      background: none; border: none;
+      padding: 0.5rem;
+      line-height: 1;
+    }
     .payment-options { display:flex; gap:1rem; margin:1rem 0; }
-    .pay-btn { flex:1; background:#eef2ff; border:none; padding:0.8rem; border-radius:50px; font-weight:600; cursor:pointer; }
+    .pay-btn {
+      flex:1; background:#eef2ff; border:none; padding:0.8rem;
+      border-radius:50px; font-weight:600; cursor:pointer;
+      min-height: 48px;
+    }
     .form-group { margin-bottom:1rem; }
-    .form-group input, .form-group select { width:100%; padding:0.7rem; border-radius:16px; border:1px solid #cfdfed; font-family:inherit; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    .form-group input, .form-group select {
+      width:100%; padding:0.7rem; border-radius:16px;
+      border:1px solid #cfdfed; font-family:inherit;
+      font-size: 1rem;
+    }
     .form-group select { background: white; cursor:pointer; }
     .document-notice {
-      background: #fef9e7; border-left: 4px solid #f59e0b; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.85rem; color: #78350f; margin: 1rem 0;
+      background: #fef9e7; border-left: 4px solid #f59e0b;
+      padding: 0.8rem 1rem; border-radius: 12px;
+      font-size: 0.85rem; color: #78350f; margin: 1rem 0;
     }
-    /* Toast z-index fix - above everything */
+
+    /* ---------- TOAST ---------- */
     .toast-msg {
       position: fixed;
       bottom: 100px;
       left: 20px;
+      right: 20px;
+      max-width: 400px;
       background: #1e2a3e;
       color: white;
       padding: 12px 20px;
       border-radius: 40px;
-      z-index: 9999; /* ensures it's above modals */
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 500;
     }
+    .toast-msg.error { background: #b91c1c; }
 
+    /* ---------- STATUS COLOURS ---------- */
     .slots-available { color: #0b5e42; }
     .slots-full { color: #b91c1c; }
     .slots-few { color: #f59e0b; }
 
-    /* Admin button - hidden by default */
+    /* ---------- ADMIN FLOATING BUTTON ---------- */
     .admin-floating {
       position: fixed;
       bottom: 20px;
@@ -125,35 +284,85 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       cursor: pointer;
       transition: 0.2s;
-      display: none;  /* hidden by default */
-    }
-    .admin-floating.visible {
-      display: flex; /* shown when toggled */
+      display: none;
       align-items: center;
       justify-content: center;
     }
+    .admin-floating.visible { display: flex; }
     .admin-floating:hover {
       background: #094b35;
       transform: scale(1.05);
     }
 
-    @media (max-width:800px) {
-      .hero-container { flex-direction:column; }
-      .hero-left h1 { font-size:2rem; }
-      .carousel-slide img { height:200px; }
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .main-footer a { color: #f1f5f9; }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      .hamburger { display: block; }
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        padding: 1rem 0;
+        gap: 0.5rem;
+        border-top: 1px solid #eef2f6;
+        margin-top: 0.5rem;
+      }
+      .nav-links.active { display: flex; }
+      .nav-links li a {
+        display: block;
+        padding: 0.8rem 0.5rem;
+        border-bottom: none;
+        text-align: center;
+        font-size: 1rem;
+      }
+      .hero-container { flex-direction: column; }
+      .hero-left h1 { font-size: 2rem; }
+      .carousel-slide img { height: 200px; }
+      .stats-grid { flex-direction: column; align-items: stretch; }
+      .stat-card { min-width: unset; }
+      .jobs-grid { grid-template-columns: 1fr; }
+      .section-title { font-size: 1.4rem; }
+      .container { padding: 0 1rem; }
+      .app-notice { flex-direction: column; text-align: center; }
+      .modal-container { padding: 1.2rem; }
+      .admin-floating { width: 56px; height: 56px; font-size: 1.4rem; }
+      .filter-tabs { justify-content: center; }
+      .filter-tab { padding: 0.4rem 1rem; font-size: 0.8rem; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-left h1 { font-size: 1.6rem; }
+      .hero-left p { font-size: 0.95rem; }
+      .ecitizen-card { flex-direction: column; align-items: stretch; text-align: center; }
+      .ecitizen-btn { justify-content: center; }
+      .job-card { padding: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
   <div class="nav-container">
-    <!-- Logo container - double-tap target -->
-    <div class="logo" id="homeLogo" style="cursor: pointer; user-select: none;">
-      <img src="images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
-      <img src="images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+    <div class="logo" id="homeLogo">
+      <img src="images/download boma.png" alt="Boma Yangu Logo 1">
+      <img src="images/logo.png" alt="Boma Yangu Logo 2">
     </div>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation menu">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="index.html">Home</a></li>
       <li><a href="about/">About</a></li>
       <li><a href="projects/">Projects</a></li>
@@ -164,7 +373,7 @@
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- ========== HERO ========== -->
 <div class="hero-welcome">
   <div class="hero-container">
     <div class="hero-left">
@@ -189,23 +398,22 @@
   </div>
 </div>
 
-<!-- Stats -->
+<!-- ========== STATS ========== -->
 <div class="stats-grid">
   <div class="stat-card"><div class="stat-number">128</div><div>Projects available</div></div>
   <div class="stat-card"><div class="stat-number">102</div><div>Registered Applicants</div></div>
   <div class="stat-card"><div class="stat-number">200+</div><div>Strategic partners</div></div>
 </div>
 
-<!-- Jobs Section -->
+<!-- ========== JOBS SECTION ========== -->
 <div class="container">
-  <!-- Application Notice Banner -->
   <div class="app-notice" id="appNotice">
     <span class="notice-text"><i class="fas fa-calendar-alt"></i> Applications are open until <strong id="endDateDisplay">13 August 2026</strong>. Verification begins immediately after you apply.</span>
     <span class="notice-date"><i class="fas fa-clock"></i> <span id="daysLeft">0</span> days left</span>
   </div>
 
-  <div class="section-title">🚀 Available job opportunities</div>
-  <!-- Filter Tabs -->
+  <div class="section-title"><i class="fas fa-briefcase"></i> Available job opportunities</div>
+
   <div class="filter-tabs" id="filterTabs">
     <button class="filter-tab active" data-category="all">All</button>
     <button class="filter-tab" data-category="driver">Drivers</button>
@@ -216,22 +424,23 @@
   <div class="jobs-grid" id="jobsContainer"></div>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="main-footer">
   <p>Housing is a fundamental human need — The Constitution of Kenya, Article 43. Boma Yangu empowers communities through decent work & shelter.</p>
-  <p>📞 Customer Support: 0700 000 000 | 📧 jobs@bomayangu.go.ke</p>
+  <p><i class="fas fa-phone-alt"></i> Customer Support: 0700 000 000 &nbsp;|&nbsp; <i class="fas fa-envelope"></i> jobs@bomayangu.go.ke</p>
 </footer>
 
-<!-- Admin Floating Button (hidden by default) -->
+<!-- ========== ADMIN FLOATING BUTTON ========== -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
 
-<!-- Application Modal (STK Push only) -->
+<!-- ========== APPLICATION MODAL ========== -->
 <div id="applyModal" class="modal-overlay">
   <div class="modal-container">
-    <span class="close-modal" id="closeModalBtn">&times;</span>
-    <h3>Apply for a job</h3>
+    <button class="close-modal" id="closeModalBtn">&times;</button>
+    <h3><i class="fas fa-pencil-alt"></i> Apply for a job</h3>
     <form id="applicationForm">
       <input type="hidden" id="jobIdField" value="">
-      
+
       <div class="form-group">
         <label>Select Job</label>
         <select id="jobSelect" required>
@@ -239,59 +448,97 @@
         </select>
       </div>
 
-      <div class="form-group"><label>Full Name</label><input type="text" id="fullname" required placeholder="e.g. Jane Mwangi"></div>
-      <div class="form-group"><label>ID / Passport</label><input type="text" id="idNumber" required placeholder="e.g. 34567890"></div>
-      <div class="form-group"><label>Phone (M-Pesa/Airtel Money)</label><input type="tel" id="phone" required placeholder="0712345678"></div>
-      
-      <!-- County dropdown -->
+      <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" id="fullname" required placeholder="e.g. Jane Mwangi">
+      </div>
+      <div class="form-group">
+        <label>ID / Passport</label>
+        <input type="text" id="idNumber" required placeholder="e.g. 34567890">
+      </div>
+      <div class="form-group">
+        <label>Phone (M-Pesa / Airtel Money)</label>
+        <input type="tel" id="phone" required placeholder="0712345678">
+      </div>
+
       <div class="form-group">
         <label>County</label>
         <select id="county" required>
           <option value="">— Select your county —</option>
         </select>
       </div>
-      
-      <!-- Constituency dropdown (dynamic) -->
+
       <div class="form-group">
         <label>Constituency</label>
         <select id="constituency" required>
           <option value="">— Select your constituency —</option>
         </select>
       </div>
-      
-      <div class="form-group"><label>Email (Optional)</label><input type="email" id="email" placeholder="e.g. applicant@example.com"></div>
-      
+
+      <div class="form-group">
+        <label>Email (Optional)</label>
+        <input type="email" id="email" placeholder="e.g. applicant@example.com">
+      </div>
+
       <div class="document-notice">
         <i class="fas fa-file-alt" style="margin-right:8px;"></i>
         <strong>Important:</strong> Please bring all original certifications and supporting documents when you receive a verification message via email or SMS.
       </div>
-      
-      <!-- Only STK Push button (Paybill removed) -->
+
       <div class="payment-options">
-        <button type="button" id="stkPushBtn" class="pay-btn" style="width:100%;">💳 STK Push (M-Pesa / Airtel Money)</button>
+        <button type="button" id="stkPushBtn" class="pay-btn" style="width:100%;">
+          <i class="fas fa-mobile-alt"></i> STK Push (M-Pesa / Airtel Money)
+        </button>
       </div>
-      <p style="font-size:0.75rem;">Application fee: <strong id="displayFee">KES 78</strong> — payment completes submission.</p>
+      <p style="font-size:0.75rem; margin-top:0.5rem;">Application fee: <strong id="displayFee">KES 78</strong> — payment completes submission.</p>
     </form>
   </div>
 </div>
 
-<!-- Paybill modal is completely removed -->
-
-<script src="assets/js/main.js"></script>
 <script>
+  // ========== HAMBURGER TOGGLE ==========
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
   // ========== CAROUSEL ==========
   const slides = document.getElementById('carouselSlides');
   const slideItems = document.querySelectorAll('.carousel-slide');
   const dotsContainer = document.getElementById('carouselDots');
   let currentIndex = 0, autoInterval;
-  function createDots() { if(!dotsContainer) return; dotsContainer.innerHTML = ''; slideItems.forEach((_,i)=>{let d=document.createElement('div');d.classList.add('dot');if(i===currentIndex)d.classList.add('active');d.addEventListener('click',()=>goToSlide(i));dotsContainer.appendChild(d);}); }
-  function goToSlide(index) { if(index<0) index=0; if(index>=slideItems.length) index=0; currentIndex=index; slides.style.transform=`translateX(-${currentIndex*100}%)`; document.querySelectorAll('.dot').forEach((d,i)=>{if(i===currentIndex)d.classList.add('active');else d.classList.remove('active');}); }
+  function createDots() {
+    if(!dotsContainer) return;
+    dotsContainer.innerHTML = '';
+    slideItems.forEach((_,i)=>{
+      let d=document.createElement('div');
+      d.classList.add('dot');
+      if(i===currentIndex) d.classList.add('active');
+      d.addEventListener('click', ()=>goToSlide(i));
+      dotsContainer.appendChild(d);
+    });
+  }
+  function goToSlide(index) {
+    if(index<0) index=0;
+    if(index>=slideItems.length) index=0;
+    currentIndex=index;
+    slides.style.transform = `translateX(-${currentIndex*100}%)`;
+    document.querySelectorAll('.dot').forEach((d,i)=>{
+      if(i===currentIndex) d.classList.add('active');
+      else d.classList.remove('active');
+    });
+  }
   function nextSlide(){ goToSlide(currentIndex+1); }
-  function startAuto(){ autoInterval=setInterval(nextSlide,4000); }
+  function startAuto(){ autoInterval = setInterval(nextSlide, 4000); }
   function stopAuto(){ clearInterval(autoInterval); }
-  if(slideItems.length){ createDots(); startAuto(); const container=document.querySelector('.carousel-container'); container.addEventListener('mouseenter',stopAuto); container.addEventListener('mouseleave',startAuto); }
+  if(slideItems.length){
+    createDots();
+    startAuto();
+    const container = document.querySelector('.carousel-container');
+    container.addEventListener('mouseenter', stopAuto);
+    container.addEventListener('mouseleave', startAuto);
+  }
 
-  // ========== KENYA COUNTIES & CONSTITUENCIES ==========
+  // ========== KENYA DATA ==========
   const kenyaData = {
     "Baringo": ["Baringo Central", "Baringo East", "Baringo North", "Baringo South", "Eldama Ravine", "Mogotio", "Tiaty"],
     "Bomet": ["Bomet Central", "Bomet East", "Bomet West", "Chepalungu", "Kipkelion", "Sotik"],
@@ -419,11 +666,11 @@
       return;
     }
     filtered.forEach(job => {
-      let icon = '🧹';
-      if (job.category === 'driver') icon = '🚛';
-      else if (job.category === 'cleaner') icon = '🧽';
-      else if (job.category === 'caretaker') icon = '🏡';
-      else if (job.category === 'security') icon = '🛡️';
+      let icon = 'briefcase';
+      if (job.category === 'driver') icon = 'truck';
+      else if (job.category === 'cleaner') icon = 'broom';
+      else if (job.category === 'caretaker') icon = 'home';
+      else if (job.category === 'security') icon = 'shield-alt';
 
       const card = document.createElement('div');
       card.className = 'job-card';
@@ -439,14 +686,14 @@
         slotStatus = '<span class="slots-full">No more vacant</span>';
       }
       card.innerHTML = `
-        <div class="job-icon">${icon}</div>
+        <div class="job-icon"><i class="fas fa-${icon}"></i></div>
         <div class="job-title">${escapeHtml(job.title)}</div>
         <div class="job-desc">${escapeHtml(job.description || '')}</div>
         <div class="job-meta">
           <span class="job-slots"><i class="fas fa-users"></i> ${slotStatus}</span>
-          <span class="job-salary">💰 KES ${job.salary ? job.salary.toLocaleString() : '0'}/month</span>
+          <span class="job-salary"><i class="fas fa-coins"></i> KES ${job.salary ? job.salary.toLocaleString() : '0'}/month</span>
         </div>
-        <button class="apply-btn" data-jobid="${job.id}">Apply Now →</button>
+        <button class="apply-btn" data-jobid="${job.id}">Apply Now <i class="fas fa-arrow-right"></i></button>
       `;
       card.querySelector('.apply-btn').addEventListener('click', () => openApplyModal(job));
       container.appendChild(card);
@@ -532,7 +779,6 @@
     }
   }
 
-  // STK Push button handler (only)
   document.getElementById('stkPushBtn')?.addEventListener('click', async () => {
     const select = document.getElementById('jobSelect');
     const selectedJobId = parseInt(select.value);
@@ -567,7 +813,7 @@
 
     const result = await initiateSTKPush(appId, phone);
     if (result && result.success) {
-      showToast("✅ STK Push sent! Check your phone to complete payment.");
+      showToast("STK Push sent! Check your phone to complete payment.");
       document.getElementById('applyModal').classList.remove('active');
     }
   });
@@ -586,8 +832,8 @@
     if (t) t.remove();
     let div = document.createElement('div');
     div.className = 'toast-msg';
+    if (isError) div.classList.add('error');
     div.innerText = msg;
-    if (isError) div.style.background = '#b91c1c';
     document.body.appendChild(div);
     setTimeout(() => div.remove(), 3500);
   }
@@ -612,13 +858,11 @@
     const logo = document.getElementById('homeLogo');
     const adminBtn = document.getElementById('adminFloatBtn');
 
-    // Check sessionStorage for visibility
     const stored = sessionStorage.getItem('adminVisible');
     if (stored === 'true') {
       adminBtn.classList.add('visible');
     }
 
-    // Double‑tap toggle
     let tapCount = 0;
     let tapTimer = null;
 
@@ -627,11 +871,10 @@
       if (tapCount === 1) {
         tapTimer = setTimeout(() => {
           tapCount = 0;
-        }, 300); // 300ms double‑tap window
+        }, 300);
       } else if (tapCount >= 2) {
         clearTimeout(tapTimer);
         tapCount = 0;
-        // Toggle admin button visibility
         const isVisible = adminBtn.classList.toggle('visible');
         sessionStorage.setItem('adminVisible', isVisible);
         e.preventDefault();
@@ -639,11 +882,11 @@
     });
   })();
 
-  // Admin button click navigates to admin panel
   document.getElementById('adminFloatBtn')?.addEventListener('click', () => {
     window.location.href = 'admin.html';
   });
 
+  // ========== INIT ==========
   async function init() {
     await fetchConfig();
     await fetchJobs();
