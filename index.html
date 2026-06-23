@@ -393,9 +393,11 @@
 
   let appConfig = { applicationFee: 78, applicationEndDate: "2026-08-13" };
 
+  // ---------- FETCH CONFIG WITH CACHE-BUSTING ----------
   async function fetchConfig() {
     try {
-      const response = await fetch(`${API_BASE}/config/public`);
+      // Add cache-busting query parameter to always get fresh data
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`);
       if (!response.ok) throw new Error('Failed to fetch config');
       const data = await response.json();
       appConfig = data;
