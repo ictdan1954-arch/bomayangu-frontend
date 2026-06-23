@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <!-- No-cache meta tags to prevent HTML caching -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Boma Yangu Jobs</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
@@ -393,11 +397,17 @@
 
   let appConfig = { applicationFee: 78, applicationEndDate: "2026-08-13" };
 
-  // ---------- FETCH CONFIG WITH CACHE-BUSTING ----------
+  // ---------- FETCH CONFIG WITH STRONG CACHE PREVENTION ----------
   async function fetchConfig() {
     try {
-      // Add cache-busting query parameter to always get fresh data
-      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`);
+      // Use cache: 'no-store' to completely bypass browser cache + a timestamp as fallback
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+          'Pragma': 'no-cache'
+        }
+      });
       if (!response.ok) throw new Error('Failed to fetch config');
       const data = await response.json();
       appConfig = data;
