@@ -93,11 +93,49 @@
     .document-notice {
       background: #fef9e7; border-left: 4px solid #f59e0b; padding: 0.8rem 1rem; border-radius: 12px; font-size: 0.85rem; color: #78350f; margin: 1rem 0;
     }
-    .toast-msg { position:fixed; bottom:100px; left:20px; background:#1e2a3e; color:white; padding:12px 20px; border-radius:40px; z-index:1100; }
+    /* Toast z-index fix - above everything */
+    .toast-msg {
+      position: fixed;
+      bottom: 100px;
+      left: 20px;
+      background: #1e2a3e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      z-index: 9999; /* ensures it's above modals */
+    }
 
     .slots-available { color: #0b5e42; }
     .slots-full { color: #b91c1c; }
     .slots-few { color: #f59e0b; }
+
+    /* Admin button - hidden by default */
+    .admin-floating {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: 0.2s;
+      display: none;  /* hidden by default */
+    }
+    .admin-floating.visible {
+      display: flex; /* shown when toggled */
+      align-items: center;
+      justify-content: center;
+    }
+    .admin-floating:hover {
+      background: #094b35;
+      transform: scale(1.05);
+    }
 
     @media (max-width:800px) {
       .hero-container { flex-direction:column; }
@@ -110,7 +148,8 @@
 
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo" id="homeLogo">
+    <!-- Logo container - double-tap target -->
+    <div class="logo" id="homeLogo" style="cursor: pointer; user-select: none;">
       <img src="images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
       <img src="images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
     </div>
@@ -182,6 +221,7 @@
   <p>📞 Customer Support: 0700 000 000 | 📧 jobs@bomayangu.go.ke</p>
 </footer>
 
+<!-- Admin Floating Button (hidden by default) -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
 
 <!-- Application Modal (STK Push only) -->
@@ -567,6 +607,39 @@
     document.getElementById('daysLeft').textContent = diff > 0 ? diff : 0;
   }
 
+  // ========== DOUBLE TAP LOGIC FOR ADMIN BUTTON ==========
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+
+    // Check sessionStorage for visibility
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') {
+      adminBtn.classList.add('visible');
+    }
+
+    // Double‑tap toggle
+    let tapCount = 0;
+    let tapTimer = null;
+
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => {
+          tapCount = 0;
+        }, 300); // 300ms double‑tap window
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        // Toggle admin button visibility
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click navigates to admin panel
   document.getElementById('adminFloatBtn')?.addEventListener('click', () => {
     window.location.href = 'admin.html';
   });
