@@ -193,7 +193,7 @@
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-icon"><i class="fas fa-briefcase"></i></div><div class="stat-info"><h3 id="totalJobsCount">0</h3><p>Total Jobs</p></div></div>
     <div class="stat-card"><div class="stat-icon"><i class="fas fa-users"></i></div><div class="stat-info"><h3 id="totalAppsCount">0</h3><p>Applications Received</p></div></div>
-    <div class="stat-card"><div class="stat-icon"><i class="fas fa-mobile-alt"></i></div><div class="stat-info"><h3 id="stkStatusBadge">Enabled ✅</h3><p>STK Push Mode</p></div></div>
+    <div class="stat-card"><div class="stat-icon"><i class="fas fa-mobile-alt"></i></div><div class="stat-info"><h3 id="stkStatusBadge">Enabled</h3><p>STK Push Mode</p></div></div>
   </div>
 
   <!-- Manage Jobs -->
@@ -237,17 +237,13 @@
     <div class="config-row">
       <label><i class="fas fa-bell"></i> STK Push Simulation</label>
       <select id="stkToggle">
-        <option value="enabled">✅ Enabled (auto-approve)</option>
-        <option value="disabled">❌ Disabled (simulate failure)</option>
+        <option value="enabled">Enabled (auto-approve)</option>
+        <option value="disabled">Disabled (simulate failure)</option>
       </select>
       <span class="helper">Affects main page payment flow</span>
     </div>
 
-    <div class="config-row">
-      <label><i class="fas fa-phone-alt"></i> Paybill Number</label>
-      <input type="text" id="paybillNumber" value="787878">
-      <button id="updatePaybillBtn" class="btn-primary">Update</button>
-    </div>
+    <!-- Paybill row removed -->
 
     <div class="config-row">
       <label><i class="fas fa-money-bill-wave"></i> Application Fee (KES)</label>
@@ -537,7 +533,7 @@
               slots: newSlots
             })
           });
-          showToast(`✅ Updated ${job.title}`);
+          showToast(`Updated ${job.title}`);
           loadDashboardData();
         } catch (e) {
           showToast(e.message, true);
@@ -590,7 +586,7 @@
         method: 'POST',
         body: JSON.stringify({ title, description: desc || "No description", category, salary, slots })
       });
-      showToast(`✅ "${title}" added`);
+      showToast(`"${title}" added`);
       document.getElementById("newJobTitle").value = "";
       document.getElementById("newJobDesc").value = "";
       document.getElementById("newJobCategory").value = "";
@@ -615,7 +611,7 @@
     if (!tbody) return;
     tbody.innerHTML = "";
     if (apps.length === 0) {
-      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem;">📭 No applications yet</td></tr>`;
+      tbody.innerHTML = `<tr><td colspan="10" style="text-align:center; padding:2rem;">No applications yet</td></tr>`;
     } else {
       apps.slice().reverse().forEach(app => {
         const row = tbody.insertRow();
@@ -632,7 +628,7 @@
           appliedAt = d.toLocaleString('en-KE', { dateStyle: 'medium', timeStyle: 'short' });
         }
         row.insertCell(7).innerText = appliedAt;
-        row.insertCell(8).innerHTML = app.status === "paid" ? '<span style="color:#0b5e42; font-weight:500;">✅ Paid</span>' : '<span style="color:#b91c1c;">⏳ Pending</span>';
+        row.insertCell(8).innerHTML = app.status === "paid" ? '<span style="color:#0b5e42; font-weight:500;">Paid</span>' : '<span style="color:#b91c1c;">Pending</span>';
         row.insertCell(9).innerText = app.payment_method || "—";
       });
     }
@@ -644,7 +640,7 @@
     const config = await apiFetch('/admin/config');
     const stkEnabled = config.stk_enabled === 'true' || config.stk_enabled === true;
     document.getElementById("stkToggle").value = stkEnabled ? "enabled" : "disabled";
-    document.getElementById("paybillNumber").value = config.paybill_number || "787878";
+    // Paybill removed – no need to set it
     document.getElementById("appFee").value = config.application_fee || 78;
     document.getElementById("appEndDate").value = config.application_end_date || "2026-08-13";
     updateStats();
@@ -688,7 +684,7 @@
         method: 'POST',
         body: JSON.stringify({ currentPassword: current, newPassword: newPass })
       });
-      showToast('✅ Password updated successfully!');
+      showToast('Password updated successfully!');
       document.getElementById('currentPassword').value = '';
       document.getElementById('newPassword').value = '';
       document.getElementById('confirmPassword').value = '';
@@ -700,7 +696,7 @@
   // ---------- STATS ----------
   function updateStats() {
     const stkEnabled = document.getElementById("stkToggle").value === "enabled";
-    document.getElementById("stkStatusBadge").innerHTML = stkEnabled ? "Enabled ✅" : "Disabled ❌";
+    document.getElementById("stkStatusBadge").innerHTML = stkEnabled ? "Enabled" : "Disabled";
   }
 
   // ---------- EVENT BINDINGS ----------
@@ -721,12 +717,6 @@
   document.getElementById("stkToggle").addEventListener("change", () => {
     const value = document.getElementById("stkToggle").value === "enabled" ? "true" : "false";
     saveConfig("stk_enabled", value);
-  });
-
-  document.getElementById("updatePaybillBtn").addEventListener("click", () => {
-    const value = document.getElementById("paybillNumber").value.trim();
-    if (value) saveConfig("paybill_number", value);
-    else showToast("Please enter a Paybill number", true);
   });
 
   document.getElementById("updateFeeBtn").addEventListener("click", () => {
