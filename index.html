@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ... (your existing CSS – unchanged) ... */
+    /* ---------- All existing styles (unchanged) ---------- */
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.4; }
     .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
@@ -48,6 +48,99 @@
     .stat-card { background:#f8fafc; padding:0.6rem 1rem; border-radius:20px; flex:1; min-width:100px; }
     .stat-number { font-size:1.4rem; font-weight:800; color:#0b5e42; }
     .stat-card div:last-child { font-size:0.7rem; color:#4a5b74; }
+
+    /* ---------- NEW: HOW IT WORKS SECTION ---------- */
+    .how-it-works {
+      background:white;
+      border-radius:24px;
+      padding:1.2rem 1rem;
+      margin:1.2rem 0;
+      border:1px solid #eef2f6;
+      box-shadow:0 2px 8px rgba(0,0,0,0.02);
+    }
+    .how-it-works h2 {
+      font-size:1.4rem;
+      font-weight:700;
+      color:#0b2f26;
+      margin-bottom:0.8rem;
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+    }
+    .how-it-works h2 i { color:#0b5e42; }
+    .steps-grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:0.8rem;
+    }
+    .step-item {
+      display:flex;
+      gap:0.8rem;
+      align-items:flex-start;
+      background:#f8fafc;
+      padding:0.6rem 0.8rem;
+      border-radius:16px;
+    }
+    .step-number {
+      background:#0b5e42;
+      color:white;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:700;
+      font-size:0.8rem;
+      flex-shrink:0;
+      margin-top:2px;
+    }
+    .step-content {
+      flex:1;
+    }
+    .step-content h4 {
+      font-size:0.9rem;
+      font-weight:700;
+      color:#0b2f26;
+      margin-bottom:0.1rem;
+    }
+    .step-content p {
+      font-size:0.8rem;
+      color:#4a5b74;
+      margin:0;
+    }
+    .how-it-works .fee-highlight {
+      font-weight:700;
+      color:#0b5e42;
+    }
+    .how-it-works .footer-note {
+      margin-top:0.8rem;
+      font-size:0.8rem;
+      color:#4a5b74;
+      text-align:center;
+      background:#f0fdf4;
+      padding:0.4rem 0.8rem;
+      border-radius:30px;
+      border:1px solid #d1fae5;
+    }
+    .how-it-works .footer-note i { margin-right:0.3rem; color:#0b5e42; }
+
+    /* ---------- FEE BANNER (above jobs) ---------- */
+    .fee-banner {
+      background:#fef9e7;
+      border-left:4px solid #f59e0b;
+      padding:0.4rem 0.8rem;
+      border-radius:10px;
+      font-size:0.75rem;
+      color:#78350f;
+      margin:0.8rem 0;
+      display:flex;
+      align-items:center;
+      gap:0.5rem;
+      flex-wrap:wrap;
+    }
+    .fee-banner i { font-size:0.9rem; color:#f59e0b; }
+    .fee-banner strong { color:#0b5e42; }
 
     /* ---------- NOTICE ---------- */
     .app-notice { background:#f0fdf4; border:1px solid #d1fae5; border-radius:40px; padding:0.4rem 1rem; margin:0.8rem 0; display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:0.5rem; font-size:0.8rem; }
@@ -118,6 +211,8 @@
       .stats-grid { gap:0.5rem; }
       .stat-card { padding:0.4rem 0.8rem; }
       .stat-number { font-size:1.2rem; }
+      .how-it-works h2 { font-size:1.2rem; }
+      .step-item { padding:0.4rem 0.6rem; }
       .section-title { font-size:1rem; }
       .filter-tab { padding:0.2rem 0.8rem; font-size:0.7rem; }
       .job-card { padding:0.6rem 0.8rem; }
@@ -129,6 +224,7 @@
       .container { padding:0 0.6rem; }
       .app-notice { font-size:0.7rem; padding:0.3rem 0.8rem; }
       .app-notice .notice-date { font-size:0.65rem; padding:0.1rem 0.6rem; }
+      .fee-banner { font-size:0.7rem; }
       .modal-container { padding:0.8rem; }
       .modal-container h3 { font-size:1rem; }
       .form-group label { font-size:0.75rem; }
@@ -145,6 +241,8 @@
       .stat-card div:last-child { font-size:0.65rem; }
       .job-title { font-size:0.8rem; }
       .job-desc { font-size:0.65rem; }
+      .how-it-works h2 { font-size:1.1rem; }
+      .step-content p { font-size:0.7rem; }
     }
   </style>
 </head>
@@ -174,9 +272,9 @@
   <div class="hero-container">
     <div class="hero-left">
       <h1>Welcome to Boma Yangu Jobs</h1>
-      <p>The gateway to the Affordable Housing Program. Start your home ownership journey.</p>
+      <p>Boma Yangu connects you to real job opportunities within Kenya’s Affordable Housing Program. Secure a stable income, build your career, and take the first step toward owning your own home. Your future starts today.</p>
       <div class="ecitizen-card">
-        <span><i class="fas fa-check-circle"></i> Access with eCitizen</span>
+        <span><i class="fas fa-check-circle"></i> Access Boma Yangu easily with your eCitizen account – it’s fast and secure.</span>
         <a href="https://accounts.ecitizen.go.ke/en" target="_blank" class="ecitizen-btn">eCitizen</a>
       </div>
     </div>
@@ -201,8 +299,47 @@
   <div class="stat-card"><div class="stat-number">200+</div><div>Partners</div></div>
 </div>
 
+<!-- ========== HOW IT WORKS ========== -->
+<div class="container">
+  <div class="how-it-works">
+    <h2><i class="fas fa-rocket"></i> Secure Your Future – It’s Easy!</h2>
+    <div class="steps-grid">
+      <div class="step-item">
+        <div class="step-number">1</div>
+        <div class="step-content">
+          <h4>Choose a Job</h4>
+          <p>Pick a role that matches your skills and interests from our verified listings.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">2</div>
+        <div class="step-content">
+          <h4>Pay the Application Fee</h4>
+          <p>A small, non‑refundable fee of <span class="fee-highlight" id="howItWorksFee">KES 78</span> covers your processing and verification.</p>
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-number">3</div>
+        <div class="step-content">
+          <h4>Get Verified & Start</h4>
+          <p>We’ll contact you, verify your documents, and guide you to the next steps.</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <i class="fas fa-check-circle"></i> Your application fee ensures your documents are verified and your position is reserved. It’s a small step towards a big future.
+    </div>
+  </div>
+</div>
+
 <!-- ========== JOBS ========== -->
 <div class="container">
+  <!-- Fee Banner (above job cards) -->
+  <div class="fee-banner" id="feeBanner">
+    <i class="fas fa-info-circle"></i>
+    <span><strong>Application Fee:</strong> <span id="feeBannerAmount">KES 78</span> – This fee covers verification, processing, and secures your position in the hiring pipeline.</span>
+  </div>
+
   <div class="app-notice" id="appNotice">
     <span class="notice-text"><i class="fas fa-calendar-alt"></i> Open until <strong id="endDateDisplay">13 Aug 2026</strong></span>
     <span class="notice-date"><i class="fas fa-clock"></i> <span id="daysLeft">0</span> days left</span>
@@ -254,7 +391,14 @@
           <i class="fas fa-mobile-alt"></i> STK Push
         </button>
       </div>
-      <p style="font-size:0.7rem; margin-top:0.3rem;">Fee: <strong id="displayFee">KES 78</strong> — payment completes submission.</p>
+      <!-- Updated persuasive modal message -->
+      <div style="background:#f0fdf4; border:1px solid #d1fae5; border-radius:12px; padding:0.6rem 0.8rem; margin-top:0.4rem;">
+        <p style="font-size:0.75rem; color:#065f46; margin:0;">
+          <i class="fas fa-info-circle" style="color:#0b5e42;"></i>
+          <strong>Application Fee: <span id="modalFeeDisplay">KES 78</span></strong> – This fee covers document verification, processing, and secures your position in the hiring pipeline. Payment must be completed to finalise your application.
+        </p>
+        <p style="font-size:0.7rem; color:#4a5b74; margin:0.2rem 0 0;"><i class="fas fa-heart" style="color:#0b5e42;"></i> We’re here to help you build a better future – every step counts!</p>
+      </div>
     </form>
   </div>
 </div>
@@ -402,22 +546,28 @@
   // ---------- FETCH CONFIG WITH STRONG CACHE PREVENTION ----------
   async function fetchConfig() {
     try {
-      // Use cache: 'no-store' + timestamp to bypass browser cache
       const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, {
         cache: 'no-store'
       });
       if (!response.ok) throw new Error('Failed to fetch config');
       const data = await response.json();
-      console.log('📦 Config fetched:', data); // Debug: see what's returned
+      console.log('📦 Config fetched:', data);
       appConfig = data;
       updateNotice();
-      // Update fee display – API key is 'application_fee'
+      // Update fee displays
       const fee = data.application_fee || 78;
       document.getElementById('displayFee').innerText = `KES ${fee}`;
+      document.getElementById('howItWorksFee').innerText = `KES ${fee}`;
+      document.getElementById('feeBannerAmount').innerText = `KES ${fee}`;
+      document.getElementById('modalFeeDisplay').innerText = `KES ${fee}`;
     } catch (error) {
       console.warn('Using default config', error);
       updateNotice();
-      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee || 78}`;
+      const fee = 78;
+      document.getElementById('displayFee').innerText = `KES ${fee}`;
+      document.getElementById('howItWorksFee').innerText = `KES ${fee}`;
+      document.getElementById('feeBannerAmount').innerText = `KES ${fee}`;
+      document.getElementById('modalFeeDisplay').innerText = `KES ${fee}`;
     }
   }
 
@@ -506,6 +656,7 @@
     pendingApplicationId = null;
     const fee = appConfig.application_fee || 78;
     document.getElementById('displayFee').innerText = `KES ${fee}`;
+    document.getElementById('modalFeeDisplay').innerText = `KES ${fee}`;
     document.getElementById('applyModal').classList.add('active');
   }
 
