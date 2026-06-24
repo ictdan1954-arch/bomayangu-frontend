@@ -207,12 +207,7 @@
       font-size:0.7rem; font-weight:600; color:#1e293b;
     }
     .job-slots i { color:#0b5e42; font-size:0.7rem; }
-    .job-salary {
-      font-weight:700; color:#0b5e42; font-size:1rem;
-      background:#f0fdf4; padding:0.1rem 0.6rem; border-radius:30px;
-      display:flex; align-items:center; gap:0.3rem;
-    }
-    .job-salary i { font-size:0.9rem; }
+    /* Salary is removed from card – only shown in modals */
 
     .job-details-hint {
       text-align:center;
@@ -344,17 +339,102 @@
       border:none; padding:0.3rem; line-height:1;
     }
 
-    /* ---------- APPLICATION MODAL HEADER ---------- */
-    .apply-modal-title {
-      font-size:1.2rem;
+    /* ---------- APPLICATION MODAL (professional styling) ---------- */
+    #applyModal .modal-container {
+      padding: 0;
+      overflow: hidden;
+    }
+    #applyModal .modal-header {
+      background: #0b2f26;
+      color: white;
+      padding: 1.2rem 1.5rem;
+      margin: 0;
+    }
+    #applyModal .modal-header .apply-modal-title {
+      font-size:1.3rem;
       font-weight:700;
-      color:#0b2f26;
+      margin-bottom:0.1rem;
+    }
+    #applyModal .modal-header .apply-modal-sub {
+      font-size:0.9rem;
+      opacity:0.8;
+      margin:0;
+    }
+    #applyModal .close-modal {
+      color: white;
+      top: 12px;
+      right: 16px;
+      font-size: 1.8rem;
+    }
+    #applyModal .modal-body {
+      padding: 1.2rem 1.5rem 1.5rem;
+    }
+    #applyModal .form-group label {
+      font-weight:600;
+      font-size:0.85rem;
+      color:#1e293b;
       margin-bottom:0.2rem;
     }
-    .apply-modal-sub {
-      font-size:0.85rem;
+    #applyModal .form-group input,
+    #applyModal .form-group select {
+      padding:0.6rem 0.8rem;
+      border-radius:12px;
+      border:1px solid #cfdfed;
+      font-size:0.9rem;
+      background:#fafcfd;
+      transition:0.2s;
+      width:100%;
+    }
+    #applyModal .form-group input:focus,
+    #applyModal .form-group select:focus {
+      outline:none;
+      border-color:#0b5e42;
+      box-shadow:0 0 0 3px rgba(11,94,66,0.1);
+      background:white;
+    }
+    #applyModal .document-notice {
+      background:#fef9e7;
+      border-left:3px solid #f59e0b;
+      padding:0.5rem 0.8rem;
+      border-radius:10px;
+      font-size:0.8rem;
+      color:#78350f;
+      margin:0.8rem 0;
+    }
+    #applyModal .payment-options {
+      display:flex;
+      gap:0.8rem;
+      margin:0.8rem 0;
+    }
+    #applyModal .pay-btn {
+      flex:1;
+      background:#eef2ff;
+      border:none;
+      padding:0.6rem;
+      border-radius:40px;
+      font-weight:600;
+      cursor:pointer;
+      min-height:44px;
+      font-size:0.9rem;
+      transition:0.2s;
+    }
+    #applyModal .pay-btn:hover { background:#dbeafe; }
+    #applyModal .fee-info {
+      background:#f0fdf4;
+      border:1px solid #d1fae5;
+      border-radius:12px;
+      padding:0.6rem 0.8rem;
+      margin-top:0.6rem;
+    }
+    #applyModal .fee-info p {
+      font-size:0.8rem;
+      color:#065f46;
+      margin:0;
+    }
+    #applyModal .fee-info .fee-heart {
+      font-size:0.7rem;
       color:#4a5b74;
-      margin-bottom:0.8rem;
+      margin-top:0.1rem;
     }
 
     /* ---------- TOAST ---------- */
@@ -412,7 +492,6 @@
       .job-icon { width:34px; height:34px; font-size:1.2rem; }
       .job-title { font-size:0.9rem; }
       .job-desc { font-size:0.7rem; min-height:1.5rem; }
-      .job-salary { font-size:0.9rem; }
       .job-details-hint { font-size:0.7rem; }
       .container { padding:0 0.6rem; }
       .app-notice { font-size:0.7rem; padding:0.3rem 0.8rem; }
@@ -421,6 +500,8 @@
       #jobDetailModal .modal-container { padding:1rem; }
       .job-detail-title { font-size:1.2rem; }
       .job-detail-salary { font-size:1rem; }
+      #applyModal .modal-header { padding:0.8rem 1rem; }
+      #applyModal .modal-body { padding:0.8rem 1rem; }
       .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
     }
     @media (max-width:480px) {
@@ -436,6 +517,8 @@
       .how-it-works h2 { font-size:1.1rem; }
       .step-content p { font-size:0.7rem; }
       .job-detail-title { font-size:1rem; }
+      #applyModal .modal-header .apply-modal-title { font-size:1.1rem; }
+      #applyModal .modal-header .apply-modal-sub { font-size:0.8rem; }
     }
   </style>
 </head>
@@ -576,34 +659,52 @@
 <div id="applyModal" class="modal-overlay">
   <div class="modal-container">
     <button class="close-modal" id="closeModalBtn">&times;</button>
-    <div id="applyModalHeader">
+    <!-- Header -->
+    <div class="modal-header" id="applyModalHeader">
       <!-- dynamically filled -->
     </div>
-    <form id="applicationForm">
-      <input type="hidden" id="jobIdField" value="">
-      <!-- Removed the Select Job dropdown -->
-      <div class="form-group"><label>Full Name</label><input type="text" id="fullname" required placeholder="e.g. Jane Mwangi"></div>
-      <div class="form-group"><label>ID / Passport</label><input type="text" id="idNumber" required placeholder="e.g. 34567890"></div>
-      <div class="form-group"><label>Phone</label><input type="tel" id="phone" required placeholder="0712345678"></div>
-      <div class="form-group"><label>County</label><select id="county" required><option value="">— Select —</option></select></div>
-      <div class="form-group"><label>Constituency</label><select id="constituency" required><option value="">— Select —</option></select></div>
-      <div class="form-group"><label>Email (Optional)</label><input type="email" id="email" placeholder="e.g. applicant@example.com"></div>
-      <div class="document-notice">
-        <i class="fas fa-file-alt"></i> Bring original certifications when contacted.
-      </div>
-      <div class="payment-options">
-        <button type="button" id="stkPushBtn" class="pay-btn" style="width:100%;">
-          <i class="fas fa-mobile-alt"></i> STK Push
-        </button>
-      </div>
-      <div style="background:#f0fdf4; border:1px solid #d1fae5; border-radius:12px; padding:0.6rem 0.8rem; margin-top:0.4rem;">
-        <p style="font-size:0.75rem; color:#065f46; margin:0;">
-          <i class="fas fa-info-circle" style="color:#0b5e42;"></i>
-          <strong>Application Fee: <span id="modalFeeDisplay">KES 78</span></strong> – This fee covers document verification, processing, and secures your position in the hiring pipeline. Payment must be completed to finalise your application.
-        </p>
-        <p style="font-size:0.7rem; color:#4a5b74; margin:0.2rem 0 0;"><i class="fas fa-heart" style="color:#0b5e42;"></i> We’re here to help you build a better future – every step counts!</p>
-      </div>
-    </form>
+    <!-- Body -->
+    <div class="modal-body">
+      <form id="applicationForm">
+        <input type="hidden" id="jobIdField" value="">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fullname" required placeholder="e.g. Jane Mwangi">
+        </div>
+        <div class="form-group">
+          <label>ID / Passport</label>
+          <input type="text" id="idNumber" required placeholder="e.g. 34567890">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input type="tel" id="phone" required placeholder="0712345678">
+        </div>
+        <div class="form-group">
+          <label>County</label>
+          <select id="county" required><option value="">— Select —</option></select>
+        </div>
+        <div class="form-group">
+          <label>Constituency</label>
+          <select id="constituency" required><option value="">— Select —</option></select>
+        </div>
+        <div class="form-group">
+          <label>Email (Optional)</label>
+          <input type="email" id="email" placeholder="e.g. applicant@example.com">
+        </div>
+        <div class="document-notice">
+          <i class="fas fa-file-alt"></i> Bring original certifications when contacted.
+        </div>
+        <div class="payment-options">
+          <button type="button" id="stkPushBtn" class="pay-btn" style="width:100%;">
+            <i class="fas fa-mobile-alt"></i> STK Push
+          </button>
+        </div>
+        <div class="fee-info">
+          <p><i class="fas fa-info-circle" style="color:#0b5e42;"></i> <strong>Application Fee: <span id="modalFeeDisplay">KES 78</span></strong> – This fee covers document verification, processing, and secures your position in the hiring pipeline. Payment must be completed to finalise your application.</p>
+          <p class="fee-heart"><i class="fas fa-heart" style="color:#0b5e42;"></i> We’re here to help you build a better future – every step counts!</p>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 
@@ -935,7 +1036,6 @@
         <div class="job-desc">${escapeHtml(job.description || '')}</div>
         <div class="job-meta">
           <span class="job-slots"><i class="fas fa-users"></i> ${slotStatus}</span>
-          <span class="job-salary"><i class="fas fa-money-bill-wave"></i> KES ${job.salary ? job.salary.toLocaleString() : '0'}</span>
         </div>
         <div class="job-details-hint"><i class="fas fa-arrow-right"></i> Click for job details</div>
       `;
