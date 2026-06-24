@@ -214,7 +214,6 @@
     }
     .job-salary i { font-size:0.9rem; }
 
-    /* New: click for details hint */
     .job-details-hint {
       text-align:center;
       margin-top:0.6rem;
@@ -582,10 +581,7 @@
     </div>
     <form id="applicationForm">
       <input type="hidden" id="jobIdField" value="">
-      <div class="form-group">
-        <label>Select Job</label>
-        <select id="jobSelect" required><option value="">— Choose —</option></select>
-      </div>
+      <!-- Removed the Select Job dropdown -->
       <div class="form-group"><label>Full Name</label><input type="text" id="fullname" required placeholder="e.g. Jane Mwangi"></div>
       <div class="form-group"><label>ID / Passport</label><input type="text" id="idNumber" required placeholder="e.g. 34567890"></div>
       <div class="form-group"><label>Phone</label><input type="tel" id="phone" required placeholder="0712345678"></div>
@@ -883,7 +879,6 @@
       <button class="modal-apply-btn" id="detailApplyBtn"><i class="fas fa-pencil-alt"></i> Apply Now</button>
     `;
 
-    // Attach apply button handler
     document.getElementById('detailApplyBtn').addEventListener('click', function() {
       closeJobDetail();
       openApplyModal(job);
@@ -896,7 +891,6 @@
     document.getElementById('jobDetailModal').classList.remove('active');
   }
 
-  // ---------- CLOSE DETAIL MODAL HANDLERS ----------
   document.getElementById('closeDetailModalBtn').addEventListener('click', closeJobDetail);
   document.getElementById('jobDetailModal').addEventListener('click', function(e) {
     if (e.target === this) closeJobDetail();
@@ -945,7 +939,6 @@
         </div>
         <div class="job-details-hint"><i class="fas fa-arrow-right"></i> Click for job details</div>
       `;
-      // Make the whole card clickable (open detail modal)
       card.addEventListener('click', function(e) {
         openJobDetail(job);
       });
@@ -964,25 +957,11 @@
     });
   }
 
-  function populateJobDropdown(selectedId) {
-    const select = document.getElementById('jobSelect');
-    if (!select) return;
-    select.innerHTML = '<option value="">— Choose —</option>';
-    allJobs.forEach(job => {
-      const option = document.createElement('option');
-      option.value = job.id;
-      option.textContent = `${job.title} (KES ${job.salary || 0})`;
-      if (job.id === selectedId) option.selected = true;
-      select.appendChild(option);
-    });
-  }
-
   let pendingApplicationId = null;
   let currentJobForApply = null;
 
   function openApplyModal(job) {
     currentJobForApply = job;
-    // Update header
     const header = document.getElementById('applyModalHeader');
     if (header) {
       header.innerHTML = `
@@ -990,8 +969,9 @@
         <div class="apply-modal-sub">Salary: KES ${job.salary ? job.salary.toLocaleString() : '0'} / month</div>
       `;
     }
-    populateJobDropdown(job.id);
+    // Set the hidden job ID field
     document.getElementById('jobIdField').value = job.id;
+    // Reset form fields
     document.getElementById('fullname').value = '';
     document.getElementById('idNumber').value = '';
     document.getElementById('phone').value = '';
@@ -1006,10 +986,6 @@
     if (modalFeeDisplay) modalFeeDisplay.innerText = `KES ${fee}`;
     document.getElementById('applyModal').classList.add('active');
   }
-
-  document.getElementById('jobSelect')?.addEventListener('change', function() {
-    document.getElementById('jobIdField').value = this.value;
-  });
 
   async function createApplication(formData) {
     try {
@@ -1047,9 +1023,8 @@
   }
 
   document.getElementById('stkPushBtn')?.addEventListener('click', async () => {
-    const select = document.getElementById('jobSelect');
-    const selectedJobId = parseInt(select.value);
-    if (!selectedJobId) { showToast("Please select a job", true); return; }
+    const jobId = parseInt(document.getElementById('jobIdField').value);
+    if (!jobId) { showToast("No job selected. Please try again.", true); return; }
     const name = document.getElementById('fullname').value.trim();
     const idNum = document.getElementById('idNumber').value.trim();
     const phone = document.getElementById('phone').value.trim();
@@ -1072,7 +1047,7 @@
         county: county,
         constituency: constituency,
         email: email || '',
-        jobId: selectedJobId
+        jobId: jobId
       });
       if (!appId) return;
       pendingApplicationId = appId;
