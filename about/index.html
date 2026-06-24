@@ -2,28 +2,167 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Boma Yangu Jobs | Affordable Housing Program</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>About Boma Yangu Jobs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
   <style>
-    .about-hero { background: linear-gradient(135deg, #0b2f26, #1a5d48); color: white; padding: 3rem 2rem; text-align: center; }
-    .about-hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
-    .stat-mini-grid { display: flex; flex-wrap: wrap; gap: 1.5rem; margin: 2rem 0; justify-content: center; }
-    .stat-mini { background: #f8fafc; padding: 1rem 2rem; border-radius: 28px; text-align: center; min-width: 150px; }
-    .stat-mini .number { font-size: 2rem; font-weight: 800; color: #0b5e42; }
+    /* ---------- Reset & Base ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.5; }
+    .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar { background:white; padding:0.4rem 1rem; border-bottom:1px solid #eef2f6; position:sticky; top:0; z-index:1000; }
+    .nav-container { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:0.4rem; cursor:pointer; user-select:none; }
+    .logo img { height:36px; width:auto; }
+    .hamburger { display:none; font-size:1.6rem; background:none; border:none; color:#0b5e42; padding:0.3rem; touch-action:manipulation; cursor:pointer; }
+    .nav-links { display:flex; gap:1rem; list-style:none; align-items:center; }
+    .nav-links li a { text-decoration:none; color:#1e293b; font-weight:500; font-size:0.85rem; padding:0.3rem 0.1rem; border-bottom:2px solid transparent; transition:0.2s; }
+    .nav-links li a:hover { border-bottom-color:#0b5e42; color:#0b5e42; }
+
+    /* ---------- HERO ---------- */
+    .about-hero {
+      background: linear-gradient(135deg, #0b2f26, #1a5d48);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .about-hero h1 { font-size: 2rem; font-weight:800; margin-bottom:0.5rem; }
+    .about-hero p { font-size: 1rem; opacity:0.9; max-width:600px; margin:0 auto; }
+
+    /* ---------- MAIN CONTENT ---------- */
+    .page-card {
+      max-width: 800px;
+      margin: 1.5rem auto;
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+      border: 1px solid #eef2f6;
+    }
+    .page-card h2 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin: 1.5rem 0 0.5rem;
+      color: #0b2f26;
+    }
+    .page-card h2:first-of-type { margin-top: 0; }
+    .page-card p { margin-bottom: 0.8rem; font-size: 0.95rem; color: #334155; }
+    .page-card ul, .page-card ol { margin: 0.5rem 0 1rem 1.5rem; font-size: 0.95rem; color: #334155; }
+    .page-card li { margin-bottom: 0.3rem; }
+    .page-card a { color: #0b5e42; text-decoration: none; font-weight:600; }
+    .page-card a:hover { text-decoration: underline; }
+
+    /* ---------- STATS MINI GRID ---------- */
+    .stat-mini-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      justify-content: center;
+    }
+    .stat-mini {
+      background: #f8fafc;
+      padding: 0.8rem 1.2rem;
+      border-radius: 24px;
+      text-align: center;
+      flex: 1 1 120px;
+      min-width: 100px;
+      border: 1px solid #eef2f6;
+    }
+    .stat-mini .number {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0b5e42;
+    }
+    .stat-mini .label {
+      font-size: 0.7rem;
+      color: #4a5b74;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    .main-footer i { margin: 0 0.3rem; }
+
+    /* ---------- ADMIN BUTTON ---------- */
+    .admin-floating {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition:0.2s;
+      display: none;
+      align-items:center;
+      justify-content:center;
+    }
+    .admin-floating.visible { display:flex; }
+    .admin-floating:hover { background: #094b35; transform:scale(1.05); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        padding:0.6rem 0;
+        gap:0.3rem;
+        border-top:1px solid #eef2f6;
+        margin-top:0.3rem;
+      }
+      .nav-links.active { display:flex; }
+      .nav-links li a { display:block; padding:0.6rem 0.5rem; border-bottom:none; text-align:center; font-size:0.9rem; }
+      .about-hero { padding:1.5rem 1rem; }
+      .about-hero h1 { font-size:1.6rem; }
+      .page-card { padding:1.2rem; margin:1rem 0.6rem; }
+      .page-card h2 { font-size:1.1rem; }
+      .page-card p, .page-card ul, .page-card ol { font-size:0.85rem; }
+      .stat-mini { padding:0.6rem 0.8rem; min-width:80px; }
+      .stat-mini .number { font-size:1.4rem; }
+      .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
+    }
+
+    @media (max-width:480px) {
+      .about-hero h1 { font-size:1.3rem; }
+      .about-hero p { font-size:0.85rem; }
+      .page-card { padding:0.8rem; }
+      .page-card h2 { font-size:1rem; }
+      .page-card p, .page-card ul, .page-card ol { font-size:0.8rem; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
   <div class="nav-container">
     <div class="logo" id="homeLogo">
-      <img src="../images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
-      <img src="../images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+      <img src="../images/download boma.png" alt="Boma Yangu">
+      <img src="../images/logo.png" alt="Boma Yangu">
     </div>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="../index.html">Home</a></li>
       <li><a href="index.html">About</a></li>
       <li><a href="../projects/">Projects</a></li>
@@ -34,18 +173,20 @@
   </div>
 </nav>
 
+<!-- ========== HERO ========== -->
 <div class="about-hero">
   <h1>About Boma Yangu Jobs</h1>
-  <p style="font-size:1.2rem;">Connecting Kenyans to decent work in the affordable housing ecosystem</p>
+  <p>Connecting Kenyans to decent work in the affordable housing ecosystem</p>
 </div>
 
+<!-- ========== CONTENT ========== -->
 <div class="page-card">
   <p>The Boma Yangu Jobs portal is a dedicated employment platform under the Affordable Housing Program. It connects qualified job seekers – drivers, security guards, cleaners, caretakers, and more – with employment opportunities in housing construction, estate management, and facility operations. Our mission is to create decent, sustainable jobs while supporting the delivery of affordable housing across Kenya.</p>
 
-  <h2 style="margin: 1.5rem 0 0.5rem;">Why Boma Yangu Jobs?</h2>
-  <p>Every affordable housing project generates hundreds of direct and indirect jobs. From site security to vehicle operations, cleaning services to building maintenance, the housing sector offers stable, formal employment. Our platform simplifies the recruitment process: job seekers apply online, pay a small fee (KES 78) to complete their application, and employers gain access to a pool of verified candidates. We ensure transparency, efficiency, and equal opportunity.</p>
+  <h2>Why Boma Yangu Jobs?</h2>
+  <p>Every affordable housing project generates hundreds of direct and indirect jobs. From site security to vehicle operations, cleaning services to building maintenance, the housing sector offers stable, formal employment. Our platform simplifies the recruitment process: job seekers apply online, pay a small fee (<span id="feeDisplay">KES 78</span>) to complete their application, and employers gain access to a pool of verified candidates. We ensure transparency, efficiency, and equal opportunity.</p>
 
-  <h2 style="margin: 1.5rem 0 0.5rem;">Available job categories</h2>
+  <h2>Available job categories</h2>
   <ul>
     <li><strong>Drivers</strong> – Transport of construction materials, personnel, and equipment across project sites.</li>
     <li><strong>Security Guards</strong> – Site protection, access control, and asset safety for ongoing developments.</li>
@@ -54,35 +195,90 @@
   </ul>
   <p>Additional roles (electricians, plumbers, carpenters, and general labourers) will be added as the programme expands.</p>
 
-  <h2 style="margin: 1.5rem 0 0.5rem;">How the job application process works</h2>
+  <h2>How the job application process works</h2>
   <ol>
     <li><strong>Browse jobs</strong> – Visit the <a href="../index.html">Home page</a> to see current vacancies with open slots.</li>
     <li><strong>Apply</strong> – Fill in your personal details and select your preferred job.</li>
-    <li><strong>Pay the application fee</strong> – KES 78 via STK Push (M‑Pesa prompt) or Paybill number.</li>
+    <li><strong>Pay the application fee</strong> – <span id="feeDisplay2">KES 78</span> via STK Push (M‑Pesa prompt).</li>
     <li><strong>Confirmation</strong> – Once payment is confirmed, your application is submitted to the employer.</li>
     <li><strong>Shortlisting & interview</strong> – Qualified candidates will be contacted directly.</li>
   </ol>
-  <p>All applications are stored securely and can be managed by administrators via the <strong>admin panel</strong> (floating button at bottom‑right, login: <code>admin123</code>).</p>
+  <p>All applications are stored securely and can be managed by administrators via the <strong>admin panel</strong> (floating button at bottom‑right).</p>
 
-  <h2 style="margin: 1.5rem 0 0.5rem;">Economic impact: Jobs & housing</h2>
+  <h2>Economic impact: Jobs & housing</h2>
   <p>The Affordable Housing Program is not just about building homes – it’s about building livelihoods. For every affordable housing unit constructed, we estimate between 3 and 5 direct jobs are created, and up to 8 indirect jobs in the supply chain. By formalising employment in sectors like security, cleaning, and transport, we contribute to Kenya’s economic growth and the realisation of decent work for all (SDG 8).</p>
 
+  <!-- Stats -->
   <div class="stat-mini-grid">
-    <div class="stat-mini"><div class="number">128</div><div>Active projects</div></div>
-    <div class="stat-mini"><div class="number">1,190+</div><div>Jobs filled</div></div>
-    <div class="stat-mini"><div class="number">200+</div><div>Employer partners</div></div>
-    <div class="stat-mini"><div class="number">4,462</div><div>Registered job seekers</div></div>
+    <div class="stat-mini"><div class="number">128</div><div class="label">Active projects</div></div>
+    <div class="stat-mini"><div class="number">1,190+</div><div class="label">Jobs filled</div></div>
+    <div class="stat-mini"><div class="number">200+</div><div class="label">Employer partners</div></div>
+    <div class="stat-mini"><div class="number">4,462</div><div class="label">Registered seekers</div></div>
   </div>
 
-  <p style="text-align:center;">Ministry of Lands, Public Works, Housing and Urban Development | State Department of Housing & Urban Development<br>For enquiries, visit our <a href="../contacts/">Contact page</a>.</p>
+  <p style="text-align:center; margin-top:1rem;">Ministry of Lands, Public Works, Housing and Urban Development<br>State Department of Housing & Urban Development<br>For enquiries, visit our <a href="../contacts/">Contact page</a>.</p>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="main-footer">
   <p>Boma Yangu Jobs — Decent work within the Affordable Housing Programme. Copyright © 2026 Republic of Kenya. All rights reserved.</p>
-  <p>Terms & Conditions | Privacy Policy | <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i></p>
+  <p>Terms &amp; Conditions | Privacy Policy | <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i></p>
 </footer>
 
+<!-- ========== ADMIN BUTTON ========== -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
-<script src="../assets/js/main.js"></script>
+
+<script>
+  // ---------- HAMBURGER ----------
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
+  // ---------- ADMIN BUTTON VISIBILITY (double‑tap logo) ----------
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') adminBtn.classList.add('visible');
+
+    let tapCount = 0, tapTimer = null;
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 300);
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click → navigate to admin.html
+  document.getElementById('adminFloatBtn').addEventListener('click', function() {
+    window.location.href = '../admin.html';
+  });
+
+  // ---------- FETCH CONFIG FOR DYNAMIC FEE ----------
+  async function fetchConfig() {
+    try {
+      const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch config');
+      const data = await response.json();
+      const fee = data.application_fee || 78;
+      // Update all fee displays
+      document.querySelectorAll('#feeDisplay, #feeDisplay2').forEach(el => {
+        if (el) el.textContent = `KES ${fee}`;
+      });
+    } catch (error) {
+      console.warn('Using default fee', error);
+      // Keep static default 78
+    }
+  }
+  fetchConfig();
+</script>
 </body>
 </html>
