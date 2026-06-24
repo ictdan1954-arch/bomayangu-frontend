@@ -2,54 +2,318 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Resources | Boma Yangu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Resources | Boma Yangu Jobs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
   <style>
-    .resource-card { background: white; border-radius: 24px; padding: 1.5rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between; border: 1px solid #eef2f8; }
-    .resource-info h3 { margin-bottom: 0.3rem; }
-    .download-btn { background: #0b5e42; color: white; padding: 0.5rem 1.2rem; border-radius: 40px; text-decoration: none; font-weight: 500; }
+    /* ---------- Reset & Base ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.5; }
+    .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar { background:white; padding:0.4rem 1rem; border-bottom:1px solid #eef2f6; position:sticky; top:0; z-index:1000; }
+    .nav-container { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:0.4rem; cursor:pointer; user-select:none; }
+    .logo img { height:36px; width:auto; }
+    .hamburger { display:none; font-size:1.6rem; background:none; border:none; color:#0b5e42; padding:0.3rem; touch-action:manipulation; cursor:pointer; }
+    .nav-links { display:flex; gap:1rem; list-style:none; align-items:center; }
+    .nav-links li a { text-decoration:none; color:#1e293b; font-weight:500; font-size:0.85rem; padding:0.3rem 0.1rem; border-bottom:2px solid transparent; transition:0.2s; }
+    .nav-links li a:hover { border-bottom-color:#0b5e42; color:#0b5e42; }
+
+    /* ---------- HERO ---------- */
+    .resources-hero {
+      background: linear-gradient(135deg, #0b2f26, #1a5d48);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .resources-hero h1 { font-size: 2rem; font-weight:800; margin-bottom:0.5rem; }
+    .resources-hero p { font-size: 1rem; opacity:0.9; max-width:600px; margin:0 auto; }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem;
+      border-left: 4px solid #0b5e42;
+      padding-left: 0.8rem;
+      color: #0b2f26;
+    }
+
+    /* ---------- RESOURCE CARDS ---------- */
+    .resource-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border: 1px solid #eef2f6;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .resource-card:hover {
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transform: translateY(-2px);
+      border-color: #cbd5e1;
+    }
+    .resource-info {
+      flex: 1;
+      min-width: 200px;
+    }
+    .resource-info h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #0b2f26;
+      margin-bottom: 0.2rem;
+    }
+    .resource-info p {
+      font-size: 0.9rem;
+      color: #4a5b74;
+      margin: 0;
+    }
+    .resource-info i {
+      color: #0b5e42;
+      margin-right: 0.3rem;
+    }
+    .download-btn {
+      background: #0b5e42;
+      color: white;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: background 0.2s, transform 0.2s;
+      white-space: nowrap;
+    }
+    .download-btn:hover {
+      background: #094b35;
+      transform: scale(1.02);
+    }
+
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    .main-footer i { margin: 0 0.3rem; }
+
+    /* ---------- ADMIN BUTTON ---------- */
+    .admin-floating {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition:0.2s;
+      display: none;
+      align-items:center;
+      justify-content:center;
+    }
+    .admin-floating.visible { display:flex; }
+    .admin-floating:hover { background: #094b35; transform:scale(1.05); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        padding:0.6rem 0;
+        gap:0.3rem;
+        border-top:1px solid #eef2f6;
+        margin-top:0.3rem;
+      }
+      .nav-links.active { display:flex; }
+      .nav-links li a { display:block; padding:0.6rem 0.5rem; border-bottom:none; text-align:center; font-size:0.9rem; }
+      .resources-hero { padding:1.5rem 1rem; }
+      .resources-hero h1 { font-size:1.6rem; }
+      .section-title { font-size:1.2rem; }
+      .resource-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding:1rem;
+      }
+      .resource-info h3 { font-size:0.95rem; }
+      .resource-info p { font-size:0.85rem; }
+      .download-btn { width:100%; justify-content:center; }
+      .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
+    }
+    @media (max-width:480px) {
+      .resources-hero h1 { font-size:1.3rem; }
+      .resources-hero p { font-size:0.85rem; }
+      .section-title { font-size:1rem; }
+      .resource-card { padding:0.8rem; }
+      .resource-info h3 { font-size:0.9rem; }
+      .resource-info p { font-size:0.8rem; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
   <div class="nav-container">
     <div class="logo" id="homeLogo">
-      <img src="../images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
-      <img src="../images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+      <img src="../images/download boma.png" alt="Boma Yangu">
+      <img src="../images/logo.png" alt="Boma Yangu">
     </div>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="../index.html">Home</a></li>
-      <li><a href="index.html">About</a></li>
+      <li><a href="../about/">About</a></li>
       <li><a href="../projects/">Projects</a></li>
       <li><a href="../faqs/">FAQs</a></li>
-      <li><a href="../resources/">Resources</a></li>
+      <li><a href="index.html">Resources</a></li>
       <li><a href="../contacts/">Contacts</a></li>
     </ul>
   </div>
 </nav>
 
-<div class="container">
-  <div class="section-title">📚 Resources & Downloads</div>
-  <div class="resource-card"><div class="resource-info"><h3>Affordable Housing Program Delivery Framework</h3><p>Presentation document outlining the AHP strategy</p></div><a href="#" class="download-btn" id="downloadFramework">Download <i class="fas fa-download"></i></a></div>
-  <div class="resource-card"><div class="resource-info"><h3>Development Framework Guidelines</h3><p>Implementation guidelines for developers and partners</p></div><a href="#" class="download-btn" id="downloadGuidelines">Download <i class="fas fa-download"></i></a></div>
-  <div class="resource-card"><div class="resource-info"><h3>Legal Notice No. 238 - THE HOUSING ACT</h3><p>Official legal framework for affordable housing</p></div><a href="#" class="download-btn" id="downloadLegal">Download <i class="fas fa-download"></i></a></div>
+<!-- ========== HERO ========== -->
+<div class="resources-hero">
+  <h1>Resources &amp; Downloads</h1>
+  <p>Access key documents, guidelines, and legal frameworks that support the Affordable Housing Program.</p>
 </div>
 
+<!-- ========== RESOURCES LIST ========== -->
+<div class="container">
+  <div class="section-title"><i class="fas fa-download" style="color:#0b5e42; margin-right:0.5rem;"></i> Available Resources</div>
+
+  <div class="resource-card">
+    <div class="resource-info">
+      <h3><i class="fas fa-file-pdf"></i> Affordable Housing Program Delivery Framework</h3>
+      <p>Strategic overview of the Affordable Housing Program, including implementation pillars and targets.</p>
+    </div>
+    <a href="#" class="download-btn" id="downloadFramework"><i class="fas fa-download"></i> Download</a>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-info">
+      <h3><i class="fas fa-file-pdf"></i> Development Framework Guidelines</h3>
+      <p>Comprehensive guidelines for developers, contractors, and partners participating in the AHP.</p>
+    </div>
+    <a href="#" class="download-btn" id="downloadGuidelines"><i class="fas fa-download"></i> Download</a>
+  </div>
+
+  <div class="resource-card">
+    <div class="resource-info">
+      <h3><i class="fas fa-file-pdf"></i> Legal Notice No. 238 – The Housing Act</h3>
+      <p>Official legal framework governing affordable housing in Kenya, including compliance requirements.</p>
+    </div>
+    <a href="#" class="download-btn" id="downloadLegal"><i class="fas fa-download"></i> Download</a>
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
 <footer class="main-footer">
-  <p>Boma Yangu — Transparent, fair, and accessible housing.</p>
-  <p>📞 Support: 0700 000 000 | ✉️ resources@bomayangu.go.ke</p>
+  <p>Boma Yangu Jobs — Transparent, fair, and accessible housing.</p>
+  <p><i class="fas fa-phone-alt"></i> Support: 0700 000 000 &nbsp;|&nbsp; <i class="fas fa-envelope"></i> resources@bomayangu.go.ke</p>
+  <p>Terms &amp; Conditions | Privacy Policy</p>
 </footer>
 
+<!-- ========== ADMIN BUTTON ========== -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
-<script src="../assets/js/main.js"></script>
+
 <script>
-  document.getElementById('downloadFramework')?.addEventListener('click', (e) => { e.preventDefault(); showToast("Download would start – Framework PDF."); });
-  document.getElementById('downloadGuidelines')?.addEventListener('click', (e) => { e.preventDefault(); showToast("Download would start – Guidelines PDF."); });
-  document.getElementById('downloadLegal')?.addEventListener('click', (e) => { e.preventDefault(); showToast("Download would start – Legal Notice PDF."); });
+  // ---------- HAMBURGER ----------
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
+  // ---------- ADMIN BUTTON VISIBILITY (double‑tap logo) ----------
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') adminBtn.classList.add('visible');
+
+    let tapCount = 0, tapTimer = null;
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 300);
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click → navigate to admin.html
+  document.getElementById('adminFloatBtn').addEventListener('click', function() {
+    window.location.href = '../admin.html';
+  });
+
+  // ---------- DOWNLOAD HANDLERS (PLACEHOLDER) ----------
+  function showToast(msg) {
+    // Simple toast notification
+    let existing = document.querySelector('.toast-msg');
+    if (existing) existing.remove();
+    let div = document.createElement('div');
+    div.className = 'toast-msg';
+    div.style.cssText = 'position:fixed; bottom:80px; left:16px; right:16px; max-width:360px; background:#1e2a3e; color:white; padding:8px 16px; border-radius:30px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.15); font-weight:500; font-size:0.85rem; text-align:center;';
+    div.innerText = msg;
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 3000);
+  }
+
+  document.getElementById('downloadFramework').addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('Framework PDF download will start shortly.');
+    // In production, replace with actual file URL:
+    // window.location.href = '/path/to/framework.pdf';
+  });
+
+  document.getElementById('downloadGuidelines').addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('Guidelines PDF download will start shortly.');
+    // window.location.href = '/path/to/guidelines.pdf';
+  });
+
+  document.getElementById('downloadLegal').addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('Legal Notice PDF download will start shortly.');
+    // window.location.href = '/path/to/legal-notice.pdf';
+  });
+
+  // ---------- FETCH CONFIG (optional, for consistency) ----------
+  async function fetchConfig() {
+    try {
+      const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch config');
+      // Not used on this page, but kept for consistency
+    } catch (error) {
+      console.warn('Config fetch not critical for this page');
+    }
+  }
+  fetchConfig();
 </script>
 </body>
 </html>
