@@ -33,19 +33,19 @@
     .hero-left h1 { font-size:1.8rem; font-weight:800; color:#0b2f26; margin-bottom:0.3rem; }
     .hero-left p { font-size:0.9rem; color:#334155; margin-bottom:0.8rem; }
     .ecitizen-card { background:#f1f5f9; border-radius:40px; padding:0.4rem 1rem; display:inline-flex; align-items:center; gap:0.6rem; flex-wrap:wrap; font-size:0.8rem; }
-    /* eCitizen button as image */
+    /* eCitizen button with image and background */
     .ecitizen-btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: transparent;
-      border: none;
-      padding: 0;
+      background: #1e3a8a;      /* blue background to match button */
+      padding: 8px 16px;
+      border-radius: 30px;
       text-decoration: none;
-      min-height: auto;
+      min-height: 44px;
     }
     .ecitizen-btn img {
-      height: 32px;
+      height: 40px;            /* larger image */
       width: auto;
       display: block;
       border-radius: 4px;
@@ -252,7 +252,8 @@
       .hero-left h1 { font-size:1.3rem; }
       .hero-left p { font-size:0.8rem; }
       .ecitizen-card { font-size:0.7rem; padding:0.3rem 0.8rem; }
-      .ecitizen-btn img { height:26px; }
+      .ecitizen-btn { padding:6px 12px; min-height:36px; }
+      .ecitizen-btn img { height:36px; }
       .stat-number { font-size:1rem; }
       .stat-card div:last-child { font-size:0.65rem; }
       .job-title { font-size:0.8rem; }
