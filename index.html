@@ -213,13 +213,27 @@
       display:flex; align-items:center; gap:0.3rem;
     }
     .job-salary i { font-size:0.9rem; }
-    .apply-btn {
-      background:linear-gradient(135deg,#0b5e42,#1a7b5c);
-      color:white; border:none; width:100%; padding:0.5rem;
-      border-radius:30px; font-weight:600; font-size:0.85rem;
-      cursor:pointer; margin-top:0.4rem; transition:0.2s; min-height:40px;
+
+    /* New: click for details hint */
+    .job-details-hint {
+      text-align:center;
+      margin-top:0.6rem;
+      font-size:0.8rem;
+      font-weight:600;
+      color:#0b5e42;
+      padding:0.3rem;
+      border-radius:30px;
+      border:1px dashed #0b5e42;
+      transition:0.2s;
+      cursor:pointer;
+      background:transparent;
+      width:100%;
     }
-    .apply-btn:hover { transform:translateY(-1px); box-shadow:0 4px 12px rgba(11,94,66,0.2); }
+    .job-details-hint:hover {
+      background:#f0fdf4;
+      border-color:#0b5e42;
+    }
+    .job-details-hint i { margin-right:0.3rem; }
 
     /* ---------- DETAIL MODAL ---------- */
     #jobDetailModal .modal-container {
@@ -331,6 +345,19 @@
       border:none; padding:0.3rem; line-height:1;
     }
 
+    /* ---------- APPLICATION MODAL HEADER ---------- */
+    .apply-modal-title {
+      font-size:1.2rem;
+      font-weight:700;
+      color:#0b2f26;
+      margin-bottom:0.2rem;
+    }
+    .apply-modal-sub {
+      font-size:0.85rem;
+      color:#4a5b74;
+      margin-bottom:0.8rem;
+    }
+
     /* ---------- TOAST ---------- */
     .toast-msg {
       position:fixed; bottom:80px; left:16px; right:16px;
@@ -387,7 +414,7 @@
       .job-title { font-size:0.9rem; }
       .job-desc { font-size:0.7rem; min-height:1.5rem; }
       .job-salary { font-size:0.9rem; }
-      .apply-btn { font-size:0.8rem; padding:0.4rem; min-height:36px; }
+      .job-details-hint { font-size:0.7rem; }
       .container { padding:0 0.6rem; }
       .app-notice { font-size:0.7rem; padding:0.3rem 0.8rem; }
       .app-notice .notice-date { font-size:0.65rem; padding:0.1rem 0.6rem; }
@@ -550,7 +577,9 @@
 <div id="applyModal" class="modal-overlay">
   <div class="modal-container">
     <button class="close-modal" id="closeModalBtn">&times;</button>
-    <h3>Apply for a job</h3>
+    <div id="applyModalHeader">
+      <!-- dynamically filled -->
+    </div>
     <form id="applicationForm">
       <input type="hidden" id="jobIdField" value="">
       <div class="form-group">
@@ -914,18 +943,11 @@
           <span class="job-slots"><i class="fas fa-users"></i> ${slotStatus}</span>
           <span class="job-salary"><i class="fas fa-money-bill-wave"></i> KES ${job.salary ? job.salary.toLocaleString() : '0'}</span>
         </div>
-        <button class="apply-btn" data-jobid="${job.id}">Apply Now</button>
+        <div class="job-details-hint"><i class="fas fa-arrow-right"></i> Click for job details</div>
       `;
       // Make the whole card clickable (open detail modal)
       card.addEventListener('click', function(e) {
-        // Don't open detail if the click was on the apply button itself
-        if (e.target.closest('.apply-btn')) return;
         openJobDetail(job);
-      });
-      // Apply button click opens the application modal directly
-      card.querySelector('.apply-btn').addEventListener('click', function(e) {
-        e.stopPropagation();
-        openApplyModal(job);
       });
       container.appendChild(card);
     });
@@ -956,8 +978,18 @@
   }
 
   let pendingApplicationId = null;
+  let currentJobForApply = null;
 
   function openApplyModal(job) {
+    currentJobForApply = job;
+    // Update header
+    const header = document.getElementById('applyModalHeader');
+    if (header) {
+      header.innerHTML = `
+        <div class="apply-modal-title">Apply for ${escapeHtml(job.title)}</div>
+        <div class="apply-modal-sub">Salary: KES ${job.salary ? job.salary.toLocaleString() : '0'} / month</div>
+      `;
+    }
     populateJobDropdown(job.id);
     document.getElementById('jobIdField').value = job.id;
     document.getElementById('fullname').value = '';
@@ -1055,11 +1087,17 @@
 
   function closeModals() {
     document.getElementById('applyModal').classList.remove('active');
+    document.getElementById('jobDetailModal').classList.remove('active');
   }
 
-  document.getElementById('closeModalBtn')?.addEventListener('click', closeModals);
+  document.getElementById('closeModalBtn')?.addEventListener('click', () => {
+    document.getElementById('applyModal').classList.remove('active');
+  });
   window.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-overlay')) closeModals();
+    if (e.target.classList.contains('modal-overlay')) {
+      const modals = document.querySelectorAll('.modal-overlay');
+      modals.forEach(m => m.classList.remove('active'));
+    }
   });
 
   function showToast(msg, isError = false) {
