@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
+    /* ... (your existing CSS – unchanged) ... */
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.4; }
     .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
@@ -395,28 +396,28 @@
     }
   }
 
-  let appConfig = { applicationFee: 78, applicationEndDate: "2026-08-13" };
+  // Default config values (will be overwritten)
+  let appConfig = { applicationFee: 78, application_end_date: "2026-08-13" };
 
   // ---------- FETCH CONFIG WITH STRONG CACHE PREVENTION ----------
   async function fetchConfig() {
     try {
-      // Use cache: 'no-store' to completely bypass browser cache + a timestamp as fallback
+      // Use cache: 'no-store' + timestamp to bypass browser cache
       const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-          'Pragma': 'no-cache'
-        }
+        cache: 'no-store'
       });
       if (!response.ok) throw new Error('Failed to fetch config');
       const data = await response.json();
+      console.log('📦 Config fetched:', data); // Debug: see what's returned
       appConfig = data;
       updateNotice();
-      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+      // Update fee display – API key is 'application_fee'
+      const fee = data.application_fee || 78;
+      document.getElementById('displayFee').innerText = `KES ${fee}`;
     } catch (error) {
-      console.warn('Using default config');
+      console.warn('Using default config', error);
       updateNotice();
-      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+      document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee || 78}`;
     }
   }
 
@@ -503,7 +504,8 @@
     document.getElementById('constituency').value = '';
     document.getElementById('email').value = '';
     pendingApplicationId = null;
-    document.getElementById('displayFee').innerText = `KES ${appConfig.applicationFee}`;
+    const fee = appConfig.application_fee || 78;
+    document.getElementById('displayFee').innerText = `KES ${fee}`;
     document.getElementById('applyModal').classList.add('active');
   }
 
@@ -610,7 +612,8 @@
   }
 
   function updateNotice() {
-    const endDate = appConfig.applicationEndDate || '2026-08-13';
+    // Use the snake_case key that the API returns
+    const endDate = appConfig.application_end_date || '2026-08-13';
     const d = new Date(endDate + 'T00:00:00');
     const formatted = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
     document.getElementById('endDateDisplay').textContent = formatted;
