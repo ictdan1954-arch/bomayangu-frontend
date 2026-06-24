@@ -2,77 +2,380 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us | Boma Yangu</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>Contact Us | Boma Yangu Jobs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
   <style>
-    .contact-grid { display: flex; flex-wrap: wrap; gap: 2rem; }
-    .contact-info, .contact-form { flex: 1; background: white; border-radius: 28px; padding: 1.8rem; border: 1px solid #eef2f8; }
-    .contact-info i { width: 30px; color: #0b5e42; }
-    .contact-info p { margin: 1rem 0; }
+    /* ---------- Reset & Base ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.5; }
+    .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar { background:white; padding:0.4rem 1rem; border-bottom:1px solid #eef2f6; position:sticky; top:0; z-index:1000; }
+    .nav-container { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:0.4rem; cursor:pointer; user-select:none; }
+    .logo img { height:36px; width:auto; }
+    .hamburger { display:none; font-size:1.6rem; background:none; border:none; color:#0b5e42; padding:0.3rem; touch-action:manipulation; cursor:pointer; }
+    .nav-links { display:flex; gap:1rem; list-style:none; align-items:center; }
+    .nav-links li a { text-decoration:none; color:#1e293b; font-weight:500; font-size:0.85rem; padding:0.3rem 0.1rem; border-bottom:2px solid transparent; transition:0.2s; }
+    .nav-links li a:hover { border-bottom-color:#0b5e42; color:#0b5e42; }
+
+    /* ---------- HERO ---------- */
+    .contact-hero {
+      background: linear-gradient(135deg, #0b2f26, #1a5d48);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .contact-hero h1 { font-size: 2rem; font-weight:800; margin-bottom:0.5rem; }
+    .contact-hero p { font-size: 1rem; opacity:0.9; max-width:600px; margin:0 auto; }
+
+    /* ---------- SECTION TITLE ---------- */
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 1.5rem 0 1rem;
+      border-left: 4px solid #0b5e42;
+      padding-left: 0.8rem;
+      color: #0b2f26;
+    }
+
+    /* ---------- CONTACT GRID ---------- */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .contact-info, .contact-form {
+      flex: 1;
+      min-width: 280px;
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .contact-info h3, .contact-form h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #0b2f26;
+      margin-bottom: 1rem;
+    }
+    .contact-info p {
+      margin: 1rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    .contact-info i {
+      width: 24px;
+      color: #0b5e42;
+      font-size: 1.2rem;
+      margin-top: 0.2rem;
+    }
+    .contact-info hr {
+      margin: 1rem 0;
+      border: 0;
+      border-top: 1px solid #eef2f6;
+    }
+    .contact-info .social-links {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    .contact-info .social-links a {
+      color: #0b5e42;
+      font-size: 1.4rem;
+      transition: color 0.2s;
+    }
+    .contact-info .social-links a:hover { color: #094b35; }
+
+    /* ---------- FORM ---------- */
     .form-group { margin-bottom: 1rem; }
-    .form-group input, .form-group textarea { width: 100%; padding: 0.7rem; border-radius: 16px; border: 1px solid #cfdfed; font-family: inherit; }
-    .submit-btn { background: #0b5e42; color: white; border: none; padding: 0.7rem 1.8rem; border-radius: 40px; cursor: pointer; font-weight: 600; }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+      color: #1e293b;
+    }
+    .form-group input, .form-group textarea {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      border-radius: 16px;
+      border: 1px solid #cfdfed;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fafcfd;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: #0b5e42;
+      box-shadow: 0 0 0 3px rgba(11,94,66,0.1);
+      background: white;
+    }
+    .submit-btn {
+      background: #0b5e42;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .submit-btn:hover {
+      background: #094b35;
+      transform: scale(1.02);
+    }
+
+    /* ---------- TOAST ---------- */
+    .toast-msg {
+      position: fixed;
+      bottom: 80px;
+      left: 16px;
+      right: 16px;
+      max-width: 360px;
+      margin: 0 auto;
+      background: #1e2a3e;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 30px;
+      z-index: 9999;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      font-weight: 500;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+    .toast-msg.success { background: #0b5e42; }
+
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    .main-footer i { margin: 0 0.3rem; }
+
+    /* ---------- ADMIN BUTTON ---------- */
+    .admin-floating {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition:0.2s;
+      display: none;
+      align-items:center;
+      justify-content:center;
+    }
+    .admin-floating.visible { display:flex; }
+    .admin-floating:hover { background: #094b35; transform:scale(1.05); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        padding:0.6rem 0;
+        gap:0.3rem;
+        border-top:1px solid #eef2f6;
+        margin-top:0.3rem;
+      }
+      .nav-links.active { display:flex; }
+      .nav-links li a { display:block; padding:0.6rem 0.5rem; border-bottom:none; text-align:center; font-size:0.9rem; }
+      .contact-hero { padding:1.5rem 1rem; }
+      .contact-hero h1 { font-size:1.6rem; }
+      .section-title { font-size:1.2rem; }
+      .contact-grid { flex-direction:column; }
+      .contact-info, .contact-form { padding:1.2rem; }
+      .contact-info h3, .contact-form h3 { font-size:1.1rem; }
+      .contact-info p { font-size:0.9rem; }
+      .form-group input, .form-group textarea { font-size:0.9rem; }
+      .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
+    }
+    @media (max-width:480px) {
+      .contact-hero h1 { font-size:1.3rem; }
+      .contact-hero p { font-size:0.85rem; }
+      .section-title { font-size:1rem; }
+      .contact-info, .contact-form { padding:0.8rem; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
   <div class="nav-container">
     <div class="logo" id="homeLogo">
-      <img src="../images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
-      <img src="../images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+      <img src="../images/download boma.png" alt="Boma Yangu">
+      <img src="../images/logo.png" alt="Boma Yangu">
     </div>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="../index.html">Home</a></li>
-      <li><a href="index.html">About</a></li>
+      <li><a href="../about/">About</a></li>
       <li><a href="../projects/">Projects</a></li>
       <li><a href="../faqs/">FAQs</a></li>
       <li><a href="../resources/">Resources</a></li>
-      <li><a href="../contacts/">Contacts</a></li>
+      <li><a href="index.html">Contacts</a></li>
     </ul>
   </div>
 </nav>
 
+<!-- ========== HERO ========== -->
+<div class="contact-hero">
+  <h1>Contact Us</h1>
+  <p>Have questions about Boma Yangu Jobs, the application process, or the Affordable Housing Program? Reach out to us – we’re here to help.</p>
+</div>
+
+<!-- ========== CONTENT ========== -->
 <div class="container">
-  <div class="section-title">📞 Contact Us</div>
+  <div class="section-title"><i class="fas fa-address-card" style="color:#0b5e42; margin-right:0.5rem;"></i> Get in Touch</div>
+
   <div class="contact-grid">
+    <!-- Contact Info -->
     <div class="contact-info">
-      <h3>Get in touch</h3>
-      <p><i class="fas fa-map-marker-alt"></i> Ministry of Lands, Public Works, Housing and Urban Development<br>State Department of Housing & Urban Development, Nairobi, Kenya</p>
-      <p><i class="fas fa-phone-alt"></i> Customer Support: 0700 000 000</p>
-      <p><i class="fas fa-envelope"></i> info@bomayangu.go.ke</p>
+      <h3><i class="fas fa-info-circle" style="color:#0b5e42; margin-right:0.5rem;"></i> Reach Us</h3>
+      <p><i class="fas fa-map-marker-alt"></i> Ministry of Lands, Public Works, Housing and Urban Development<br>State Department of Housing &amp; Urban Development, Nairobi, Kenya</p>
+      <p><i class="fas fa-phone-alt"></i> Customer Support: <a href="tel:0700000000" style="color:#0b5e42; text-decoration:none;">0700 000 000</a></p>
+      <p><i class="fas fa-envelope"></i> <a href="mailto:info@bomayangu.go.ke" style="color:#0b5e42; text-decoration:none;">info@bomayangu.go.ke</a></p>
       <p><i class="fas fa-clock"></i> Mon–Fri: 8:00 AM – 5:00 PM</p>
-      <hr style="margin: 1rem 0;">
-      <p><i class="fab fa-twitter"></i> @BomaYanguKe &nbsp;|&nbsp; <i class="fab fa-facebook"></i> BomaYanguOfficial</p>
+      <hr>
+      <p><i class="fas fa-globe"></i> <a href="https://bomayangu.go.ke" target="_blank" style="color:#0b5e42; text-decoration:none;">www.bomayangu.go.ke</a></p>
+      <div class="social-links">
+        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
     </div>
+
+    <!-- Contact Form -->
     <div class="contact-form">
-      <h3>Send us a message</h3>
+      <h3><i class="fas fa-paper-plane" style="color:#0b5e42; margin-right:0.5rem;"></i> Send us a Message</h3>
       <form id="contactForm">
-        <div class="form-group"><input type="text" placeholder="Your Name" required></div>
-        <div class="form-group"><input type="email" placeholder="Email Address" required></div>
-        <div class="form-group"><textarea rows="4" placeholder="Your message..." required></textarea></div>
-        <button type="submit" class="submit-btn">Send Message →</button>
+        <div class="form-group">
+          <label for="name">Your Name</label>
+          <input type="text" id="name" placeholder="e.g. Jane Mwangi" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email Address</label>
+          <input type="email" id="email" placeholder="e.g. jane@example.com" required>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" id="subject" placeholder="Brief subject" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" rows="4" placeholder="Your message..." required></textarea>
+        </div>
+        <button type="submit" class="submit-btn"><i class="fas fa-paper-plane"></i> Send Message</button>
       </form>
     </div>
   </div>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="main-footer">
-  <p>Boma Yangu — Building communities, transforming lives.</p>
-  <p>📞 Support: 0700 000 000 | ✉️ info@bomayangu.go.ke</p>
+  <p>Boma Yangu Jobs — Building communities, transforming lives.</p>
+  <p><i class="fas fa-phone-alt"></i> Support: 0700 000 000 &nbsp;|&nbsp; <i class="fas fa-envelope"></i> info@bomayangu.go.ke</p>
+  <p>Terms &amp; Conditions | Privacy Policy</p>
 </footer>
 
+<!-- ========== ADMIN BUTTON ========== -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
-<script src="../assets/js/main.js"></script>
+
 <script>
-  document.getElementById('contactForm')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-    showToast("Thank you! Your message has been sent. We'll get back to you soon.");
-    e.target.reset();
+  // ---------- HAMBURGER ----------
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
   });
+
+  // ---------- ADMIN BUTTON VISIBILITY (double‑tap logo) ----------
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') adminBtn.classList.add('visible');
+
+    let tapCount = 0, tapTimer = null;
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 300);
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click → navigate to admin.html
+  document.getElementById('adminFloatBtn').addEventListener('click', function() {
+    window.location.href = '../admin.html';
+  });
+
+  // ---------- FORM SUBMISSION ----------
+  function showToast(msg, type = '') {
+    let existing = document.querySelector('.toast-msg');
+    if (existing) existing.remove();
+    let div = document.createElement('div');
+    div.className = 'toast-msg' + (type ? ' ' + type : '');
+    div.innerText = msg;
+    document.body.appendChild(div);
+    setTimeout(() => div.remove(), 4000);
+  }
+
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    // In production, you would send the data to a server endpoint.
+    // For now, we just show a success message.
+    showToast('Thank you! Your message has been sent. We’ll get back to you soon.', 'success');
+    this.reset();
+  });
+
+  // ---------- FETCH CONFIG (optional, for consistency) ----------
+  async function fetchConfig() {
+    try {
+      const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch config');
+      // Not used on this page, but kept for consistency
+    } catch (error) {
+      console.warn('Config fetch not critical for this page');
+    }
+  }
+  fetchConfig();
 </script>
 </body>
 </html>
