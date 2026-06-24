@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <style>
-    /* ---------- All existing styles (unchanged) ---------- */
+    /* ---------- Reset & Base ---------- */
     * { margin:0; padding:0; box-sizing:border-box; }
     body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.4; }
     .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
@@ -33,7 +33,23 @@
     .hero-left h1 { font-size:1.8rem; font-weight:800; color:#0b2f26; margin-bottom:0.3rem; }
     .hero-left p { font-size:0.9rem; color:#334155; margin-bottom:0.8rem; }
     .ecitizen-card { background:#f1f5f9; border-radius:40px; padding:0.4rem 1rem; display:inline-flex; align-items:center; gap:0.6rem; flex-wrap:wrap; font-size:0.8rem; }
-    .ecitizen-btn { background:#1e3a8a; color:white; padding:0.3rem 1rem; border-radius:30px; text-decoration:none; font-weight:600; font-size:0.8rem; display:inline-flex; align-items:center; min-height:36px; }
+    /* eCitizen button as image */
+    .ecitizen-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      border: none;
+      padding: 0;
+      text-decoration: none;
+      min-height: auto;
+    }
+    .ecitizen-btn img {
+      height: 32px;
+      width: auto;
+      display: block;
+      border-radius: 4px;
+    }
     .hero-carousel { flex:1; background:#f8fafc; border-radius:24px; padding:0.3rem; }
     .carousel-container { overflow:hidden; border-radius:18px; }
     .carousel-slides { display:flex; transition:transform 0.5s ease; }
@@ -49,7 +65,7 @@
     .stat-number { font-size:1.4rem; font-weight:800; color:#0b5e42; }
     .stat-card div:last-child { font-size:0.7rem; color:#4a5b74; }
 
-    /* ---------- NEW: HOW IT WORKS SECTION ---------- */
+    /* ---------- HOW IT WORKS ---------- */
     .how-it-works {
       background:white;
       border-radius:24px;
@@ -125,7 +141,7 @@
     }
     .how-it-works .footer-note i { margin-right:0.3rem; color:#0b5e42; }
 
-    /* ---------- FEE BANNER (above jobs) ---------- */
+    /* ---------- FEE BANNER ---------- */
     .fee-banner {
       background:#fef9e7;
       border-left:4px solid #f59e0b;
@@ -236,7 +252,7 @@
       .hero-left h1 { font-size:1.3rem; }
       .hero-left p { font-size:0.8rem; }
       .ecitizen-card { font-size:0.7rem; padding:0.3rem 0.8rem; }
-      .ecitizen-btn { font-size:0.7rem; padding:0.2rem 0.8rem; min-height:30px; }
+      .ecitizen-btn img { height:26px; }
       .stat-number { font-size:1rem; }
       .stat-card div:last-child { font-size:0.65rem; }
       .job-title { font-size:0.8rem; }
@@ -275,7 +291,10 @@
       <p>Boma Yangu connects you to real job opportunities within Kenya’s Affordable Housing Program. Secure a stable income, build your career, and take the first step toward owning your own home. Your future starts today.</p>
       <div class="ecitizen-card">
         <span><i class="fas fa-check-circle"></i> Access Boma Yangu easily with your eCitizen account – it’s fast and secure.</span>
-        <a href="https://accounts.ecitizen.go.ke/en" target="_blank" class="ecitizen-btn">eCitizen</a>
+        <!-- eCitizen button with image -->
+        <a href="https://accounts.ecitizen.go.ke/en" target="_blank" class="ecitizen-btn">
+          <img src="images/ecitizen logo.png" alt="eCitizen">
+        </a>
       </div>
     </div>
     <div class="hero-carousel">
@@ -334,7 +353,7 @@
 
 <!-- ========== JOBS ========== -->
 <div class="container">
-  <!-- Fee Banner (above job cards) -->
+  <!-- Fee Banner -->
   <div class="fee-banner" id="feeBanner">
     <i class="fas fa-info-circle"></i>
     <span><strong>Application Fee:</strong> <span id="feeBannerAmount">KES 78</span> – This fee covers verification, processing, and secures your position in the hiring pipeline.</span>
@@ -391,7 +410,7 @@
           <i class="fas fa-mobile-alt"></i> STK Push
         </button>
       </div>
-      <!-- Updated persuasive modal message -->
+      <!-- Persuasive modal message -->
       <div style="background:#f0fdf4; border:1px solid #d1fae5; border-radius:12px; padding:0.6rem 0.8rem; margin-top:0.4rem;">
         <p style="font-size:0.75rem; color:#065f46; margin:0;">
           <i class="fas fa-info-circle" style="color:#0b5e42;"></i>
@@ -540,7 +559,6 @@
     }
   }
 
-  // Default config values (will be overwritten)
   let appConfig = { applicationFee: 78, application_end_date: "2026-08-13" };
 
   // ---------- FETCH CONFIG WITH SAFE UPDATES ----------
@@ -555,14 +573,7 @@
       appConfig = data;
       updateNotice();
       const fee = data.application_fee || 78;
-
-      // Safely update each fee element if it exists
-      const feeElements = [
-        'displayFee',
-        'howItWorksFee',
-        'feeBannerAmount',
-        'modalFeeDisplay'
-      ];
+      const feeElements = ['displayFee', 'howItWorksFee', 'feeBannerAmount', 'modalFeeDisplay'];
       feeElements.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerText = `KES ${fee}`;
@@ -571,12 +582,7 @@
       console.warn('Using default config', error);
       updateNotice();
       const fee = 78;
-      const feeElements = [
-        'displayFee',
-        'howItWorksFee',
-        'feeBannerAmount',
-        'modalFeeDisplay'
-      ];
+      const feeElements = ['displayFee', 'howItWorksFee', 'feeBannerAmount', 'modalFeeDisplay'];
       feeElements.forEach(id => {
         const el = document.getElementById(id);
         if (el) el.innerText = `KES ${fee}`;
