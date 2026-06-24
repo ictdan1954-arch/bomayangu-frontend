@@ -195,35 +195,47 @@
 <!-- ========== HERO ========== -->
 <div class="resources-hero">
   <h1>Resources &amp; Downloads</h1>
-  <p>Access key documents, guidelines, and legal frameworks that support the Affordable Housing Program.</p>
+  <p>Essential guides, handbooks, and legal information for job seekers and partners.</p>
 </div>
 
 <!-- ========== RESOURCES LIST ========== -->
 <div class="container">
   <div class="section-title"><i class="fas fa-download" style="color:#0b5e42; margin-right:0.5rem;"></i> Available Resources</div>
 
+  <!-- Resource 1: Applicant Handbook -->
   <div class="resource-card">
     <div class="resource-info">
-      <h3><i class="fas fa-file-pdf"></i> Affordable Housing Program Delivery Framework</h3>
-      <p>Strategic overview of the Affordable Housing Program, including implementation pillars and targets.</p>
+      <h3><i class="fas fa-file-pdf"></i> Boma Yangu Jobs – Applicant Handbook</h3>
+      <p>A complete guide to the application process, verification steps, and what to expect after you apply.</p>
     </div>
-    <a href="#" class="download-btn" id="downloadFramework"><i class="fas fa-download"></i> Download</a>
+    <a href="#" class="download-btn" id="downloadHandbook"><i class="fas fa-download"></i> Download</a>
   </div>
 
+  <!-- Resource 2: Program Overview -->
   <div class="resource-card">
     <div class="resource-info">
-      <h3><i class="fas fa-file-pdf"></i> Development Framework Guidelines</h3>
-      <p>Comprehensive guidelines for developers, contractors, and partners participating in the AHP.</p>
+      <h3><i class="fas fa-file-pdf"></i> Affordable Housing Program – Overview for Job Seekers</h3>
+      <p>Understand how the Affordable Housing Program creates jobs, and how your role contributes to building Kenya’s future.</p>
     </div>
-    <a href="#" class="download-btn" id="downloadGuidelines"><i class="fas fa-download"></i> Download</a>
+    <a href="#" class="download-btn" id="downloadProgram"><i class="fas fa-download"></i> Download</a>
   </div>
 
+  <!-- Resource 3: Terms & Conditions -->
   <div class="resource-card">
     <div class="resource-info">
-      <h3><i class="fas fa-file-pdf"></i> Legal Notice No. 238 – The Housing Act</h3>
-      <p>Official legal framework governing affordable housing in Kenya, including compliance requirements.</p>
+      <h3><i class="fas fa-file-pdf"></i> Terms and Conditions for Job Applicants</h3>
+      <p>Legal terms governing your application, including data protection, payment, and the verification process.</p>
     </div>
-    <a href="#" class="download-btn" id="downloadLegal"><i class="fas fa-download"></i> Download</a>
+    <a href="#" class="download-btn" id="downloadTerms"><i class="fas fa-download"></i> Download</a>
+  </div>
+
+  <!-- Optional fourth: Privacy Policy (you can add more) -->
+  <div class="resource-card">
+    <div class="resource-info">
+      <h3><i class="fas fa-file-pdf"></i> Privacy Policy &amp; Data Protection</h3>
+      <p>How we collect, use, and protect your personal data during the application and verification process.</p>
+    </div>
+    <a href="#" class="download-btn" id="downloadPrivacy"><i class="fas fa-download"></i> Download</a>
   </div>
 </div>
 
@@ -272,7 +284,6 @@
 
   // ---------- DOWNLOAD HANDLERS (PLACEHOLDER) ----------
   function showToast(msg) {
-    // Simple toast notification
     let existing = document.querySelector('.toast-msg');
     if (existing) existing.remove();
     let div = document.createElement('div');
@@ -283,23 +294,28 @@
     setTimeout(() => div.remove(), 3000);
   }
 
-  document.getElementById('downloadFramework').addEventListener('click', function(e) {
+  document.getElementById('downloadHandbook').addEventListener('click', function(e) {
     e.preventDefault();
-    showToast('Framework PDF download will start shortly.');
-    // In production, replace with actual file URL:
-    // window.location.href = '/path/to/framework.pdf';
+    showToast('Applicant Handbook PDF download will start shortly.');
+    // window.location.href = '/path/to/handbook.pdf';
   });
 
-  document.getElementById('downloadGuidelines').addEventListener('click', function(e) {
+  document.getElementById('downloadProgram').addEventListener('click', function(e) {
     e.preventDefault();
-    showToast('Guidelines PDF download will start shortly.');
-    // window.location.href = '/path/to/guidelines.pdf';
+    showToast('Program Overview PDF download will start shortly.');
+    // window.location.href = '/path/to/program-overview.pdf';
   });
 
-  document.getElementById('downloadLegal').addEventListener('click', function(e) {
+  document.getElementById('downloadTerms').addEventListener('click', function(e) {
     e.preventDefault();
-    showToast('Legal Notice PDF download will start shortly.');
-    // window.location.href = '/path/to/legal-notice.pdf';
+    showToast('Terms and Conditions PDF download will start shortly.');
+    // window.location.href = '/path/to/terms.pdf';
+  });
+
+  document.getElementById('downloadPrivacy').addEventListener('click', function(e) {
+    e.preventDefault();
+    showToast('Privacy Policy PDF download will start shortly.');
+    // window.location.href = '/path/to/privacy.pdf';
   });
 
   // ---------- FETCH CONFIG (optional, for consistency) ----------
