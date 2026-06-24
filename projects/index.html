@@ -2,20 +2,37 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
   <title>Projects | Boma Yangu – Affordable Housing</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="../assets/css/style.css">
   <style>
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
-    /* Hero section – uses <img> tag for background */
+    /* ---------- Reset & Base ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.5; }
+    .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar { background:white; padding:0.4rem 1rem; border-bottom:1px solid #eef2f6; position:sticky; top:0; z-index:1000; }
+    .nav-container { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:0.4rem; cursor:pointer; user-select:none; }
+    .logo img { height:36px; width:auto; }
+    .hamburger { display:none; font-size:1.6rem; background:none; border:none; color:#0b5e42; padding:0.3rem; touch-action:manipulation; cursor:pointer; }
+    .nav-links { display:flex; gap:1rem; list-style:none; align-items:center; }
+    .nav-links li a { text-decoration:none; color:#1e293b; font-weight:500; font-size:0.85rem; padding:0.3rem 0.1rem; border-bottom:2px solid transparent; transition:0.2s; }
+    .nav-links li a:hover { border-bottom-color:#0b5e42; color:#0b5e42; }
+
+    /* ---------- HERO ---------- */
     .projects-hero {
       position: relative;
       color: white;
-      padding: 5rem 2rem;
+      padding: 3rem 1rem;
       text-align: center;
       overflow: hidden;
+      min-height: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     .hero-background-img {
       position: absolute;
@@ -33,49 +50,204 @@
     .projects-hero .search-container {
       position: relative;
       z-index: 2;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      text-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
-    .projects-hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .projects-hero .subhead { font-size: 1rem; max-width: 700px; margin: 0.5rem auto; }
-    .projects-hero .ahp-title { font-size: 1.5rem; font-weight: 600; margin-top: 2rem; margin-bottom: 0.5rem; }
-    .projects-hero .tagline { font-size: 1.2rem; margin-bottom: 1.5rem; }
-    .search-container { max-width: 600px; margin: 0 auto; display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
-    .search-container input { flex: 2; padding: 0.8rem 1rem; border-radius: 60px; border: none; font-size: 1rem; outline: none; }
-    .search-container button { background: #ffd966; border: none; padding: 0.8rem 1.8rem; border-radius: 60px; font-weight: 600; cursor: pointer; color: #1e2a3e; }
-    /* Projects grid – no images, no button */
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.8rem; margin-top: 2rem; }
-    .project-card { background: white; border-radius: 24px; padding: 1.5rem; border: 1px solid #eef2f8; transition: box-shadow 0.2s; cursor: default; }
-    .project-card:hover { border-color: #cbd5e1; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
-    .project-status { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 40px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.5rem; }
+    .projects-hero h1 { font-size: 2.5rem; font-weight:800; margin-bottom:0.5rem; }
+    .projects-hero .subhead { font-size: 1rem; max-width: 700px; margin: 0.5rem auto; opacity:0.9; }
+    .projects-hero .ahp-title { font-size: 1.5rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.3rem; }
+    .projects-hero .tagline { font-size: 1.2rem; margin-bottom: 1.2rem; opacity:0.95; }
+    .search-container {
+      max-width: 600px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .search-container input {
+      flex: 2;
+      padding: 0.7rem 1rem;
+      border-radius: 60px;
+      border: none;
+      font-size: 0.95rem;
+      outline: none;
+      min-width: 200px;
+      background: rgba(255,255,255,0.95);
+    }
+    .search-container input:focus { background: white; box-shadow:0 0 0 3px rgba(11,94,66,0.2); }
+    .search-container button {
+      background: #ffd966;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 60px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #1e2a3e;
+      font-size: 0.95rem;
+      transition:0.2s;
+    }
+    .search-container button:hover { background: #f5c94a; transform:scale(1.02); }
+
+    /* ---------- PROJECTS GRID ---------- */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .project-card {
+      background: white;
+      border-radius: 24px;
+      padding: 1.2rem;
+      border: 1px solid #eef2f8;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: default;
+    }
+    .project-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      transform: translateY(-3px);
+    }
+    .project-status {
+      display: inline-block;
+      padding: 0.15rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-bottom: 0.5rem;
+    }
     .project-status.ongoing { background: #d1fae5; color: #065f46; }
     .project-status.completed { background: #e0e7ff; color: #1e3a8a; }
     .project-status.sold_out { background: #fee2e2; color: #991b1b; }
-    .project-title { font-size: 1.2rem; font-weight: 700; margin: 0.5rem 0; }
-    .project-location { color: #4a5b74; font-size: 0.85rem; margin: 0.5rem 0; }
-    .price { font-weight: 600; color: #0b5e42; margin: 0.5rem 0; }
+    .project-title { font-size: 1.1rem; font-weight: 700; margin: 0.3rem 0; color:#0b2f26; }
+    .project-location { color: #4a5b74; font-size: 0.85rem; margin: 0.3rem 0; }
+    .project-location i { color:#0b5e42; margin-right:0.2rem; }
+    .price { font-weight: 600; color: #0b5e42; margin: 0.3rem 0; font-size:0.95rem; }
+
+    /* ---------- VIEW ALL ---------- */
     .view-all-container { text-align: center; margin: 2rem 0; }
-    .view-all-btn { background: #0b5e42; color: white; border: none; padding: 0.8rem 2rem; border-radius: 40px; font-weight: 600; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
-    .view-all-btn:hover { background: #094b35; }
-    .no-results { text-align: center; padding: 3rem; background: white; border-radius: 28px; grid-column: 1 / -1; }
-    /* Footer */
-    .main-footer { background: #0f1a24; color: #9aaebf; text-align: center; padding: 2rem; margin-top: 3rem; font-size: 0.85rem; line-height: 1.6; }
-    .footer-logos { display: flex; justify-content: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2rem; }
-    .footer-logos img { height: 60px; width: auto; object-fit: contain; background: white; border-radius: 12px; padding: 0.5rem; }
+    .view-all-btn {
+      background: #0b5e42;
+      color: white;
+      border: none;
+      padding: 0.7rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .view-all-btn:hover { background: #094b35; transform:scale(1.02); }
+
+    .no-results {
+      text-align: center;
+      padding: 2rem;
+      background: white;
+      border-radius: 24px;
+      grid-column: 1 / -1;
+      color: #4a5b74;
+    }
+
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    .footer-logos {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .footer-logos img {
+      height: 50px;
+      width: auto;
+      object-fit: contain;
+      background: white;
+      border-radius: 10px;
+      padding: 0.4rem;
+    }
     .footer-links { margin-top: 0.5rem; }
-    .footer-links a { color: #9aaebf; text-decoration: none; }
-    .footer-links a:hover { color: white; }
-    @media (max-width: 700px) { .projects-hero h1 { font-size: 1.8rem; } .search-container input, .search-container button { width: 100%; } }
+    .footer-links a { color: #cbd5e1; text-decoration: none; margin:0 0.3rem; }
+    .footer-links a:hover { color: white; text-decoration:underline; }
+    .main-footer a { color: #cbd5e1; }
+    .main-footer a:hover { color: white; }
+
+    /* ---------- ADMIN BUTTON ---------- */
+    .admin-floating {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition:0.2s;
+      display: none;
+      align-items:center;
+      justify-content:center;
+    }
+    .admin-floating.visible { display:flex; }
+    .admin-floating:hover { background: #094b35; transform:scale(1.05); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        padding:0.6rem 0;
+        gap:0.3rem;
+        border-top:1px solid #eef2f6;
+        margin-top:0.3rem;
+      }
+      .nav-links.active { display:flex; }
+      .nav-links li a { display:block; padding:0.6rem 0.5rem; border-bottom:none; text-align:center; font-size:0.9rem; }
+      .projects-hero { padding:2rem 1rem; min-height:250px; }
+      .projects-hero h1 { font-size:2rem; }
+      .projects-hero .ahp-title { font-size:1.2rem; }
+      .projects-hero .tagline { font-size:1rem; }
+      .search-container input, .search-container button { width:100%; }
+      .search-container { flex-direction:column; align-items:stretch; }
+      .projects-grid { grid-template-columns:1fr; gap:1rem; }
+      .project-card { padding:1rem; }
+      .footer-logos img { height:40px; }
+      .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
+    }
+    @media (max-width:480px) {
+      .projects-hero h1 { font-size:1.6rem; }
+      .projects-hero .subhead { font-size:0.85rem; }
+      .project-title { font-size:1rem; }
+      .project-location { font-size:0.8rem; }
+    }
   </style>
 </head>
 <body>
 
+<!-- ========== NAVBAR ========== -->
 <nav class="navbar">
   <div class="nav-container">
     <div class="logo" id="homeLogo">
-      <img src="../images/download boma.png" alt="Logo 1" style="height: 48px; width: auto;">
-      <img src="../images/logo.png" alt="Logo 2" style="height: 48px; width: auto;">
+      <img src="../images/download boma.png" alt="Boma Yangu">
+      <img src="../images/logo.png" alt="Boma Yangu">
     </div>
-    <ul class="nav-links">
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
       <li><a href="../index.html">Home</a></li>
       <li><a href="../about/">About</a></li>
       <li><a href="index.html">Projects</a></li>
@@ -86,20 +258,20 @@
   </div>
 </nav>
 
-<!-- Hero section with <img> background -->
+<!-- ========== HERO ========== -->
 <div class="projects-hero">
-  <!-- REPLACE THE SRC WITH YOUR OWN IMAGE PATH -->
   <img class="hero-background-img" src="../images/HAI9R6vWYAAiqw_.jpg" alt="Hero background">
   <h1>Projects</h1>
   <p class="subhead">These are completed or continuing projects that offer a variety of options to fit your preferences.</p>
   <div class="ahp-title">AHP Projects</div>
   <div class="tagline">Let's find a home that is perfect for you</div>
   <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search by project name, project location">
+    <input type="text" id="searchInput" placeholder="Search by project name or location">
     <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
   </div>
 </div>
 
+<!-- ========== PROJECTS ========== -->
 <div class="container">
   <div class="projects-grid" id="projectsGrid"></div>
   <div class="view-all-container" id="viewAllContainer" style="display: none;">
@@ -107,23 +279,57 @@
   </div>
 </div>
 
+<!-- ========== FOOTER ========== -->
 <footer class="main-footer">
   <div class="footer-logos">
     <img src="../images/download boma.png" alt="Partner 1">
     <img src="../images/logo.png" alt="Partner 2">
     <img src="../images/ecitizen logo.png" alt="Partner 3">
   </div>
-  <div>Ministry of Lands, Public-works,<br>Housing and Urban Development</div>
+  <div>Ministry of Lands, Public Works,<br>Housing and Urban Development</div>
   <div>State Department of Housing &<br>Urban Development</div>
-  <div style="margin: 1rem 0;">For enquiries, visit our <a href="../contacts/" style="color:#9aaebf; text-decoration:underline;">contact page</a>.</div>
+  <div style="margin: 1rem 0;">For enquiries, visit our <a href="../contacts/">contact page</a>.</div>
   <div>Copyright © 2026 Republic of Kenya. All rights reserved.</div>
-  <div class="footer-links"><a href="#">Terms & Conditions</a> | <a href="#">Privacy Policy</a></div>
+  <div class="footer-links"><a href="#">Terms &amp; Conditions</a> | <a href="#">Privacy Policy</a></div>
 </footer>
 
+<!-- ========== ADMIN BUTTON ========== -->
 <button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
-<script src="../assets/js/main.js"></script>
+
 <script>
-  // ---------- FULL PROJECTS LIST (same as before) ----------
+  // ---------- HAMBURGER ----------
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
+  // ---------- ADMIN BUTTON VISIBILITY (double‑tap logo) ----------
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') adminBtn.classList.add('visible');
+
+    let tapCount = 0, tapTimer = null;
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 300);
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click → navigate to admin.html
+  document.getElementById('adminFloatBtn').addEventListener('click', function() {
+    window.location.href = '../admin.html';
+  });
+
+  // ---------- PROJECTS DATA ----------
   const allProjects = [
     { name: "boma yangu alego usonga estate", location: "Siaya • Siaya Town", status: "ongoing" },
     { name: "boma yangu archer's post estate", location: "Samburu • Samburu", status: "ongoing" },
@@ -275,6 +481,7 @@
     { name: "seven star apartments mtwapa", location: "Kilifi • Mtwapa", status: "ongoing" }
   ];
 
+  // ---------- RENDER FUNCTIONS ----------
   function renderProjectCard(p) {
     let statusClass = '';
     if (p.status === 'ongoing') statusClass = 'ongoing';
@@ -362,6 +569,21 @@
     }
   });
   viewAllBtn.addEventListener('click', showAllProjects);
+
+  // ---------- FETCH CONFIG (optional, for consistency) ----------
+  // This page doesn't display the fee, but we keep the logic for future use.
+  async function fetchConfig() {
+    try {
+      const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch config');
+      const data = await response.json();
+      // You could use data.application_fee here if needed
+    } catch (error) {
+      console.warn('Config fetch failed', error);
+    }
+  }
+  fetchConfig();
 </script>
 </body>
 </html>
