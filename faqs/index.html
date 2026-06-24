@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>FAQs | Boma Yangu Jobs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------- Reset & Base ---------- */
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; background:#f8fafc; color:#1a2c3e; line-height:1.5; }
+    .container { max-width:1280px; margin:0 auto; padding:0 1rem; }
+
+    /* ---------- NAVBAR ---------- */
+    .navbar { background:white; padding:0.4rem 1rem; border-bottom:1px solid #eef2f6; position:sticky; top:0; z-index:1000; }
+    .nav-container { max-width:1280px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; }
+    .logo { display:flex; align-items:center; gap:0.4rem; cursor:pointer; user-select:none; }
+    .logo img { height:36px; width:auto; }
+    .hamburger { display:none; font-size:1.6rem; background:none; border:none; color:#0b5e42; padding:0.3rem; touch-action:manipulation; cursor:pointer; }
+    .nav-links { display:flex; gap:1rem; list-style:none; align-items:center; }
+    .nav-links li a { text-decoration:none; color:#1e293b; font-weight:500; font-size:0.85rem; padding:0.3rem 0.1rem; border-bottom:2px solid transparent; transition:0.2s; }
+    .nav-links li a:hover { border-bottom-color:#0b5e42; color:#0b5e42; }
+
+    /* ---------- HERO ---------- */
+    .faq-hero {
+      background: linear-gradient(135deg, #0b2f26, #1a5d48);
+      color: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .faq-hero h1 { font-size: 2rem; font-weight:800; margin-bottom:0.5rem; }
+    .faq-hero p { font-size: 1rem; opacity:0.9; max-width:600px; margin:0 auto; }
+
+    /* ---------- FAQ LIST ---------- */
+    .faq-list {
+      max-width: 800px;
+      margin: 1.5rem auto;
+      background: white;
+      border-radius: 24px;
+      padding: 1.5rem;
+      border: 1px solid #eef2f6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+    .faq-item {
+      border-bottom: 1px solid #f0f4fa;
+      padding: 0.8rem 0;
+    }
+    .faq-item:last-child { border-bottom: none; }
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0b2f26;
+      padding: 0.2rem 0;
+      user-select: none;
+    }
+    .faq-question i {
+      font-size: 1.2rem;
+      color: #0b5e42;
+      transition: transform 0.2s;
+      margin-left: 0.5rem;
+    }
+    .faq-question.active i { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 0 0 0;
+      color: #334155;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .faq-answer.open {
+      max-height: 300px;
+      padding: 0.8rem 0 0.2rem 0;
+    }
+    .faq-answer p { margin-bottom: 0.4rem; }
+    .faq-answer a { color: #0b5e42; font-weight:600; text-decoration:none; }
+    .faq-answer a:hover { text-decoration:underline; }
+
+    /* ---------- FOOTER ---------- */
+    .main-footer {
+      background: #0b2f26;
+      color: #cbd5e1;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.8rem;
+      line-height: 1.8;
+    }
+    .main-footer i { margin: 0 0.3rem; }
+
+    /* ---------- ADMIN BUTTON ---------- */
+    .admin-floating {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 999;
+      background: #0b5e42;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 1.4rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition:0.2s;
+      display: none;
+      align-items:center;
+      justify-content:center;
+    }
+    .admin-floating.visible { display:flex; }
+    .admin-floating:hover { background: #094b35; transform:scale(1.05); }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width:768px) {
+      .hamburger { display:block; }
+      .nav-links {
+        display:none;
+        flex-direction:column;
+        width:100%;
+        padding:0.6rem 0;
+        gap:0.3rem;
+        border-top:1px solid #eef2f6;
+        margin-top:0.3rem;
+      }
+      .nav-links.active { display:flex; }
+      .nav-links li a { display:block; padding:0.6rem 0.5rem; border-bottom:none; text-align:center; font-size:0.9rem; }
+      .faq-hero { padding:1.5rem 1rem; }
+      .faq-hero h1 { font-size:1.6rem; }
+      .faq-list { padding:1.2rem; margin:1rem 0.6rem; }
+      .faq-question { font-size:0.9rem; }
+      .faq-answer { font-size:0.85rem; }
+      .admin-floating { width:44px; height:44px; font-size:1.2rem; bottom:12px; right:12px; }
+    }
+    @media (max-width:480px) {
+      .faq-hero h1 { font-size:1.3rem; }
+      .faq-hero p { font-size:0.85rem; }
+      .faq-list { padding:0.8rem; }
+      .faq-question { font-size:0.85rem; }
+      .faq-answer { font-size:0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ========== NAVBAR ========== -->
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo" id="homeLogo">
+      <img src="../images/download boma.png" alt="Boma Yangu">
+      <img src="../images/logo.png" alt="Boma Yangu">
+    </div>
+    <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../about/">About</a></li>
+      <li><a href="../projects/">Projects</a></li>
+      <li><a href="index.html">FAQs</a></li>
+      <li><a href="../resources/">Resources</a></li>
+      <li><a href="../contacts/">Contacts</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ========== HERO ========== -->
+<div class="faq-hero">
+  <h1>Frequently Asked Questions</h1>
+  <p>Find answers to common questions about Boma Yangu Jobs, the application process, and the Affordable Housing Program.</p>
+</div>
+
+<!-- ========== FAQ LIST ========== -->
+<div class="container">
+  <div class="faq-list" id="faqContainer">
+    <!-- FAQ items will be inserted by JavaScript -->
+  </div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="main-footer">
+  <p>Boma Yangu Jobs — Decent work within the Affordable Housing Programme. Copyright © 2026 Republic of Kenya. All rights reserved.</p>
+  <p>Terms &amp; Conditions | Privacy Policy | <i class="fab fa-facebook"></i> <i class="fab fa-twitter"></i></p>
+</footer>
+
+<!-- ========== ADMIN BUTTON ========== -->
+<button class="admin-floating" id="adminFloatBtn"><i class="fas fa-user-shield"></i></button>
+
+<script>
+  // ---------- HAMBURGER ----------
+  document.getElementById('hamburgerBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('active');
+  });
+
+  // ---------- ADMIN BUTTON VISIBILITY (double‑tap logo) ----------
+  (function() {
+    const logo = document.getElementById('homeLogo');
+    const adminBtn = document.getElementById('adminFloatBtn');
+    const stored = sessionStorage.getItem('adminVisible');
+    if (stored === 'true') adminBtn.classList.add('visible');
+
+    let tapCount = 0, tapTimer = null;
+    logo.addEventListener('click', function(e) {
+      tapCount++;
+      if (tapCount === 1) {
+        tapTimer = setTimeout(() => { tapCount = 0; }, 300);
+      } else if (tapCount >= 2) {
+        clearTimeout(tapTimer);
+        tapCount = 0;
+        const isVisible = adminBtn.classList.toggle('visible');
+        sessionStorage.setItem('adminVisible', isVisible);
+        e.preventDefault();
+      }
+    });
+  })();
+
+  // Admin button click → navigate to admin.html
+  document.getElementById('adminFloatBtn').addEventListener('click', function() {
+    window.location.href = '../admin.html';
+  });
+
+  // ---------- DYNAMIC FEE ----------
+  let fee = 78; // default
+
+  async function fetchConfig() {
+    try {
+      const API_BASE = 'https://bomayangu-backend.onrender.com/api';
+      const response = await fetch(`${API_BASE}/config/public?_=${Date.now()}`, { cache: 'no-store' });
+      if (!response.ok) throw new Error('Failed to fetch config');
+      const data = await response.json();
+      fee = data.application_fee || 78;
+      // Re-render FAQ items with updated fee
+      renderFAQs();
+    } catch (error) {
+      console.warn('Using default fee', error);
+      renderFAQs();
+    }
+  }
+
+  // ---------- FAQ DATA ----------
+  function getFAQData() {
+    return [
+      {
+        question: "What is Boma Yangu Jobs?",
+        answer: `<p>Boma Yangu Jobs is a dedicated employment platform under Kenya's Affordable Housing Program. It connects qualified job seekers – drivers, security guards, cleaners, caretakers, and more – with employment opportunities in housing construction, estate management, and facility operations.</p>`
+      },
+      {
+        question: "How do I apply for a job?",
+        answer: `<p>Visit our <a href="../index.html">Home page</a>, browse available jobs, click “Apply Now” on any vacancy, fill in your personal details, and pay the application fee to complete your submission.</p>`
+      },
+      {
+        question: "How much is the application fee?",
+        answer: `<p>The application fee is <strong id="feeDisplay">KES ${fee}</strong>. This fee covers document verification, processing, and secures your position in the hiring pipeline.</p>`
+      },
+      {
+        question: "What does the fee cover?",
+        answer: `<p>The fee covers verification of your documents, administrative processing, and ensures your application is considered. It is a non‑refundable processing fee required to complete your application.</p>`
+      },
+      {
+        question: "How do I pay the fee?",
+        answer: `<p>You can pay via STK Push (M‑Pesa prompt) directly within the application modal. Simply complete the payment using your registered M‑Pesa number. The fee is <strong id="feeDisplay2">KES ${fee}</strong>.</p>`
+      },
+      {
+        question: "How long does the verification process take?",
+        answer: `<p>Verification typically takes 2–5 business days. You will be contacted via email or SMS once your documents are verified and you are shortlisted for the next steps.</p>`
+      },
+      {
+        question: "What if I don't have a smartphone?",
+        answer: `<p>You can still apply using a desktop computer or tablet. The application form is fully responsive and works on any modern browser. For assistance, visit our <a href="../contacts/">Contact page</a>.</p>`
+      },
+      {
+        question: "What documents do I need?",
+        answer: `<p>You will need your National ID/Passport, a recent passport‑size photo, and any relevant certifications (e.g., driving licence, security training certificate). You may be asked to present original copies during verification.</p>`
+      },
+      {
+        question: "How will I be contacted?",
+        answer: `<p>We will contact you via email and SMS (the phone number you provided during application) for verification, shortlisting, and interview invitations. Please ensure your contact details are correct.</p>`
+      },
+      {
+        question: "Is my data safe?",
+        answer: `<p>Yes. All personal information is stored securely and used solely for the purpose of job matching and verification. We do not share your data with third parties without your consent.</p>`
+      }
+    ];
+  }
+
+  // ---------- RENDER FAQS ----------
+  function renderFAQs() {
+    const container = document.getElementById('faqContainer');
+    const faqs = getFAQData();
+    container.innerHTML = '';
+    faqs.forEach((faq, index) => {
+      const item = document.createElement('div');
+      item.className = 'faq-item';
+
+      const questionDiv = document.createElement('div');
+      questionDiv.className = 'faq-question';
+      questionDiv.innerHTML = `${faq.question} <i class="fas fa-chevron-down"></i>`;
+      questionDiv.addEventListener('click', function() {
+        const answer = this.nextElementSibling;
+        const icon = this.querySelector('i');
+        const isOpen = answer.classList.contains('open');
+        // Close all others
+        document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('open'));
+        document.querySelectorAll('.faq-question').forEach(q => q.classList.remove('active'));
+        if (!isOpen) {
+          answer.classList.add('open');
+          this.classList.add('active');
+        }
+      });
+
+      const answerDiv = document.createElement('div');
+      answerDiv.className = 'faq-answer';
+      answerDiv.innerHTML = faq.answer;
+
+      item.appendChild(questionDiv);
+      item.appendChild(answerDiv);
+      container.appendChild(item);
+    });
+
+    // Update fee placeholders
+    document.querySelectorAll('#feeDisplay, #feeDisplay2').forEach(el => {
+      if (el) el.textContent = `KES ${fee}`;
+    });
+  }
+
+  // ---------- INIT ----------
+  fetchConfig();
+</script>
+</body>
+</html>
